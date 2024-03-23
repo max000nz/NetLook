@@ -166,7 +166,8 @@ void User::deleteMovieFromList()
 {
 	for (int i = 0; i < watchList.size(); i++)
 	{
-
+		if(){}
+			//df
 	}
 }
 
