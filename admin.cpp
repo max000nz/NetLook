@@ -224,7 +224,7 @@ void Admin::findSeriesByCategory() {
 	category = chooseCategory();
 
 	for (int i = 0; i < series.size(); ++i) {
-		if (series[i].category == category) {
+		if (series[i].getCategory() == category) {
 			cout << counter << ": " << series[i] << endl;
 			counter++;
 		}
@@ -259,4 +259,28 @@ void Admin::findSeriesByCategory() {
 	}
 
 	cout << "Series deleted succesfully" << endl;
+}
+
+void Admin::getPersonalInfo()
+{
+	string lname, fname, byear, bmonth, bday, id;
+	string path = "admin.txt";
+	ifstream fin;
+	fin.open(path, ios::in);
+	if (!fin.is_open()) { cout << "file not found" << endl; }
+	else {
+			getline(fin, fname);
+			this->fname = fname;
+			getline(fin, lname);
+			this->lname = lname;
+			getline(fin, id);
+			this->id = stoi(id);
+			getline(fin, bday);
+			this->bday = stoi(bday);
+			getline(fin, bmonth);
+			this->bmonth = stoi(bmonth);
+			getline(fin, byear);
+			this->byear = stoi(byear);
+	}
+	fin.close();
 }

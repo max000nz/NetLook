@@ -26,4 +26,5 @@ public:
 	void chooseFromSeries();
 	void notToAddTwice(vector<Movie> movies);
 	void notToAddTwice(vector<Series> series);
+	virtual void getPersonalInfo();
 };

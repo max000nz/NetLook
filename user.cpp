@@ -24,8 +24,6 @@ void User::chooseFromMovies() {
 	vector<Movie>& watchListMovies = MoviesDB::getMoviesWatchListDB();
 	Movie currentMovies; //buffer object
 
-	//sort(movies.begin(), movies.end(), greater<Movie>()); //sort vector by year and time
-
 	if (!isEmpty(watchListMovies)) {
 		notToAddTwice(movies);
 	}
@@ -66,7 +64,7 @@ void User::chooseFromMoviesByCategory() {
 	category = chooseCategory();
 
 	for (int i = 0; i < movies.size(); ++i) {
-		if (movies[i].category == category) {
+		if (movies[i].getCategory() == category) {
 			cout << counter << ": " << movies[i] << endl;
 			counter++;
 			cout << "You want to add this movie to your watch list?" << endl;
@@ -139,7 +137,7 @@ void User::chooseFromSeriesByCategory() {
 	category = chooseCategory();
 
 	for (int i = 0; i < series.size(); ++i) {
-		if (series[i].category == category) {
+		if (series[i].getCategory() == category) {
 			cout << counter << ": " << series[i] << endl;
 			counter++;
 			cout << "You want to add this series to your watch list?" << endl;
@@ -333,7 +331,7 @@ void User::deleteSeriesFromList(){
 }
 
 void User::notToAddTwice(vector<Movie> movies) {
-	for (vector<Movie>::iterator j = watchListMovies.begin(); j != watchListMovies.end(); ++j) {
+	for (vector<Movie>::iterator j = watchListMovies.begin(); j != watchListMovies.end(); ++j) {//REPAIR
 		for (vector<Movie>::iterator k = movies.begin(); k != movies.end(); ++k) {
 			if (j->getName() == k->getName()) {
 				movies.erase(k);
@@ -352,4 +350,27 @@ void User::notToAddTwice(vector<Series> series) {
 			}
 		}
 	}//delete from vector series that already in watch list(if watch list not empty)
+}
+
+void User::getPersonalInfo(){
+	string lname, fname, byear, bmonth, bday, id;
+	string path = "user.txt";
+	ifstream fin;
+	fin.open(path, ios::in);
+	if (!fin.is_open()) { cout << "file not found" << endl; }
+	else {
+		getline(fin, fname);
+		this->fname = fname;
+		getline(fin, lname);
+		this->lname = lname;
+		getline(fin, id);
+		this->id = stoi(id);
+		getline(fin, bday);
+		this->bday = stoi(bday);
+		getline(fin, bmonth);
+		this->bmonth = stoi(bmonth);
+		getline(fin, byear);
+		this->byear = stoi(byear);
+	}
+	fin.close();
 }

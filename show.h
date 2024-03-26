@@ -7,12 +7,11 @@ using namespace std;
 
 class Show {
 
-public:
+protected:
 	string name;
 	int year;
 	string category;
 	int time;
-
 public:
 	Show() = default;
 	Show(string name, int year, string category);

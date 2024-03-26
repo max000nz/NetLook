@@ -3,6 +3,7 @@
 
 class Series:public Show {
 
+protected:
 	int seasons;
 	int episodes;
 

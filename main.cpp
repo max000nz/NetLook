@@ -14,10 +14,11 @@
 #include <algorithm>
 using namespace std;
 
-User createUser();
-Admin createAdmin();
+
 void userMenu(User user);
 void adminMenu(Admin admin);
+int validateUser(User currUser);
+int validateAdmin(Admin currAdmin);
 
 int main() {
 	MoviesDB::setupMoviesDB("movies.txt");
@@ -26,11 +27,8 @@ int main() {
 	SeriesDB::setupSeriesDB("seriesWatchList.txt");
 	int answer = 0;
 	string name;
-	//vector<Show> watchList;
-	//User user = createUser();
-	//Admin admin = createAdmin();
-	User user = { 337875397, "Max", "Prokopchuk", 14, 02, 2000};
-	Admin admin = { 333333333, "Liad", "Mandil", 25, 05, 2001 };
+	User currUser;
+	Admin currAdmin;
 	while (answer != 3) {
 		cout << "1.User\n2.Admin\n3.Exit" << endl;
 		cin >> answer;
@@ -40,10 +38,14 @@ int main() {
 		}
 		switch (answer) {
 		case 1:
-			userMenu(user);
+			if (validateUser(currUser)) {
+				userMenu(currUser);
+			}
 			break;
 		case 2:
-			adminMenu(admin);
+			if (validateAdmin(currAdmin)) {
+				adminMenu(currAdmin);
+			}
 			break;
 		case 3:
 			MoviesDB::updateFileMoviesDB("movies.txt");
@@ -55,34 +57,42 @@ int main() {
 	}
 }
 
-User createUser() {
-	int id, day, month, year;
-	string name, surname;
-	cout << "Creating new user" << endl;
-	cout << "Give me your id" << endl;
-	cin >> id;
-	cout << "Give me your full name" << endl;
-	cin >> name;
-	cin >> surname;
-	cout << "What your bday(day/month/year)" << endl;
-	cin >> day >> month >> year;
-	User u1 = { id, name, surname, day, month, year};
-	return u1;
+int validateUser(User currUser) {
+	string fname, lname;
+	int id, answer = 0;
+	currUser.getPersonalInfo();
+	cout << "Enter name for validate" << endl;
+	cin >> fname >> lname;
+	while (true) {
+		if (fname == currUser.getFname())break;
+		else {
+			cout << "Wrong name, please select:\n1.Try again\n2.Return to menu" << endl;
+			cin >> answer;
+			if (answer == 1) continue;
+			else break;
+		}
+	}
+	if (answer == 2) return 0;
+	return 1;
 }
 
-Admin createAdmin() {
-	int id, day, month, year;
-	string name, surname;
-	cout << "Creating new admin" << endl;
-	cout << "Give me your id" << endl;
-	cin >> id;
-	cout << "Give me your full name" << endl;
-	cin >> name;
-	cin >> surname;
-	cout << "What your bday(day/month/year)" << endl;
-	cin >> day >> month >> year;
-	Admin a1 = { id, name, surname, day, month, year };
-	return a1;
+int validateAdmin(Admin currAdmin) {
+	string fname, lname;
+	int id, answer = 0;
+	currAdmin.getPersonalInfo();
+	cout << "Enter name for validate" << endl;
+	cin >> fname >> lname;
+	while (true) {
+		if (fname == currAdmin.getFname())break;
+		else {
+			cout << "Wrong name, please select:\n1.Try again\n2.Return to menu" << endl;
+			cin >> answer;
+			if (answer == 1) continue;
+			else break;
+		}
+	}
+	if (answer == 2) return 0;
+	return 1;
 }
 
 
