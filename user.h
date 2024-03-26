@@ -8,16 +8,26 @@
 class User :public Viewer {
 
 private:
-	vector<Show> watchList;
+	vector<Movie> watchListMovies;
+	vector<Series> watchListSeries;
 
 public:
-	User(int id, char* fname, char* lname, int day, int month, int year, vector<Show> watchList);
-	void addMovieToWatchList(Movie currentMovie);
-	void addSeriesToWatchList(Series currentSeries);
-	void findByName(char* name);
+	User() = default;
+	User(int id, string fname, string lname, int day, int month, int year);
+	void findMovieByName();
+	void findSeriesByName();
 	void watchMovieFromList();
 	void watchSeriesFromList();
 	void deleteMovieFromList();
 	void deleteSeriesFromList();
-	//void backToMenu();
+	void chooseFromMovies();
+	void chooseFromMoviesByCategory();
+	void chooseFromSeriesByCategory();
+	void chooseFromSeries();
+	void notToAddTwice(vector<Movie> movies);
+	void notToAddTwice(vector<Series> series);
+	vector<Movie> openFile(vector<Movie> movies, string way);
+	vector<Series> openFile(vector<Series> series, string way);
+	vector<Movie> closeWatchListMovies(vector<Movie> movies);
+	vector<Series> closeWatchListSeries(vector<Series> series);
 };

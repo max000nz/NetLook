@@ -1,26 +1,37 @@
 #pragma once
+#include "series.h"
+#include "movie.h"
+#include <iostream>
+#include <string>
+#include <cstring>
+#include <fstream>
+#include <vector>
+using namespace std;
 
 class Viewer {
 
 protected:
 	int id;
-	char* fname;
-	char* lname;
+	string fname;
+	string lname;
 	int bday, bmonth, byear;
 
 public:
-	Viewer(int id, char* fname, char* lname, int day, int month, int year);
-
+	Viewer() = default;
+	Viewer(int id, string fname, string lname, int day, int month, int year);
 	int   getId() const { return id; };
-	char* getFname() const { return fname; };
-	char* getLname() const { return lname; };
+	string getFname() const { return fname; };
+	string getLname() const { return lname; };
 	int   getDay() const { return bday; };
 	int   getMonth() const { return bmonth; };
 	int   getYear() const { return byear; };
 	void setId(int year) { this->id = id; };
-	void setFname(const char* fname);
-	void setLname(const char* lname);
+	void setFname(const string fname);
+	void setLname(const string lname);
 	void setBDay(int bday) { this->bday = bday; };
 	void setBMonth(int bmonth) { this->bmonth = bmonth; };
 	void setBYear(int byear) { this->byear = byear; };
+	bool isEmpty(vector<Movie> movie);
+	bool isEmpty(vector<Series> series);
+	string chooseCategory();
 };

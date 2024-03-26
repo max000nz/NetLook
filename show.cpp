@@ -3,20 +3,17 @@
 #include <fstream>
 using namespace std;
 
-Show::Show(char* name, int year, char* category) {
-	setName(name);
+Show::Show(string name, int year, string category) {
+	this->name = name;
 	this->year = year;
-	setCategory(category);
+	this->category = category;
 }
 
-void Show::setName(const char* name)
-{
-	this->name = new char[strlen(name) + 1];
-	strcpy_s(this->name, strlen(name) + 1, name);
+
+void Show::setName(const string name) {
+	this->name = name;
 }
 
-void Show::setCategory(const char* category)
-{
-	this->category = new char[strlen(category) + 1];
-	strcpy_s(this->category, strlen(category) + 1, category);
+void Show::setCategory(const string category) {
+	this->category = category;
 }
