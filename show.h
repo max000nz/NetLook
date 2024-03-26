@@ -2,8 +2,8 @@
 #pragma once
 #include <iostream>
 #include <fstream>
+#include <ctime>
 using namespace std;
-#include <ctime>//need to check how to use(for sort by adding date, update)
 
 class Show {
 
@@ -24,8 +24,4 @@ public:
 	void setYear(int year) { this->year = year; };
 	void setCategory(const string category);
 	void setTime(int time) { this->time = time; };
-	bool operator > (const Show& str) const {
-		if (getYear() != str.getYear())	return (getYear() > str.getYear());
-		return (getTime() > str.getTime());
-	}
 };

@@ -1,9 +1,12 @@
 #pragma once
 #include "show.h"
 
+
+
 class Movie :public Show {
 
 	int length;//minutes
+
 
 public:
 	Movie() = default;
