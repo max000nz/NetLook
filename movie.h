@@ -4,7 +4,7 @@
 
 
 class Movie :public Show {
-
+protected:
 	int length;//minutes
 
 

@@ -13,4 +13,5 @@ public:
 	void findMovieByCategory();
 	void findSeriesByName();
 	void findSeriesByCategory();
+	virtual void getPersonalInfo();
 };
