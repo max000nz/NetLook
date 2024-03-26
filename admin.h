@@ -13,8 +13,8 @@ public:
 	void findMovieByCategory();
 	void findSeriesByName();
 	void findSeriesByCategory();
-	vector<Movie> openMovies(vector<Movie> movies);
-	vector<Movie> closeMovies(vector<Movie> movies);
-	vector<Series> openSeries(vector<Series> series);
-	vector<Series> closeSeries(vector<Series> series);
+	vector<Movie> openFile(vector<Movie> movies, string way);
+	vector<Movie> closeFile(vector<Movie> movies, string way);
+	vector<Series> openFile(vector<Series> series, string way);
+	vector<Series> closeFile(vector<Series> series, string way);
 };
