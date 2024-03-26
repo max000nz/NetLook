@@ -82,8 +82,8 @@ void Admin::addSeries() {
 void Admin::findMovieByName() {
 	int answer = 0;
 	string name;
-	string path = "movies.txt";
-	vector<Movie> movies = openMovies(movies);
+	vector<Movie> movies = openFile (movies, "movies.txt");
+	vector<Movie> watchListMovie = openFile(watchListMovie, "moviesWatchList.txt");
 
 	if (isEmpty(movies)) {
 		cout << "No movies in data base, fail" << endl;
@@ -95,28 +95,42 @@ void Admin::findMovieByName() {
 	getline(cin, name);
 
 	int size = movies.size();
+	int sizeWatch = watchListMovie.size();
 
-	for (vector<Movie>::iterator i = movies.begin(); i != movies.end(); ++i) {//delete from vector
+	for (vector<Movie>::iterator i = movies.begin(); i != movies.end(); ++i) {//delete from vector of data base
 		if (i->getName() == name) {
 			movies.erase(i);
 			break;
 		}
 	}
 
+	for (vector<Movie>::iterator j = watchListMovie.begin(); j != watchListMovie.end(); ++j) {//delete from vector watch list of user
+		if (j->getName() == name) {
+			watchListMovie.erase(j);
+			break;
+		} 
+	}
+
 	if (size == movies.size()) {
-		cout << "Movie with this name is not exist" << endl;
+		cout << "Movie with this name is not exist in data base" << endl;
 		return;
 	}
 
-	movies = closeMovies(movies);
-	cout << "Movies.txt closed" << endl;
+	if (sizeWatch == watchListMovie.size()) {
+		cout << "Movie with this name is not exist in watch list" << endl;
+		return;
+	}
+
+	movies = closeFile(movies, "movies.txt");
+	watchListMovie = closeFile(watchListMovie, "moviesWatchList.txt");
 }
 
 void Admin::findMovieByCategory() {
 	int answer = 0;
 	int counter = 1;
-	vector<Movie> movies = openMovies(movies);
-	string category;
+	string category, name;
+	vector<Movie> movies = openFile(movies, "movies.txt");
+	vector<Movie> watchListMovie = openFile(watchListMovie, "moviesWatchList.txt");
 
 	if (isEmpty(movies)) {
 		cout << "No movies in data base, fail" << endl;
@@ -147,21 +161,31 @@ void Admin::findMovieByCategory() {
 		if (i->getCategory() == category) {
 			counter++;
 			if (counter == answer) {
+				name = i->getName();
 				movies.erase(i);
 				break;
 			}
 		}
 	}
 
-	movies = closeMovies(movies);
+	for (vector<Movie>::iterator j = watchListMovie.begin(); j != watchListMovie.end(); ++j) {//delete from vector watch list of user
+		if (j->getName() == name) {
+			watchListMovie.erase(j);
+			break;
+		}
+	}
+
+
+	movies = closeFile(movies, "movies.txt");
+	watchListMovie = closeFile(watchListMovie, "moviesWatchList.txt");
 	cout << "Movie deleted succesfully" << endl;
 }
 
 void Admin::findSeriesByName(){
 	int answer = 0;
 	string name;
-	string path = "series.txt";
-	vector<Series> series = openSeries(series);
+	vector<Series> series = openFile(series, "series.txt");
+	vector<Series> watchListSeries = openFile(watchListSeries, "seriesWatchList.txt");
 
 	if (isEmpty(series)) {
 		cout << "No series in data base, fail" << endl;
@@ -173,6 +197,7 @@ void Admin::findSeriesByName(){
 	getline(cin, name);
 
 	int size = series.size();
+	int sizeSeries = watchListSeries.size();
 
 	for (vector<Series>::iterator i = series.begin(); i != series.end(); ++i) {//delete from vector
 		if (i->getName() == name) {
@@ -181,20 +206,34 @@ void Admin::findSeriesByName(){
 		}
 	}
 
+	for (vector<Series>::iterator j = watchListSeries.begin(); j != watchListSeries.end(); ++j) {//delete from vector
+		if (j->getName() == name) {
+			watchListSeries.erase(j);
+			break;
+		}
+	}
+
 	if (size == series.size()) {
-		cout << "Series with this name is not exist" << endl;
+		cout << "Series with this name is not exist in data base" << endl;
 		return;
 	}
 
-	series = closeSeries(series);
-	cout << "Series.txt closed" << endl;
+	if (size == watchListSeries.size()) {
+		cout << "Series with this name is not exist in watch list" << endl;
+		return;
+	}
+
+	series = closeFile(series, "series.txt");
+	watchListSeries = closeFile(watchListSeries, "seriesWatchList.txt");
 }
 
 void Admin::findSeriesByCategory() {
 	int answer = 0;
 	int counter = 1;
-	vector<Series> series = openSeries(series);
-	string category;
+	string category, name;
+	vector<Series> series = openFile(series, "series.txt");
+	vector<Series> watchListSeries = openFile(watchListSeries, "seriesWatchList.txt");
+	
 
 	if (isEmpty(series)) {
 		cout << "No series in data base, fail" << endl;
@@ -225,20 +264,29 @@ void Admin::findSeriesByCategory() {
 		if (i->getCategory() == category) {
 			counter++;
 			if (counter == answer) {
+				name = i->getName();
 				series.erase(i);
 				break;
 			}
 		}
 	}
 
-	series = closeSeries(series);
+	for (vector<Series>::iterator j = watchListSeries.begin(); j != watchListSeries.end(); ++j) {//delete from vector
+		if (j->getName() == name) {
+			watchListSeries.erase(j);
+			break;
+		}
+	}
+
+	series = closeFile(series, "series.txt");
+	watchListSeries = closeFile(watchListSeries, "seriesWatchList.txt");
 	cout << "Series deleted succesfully" << endl;
 }
 
-vector<Movie> Admin::openMovies(vector<Movie> movies) {
+vector<Movie> Admin::openFile(vector<Movie> movies, string way) {
 	string name, category, year, length, buffer, time;
 	int iyear, ilength, itime;
-	string path = "movies.txt";
+	string path = way;
 	Movie currentMovie;
 
 	ifstream fin;
@@ -270,9 +318,9 @@ vector<Movie> Admin::openMovies(vector<Movie> movies) {
 	return movies;
 }
 
-vector<Movie> Admin::closeMovies(vector<Movie> movies) {
+vector<Movie> Admin::closeFile(vector<Movie> movies, string way) {
 	string name, category, year, length, buffer;
-	string path = "movies.txt";
+	string path = way;
 	Movie currentMovie;
 
 	ofstream fout;
@@ -280,7 +328,6 @@ vector<Movie> Admin::closeMovies(vector<Movie> movies) {
 	if (!fout.is_open()) { cout << "File cannot open!" << endl; }//open file and put new vector
 	else
 	{
-		cout << "Movies.txt open" << endl;
 		for (int i = 0; i < movies.size(); i++) {
 			currentMovie = movies[i];
 			fout << currentMovie.getName() << endl;
@@ -295,10 +342,10 @@ vector<Movie> Admin::closeMovies(vector<Movie> movies) {
 	return movies;
 }
 
-vector<Series> Admin::openSeries(vector<Series> series){
+vector<Series> Admin::openFile(vector<Series> series, string way) {
 	string name, category, year, seasons, episodes, buffer, time;
 	int iyear, iepisodes, iseasons, itime;
-	string path = "series.txt";
+	string path = way;
 	Series currentSeries;
 
 	ifstream fin;
@@ -333,9 +380,9 @@ vector<Series> Admin::openSeries(vector<Series> series){
 	return series;
 }
 
-vector<Series> Admin::closeSeries(vector<Series> series) {
+vector<Series> Admin::closeFile(vector<Series> series, string way) {
 	string name, category, year, seasons, episodes, buffer;
-	string path = "series.txt";
+	string path = way;
 	Series currentSeries;
 
 	ofstream fout;
@@ -343,7 +390,6 @@ vector<Series> Admin::closeSeries(vector<Series> series) {
 	if (!fout.is_open()) { cout << "File cannot open!" << endl; }//open file and put new vector
 	else
 	{
-		cout << "Movies.txt open" << endl;
 		for (int i = 0; i < series.size(); i++) {
 			currentSeries = series[i];
 			fout << currentSeries.getName() << endl;

@@ -140,36 +140,42 @@ void userMenu(User user) {
 void adminMenu(Admin admin) {
 	int answer;
 	string name;
-	cout << "1.Add new movie\n2.Add new series" << endl;
-	cout << "3.Delete movie\n4.Delete series\n5.Exit to main menu" << endl;
-	cin >> answer;
-	switch (answer) {
-	case 1:
-		admin.addMovie();
-		break;
-	case 2:
-		admin.addSeries();
-		break;
-	case 3:
-		cout << "1.Find by name\n2.Find by category" << endl;
+	int logOut = 0;
+	while (!logOut) {
+		cout << "1.Add new movie\n2.Add new series" << endl;
+		cout << "3.Delete movie\n4.Delete series\n5.Exit to main menu" << endl;
 		cin >> answer;
-		if (answer == 1) {
-			admin.findMovieByName();
-		}else{
-			admin.findMovieByCategory();
-		}
-		break;
-	case 4:
-		cout << "1.Find by name\n2.Find by category" << endl;
-		cin >> answer;
-		if (answer == 1) {
+		switch (answer) {
+		case 1:
+			admin.addMovie();
+			break;
+		case 2:
+			admin.addSeries();
+			break;
+		case 3:
+			cout << "1.Find by name\n2.Find by category" << endl;
+			cin >> answer;
+			if (answer == 1) {
+				admin.findMovieByName();
+			}
+			else {
+				admin.findMovieByCategory();
+			}
+			break;
+		case 4:
+			cout << "1.Find by name\n2.Find by category" << endl;
+			cin >> answer;
+			if (answer == 1) {
 
-			admin.findSeriesByName();
-		}else{
-			admin.findSeriesByCategory();
+				admin.findSeriesByName();
+			}
+			else {
+				admin.findSeriesByCategory();
+			}
+			break;
+		case 5:
+			logOut = 1;
+			break;
 		}
-		break;
-	case 5:
-		break;
 	}
 }
