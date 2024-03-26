@@ -79,57 +79,61 @@ Admin createAdmin() {
 
 void userMenu(User user) {
 	int answer;
-	cout << "1.Add new movie to watch list\n2.Add new series to watch list\n3.Search for movie/series\n4.Watch movie from watch list" << endl;
-	cout << "5.Watch series from watch list\n6.Delete movie from watch list\n7.Delete series from watch list\n8.Exit to main menu" << endl;
-	cin >> answer;
-	switch (answer) {
-	case 1:
-		cout << "You want to search by newest movies or by category" << endl;
-		cout << "1.Newest movies\n2.By category" << endl;
+	int logOut = 0;
+	while (!logOut) {
+		cout << "1.Add new movie to watch list\n2.Add new series to watch list\n3.Search for movie/series\n4.Watch movie from watch list" << endl;
+		cout << "5.Watch series from watch list\n6.Delete movie from watch list\n7.Delete series from watch list\n8.Exit to main menu" << endl;
 		cin >> answer;
-		if (answer == 1) {
-			user.chooseFromMovies();
+		switch (answer) {
+		case 1:
+			cout << "You want to search by newest movies or by category" << endl;
+			cout << "1.Newest movies\n2.By category" << endl;
+			cin >> answer;
+			if (answer == 1) {
+				user.chooseFromMovies();
+			}
+			else {
+				user.chooseFromMoviesByCategory();
+			}
+			break;
+		case 2:
+			cout << "You want to search by newest series or by category" << endl;
+			cout << "1.Newest series\n2.By category" << endl;
+			cin >> answer;
+			if (answer == 1) {
+				user.chooseFromSeries();
+			}
+			else {
+				user.chooseFromSeriesByCategory();
+			}
+			break;
+		case 3:
+			cout << "You want to search movie or series" << endl;
+			cout << "1.Movie\n2.Series" << endl;
+			cin >> answer;
+			if (answer == 1) {
+				user.findMovieByName();
+			}
+			else {
+				user.findSeriesByName();
+			}
+			break;
+		case 4:
+			user.watchMovieFromList();
+			break;
+		case 5:
+			user.watchSeriesFromList();
+			break;
+		case 6:
+			user.deleteMovieFromList();
+			break;
+		case 7:
+			user.deleteSeriesFromList();
+			break;
+		case 8:
+			logOut = 1;
+			break;
 		}
-		else {
-			user.chooseFromMoviesByCategory();
-		}
-		break;
-	case 2:
-		cout << "You want to search by newest series or by category" << endl;
-		cout << "1.Newest series\n2.By category" << endl;
-		cin >> answer;
-		if (answer == 1) {
-			user.chooseFromSeries();
-		}
-		else {
-			user.chooseFromSeriesByCategory();
-		}
-		break;
-	case 3:
-		cout << "You want to search movie or series" << endl;
-		cout << "1.Movie\n2.Series" << endl;
-		cin >> answer;
-		if (answer == 1) {
-			user.findMovieByName();
-		}
-		else {
-			user.findSeriesByName();
-		}
-		break;
-	case 4:
-		user.watchMovieFromList();
-		break;
-	case 5:
-		user.watchSeriesFromList();
-		break;
-	case 6:
-		user.deleteMovieFromList();
-		break;
-	case 7:
-		user.deleteSeriesFromList();
-		break;
-	case 8:
-		break;
 	}
 }
 
