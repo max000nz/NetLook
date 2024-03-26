@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #pragma once
 #include <iostream>
 #include <fstream>
@@ -6,18 +7,25 @@ using namespace std;
 
 class Show {
 
-protected:
-	char* name;
+public:
+	string name;
 	int year;
-	char* category;
+	string category;
+	int time;
 
 public:
-	Show();
-	Show(char* name, int year, char* category);
-	char* getName() const { return name; };
+	Show() = default;
+	Show(string name, int year, string category);
+	string getName() const { return name; };
 	int   getYear() const { return year; };
-	char* getCategory() const { return category; };
-	void setName(const char* name);
+	string getCategory() const { return category; };
+	int getTime() const { return time; };
+	void setName(const string name);
 	void setYear(int year) { this->year = year; };
-	void setCategory(const char* category);
+	void setCategory(const string category);
+	void setTime(int time) { this->time = time; };
+	bool operator > (const Show& str) const {
+		if (getYear() != str.getYear())	return (getYear() > str.getYear());
+		return (getTime() > str.getTime());
+	}
 };

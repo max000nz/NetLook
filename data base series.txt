@@ -1,0 +1,139 @@
+Breaking Bad
+Thriller
+2008
+5
+13
+1711400135
+
+Game of Thrones
+Thriller
+2011
+8
+12
+1711401000
+
+Sherlock
+Thriller
+2010
+4
+5
+1711401033
+
+Better Call Saul
+Thriller
+2015
+6
+12
+1711401051
+
+The Mentalist
+Thriller
+2008
+7
+18
+1711401067
+
+The Office
+Comedy
+2005
+9
+15
+1711401083
+
+Friends
+Comedy
+1994
+10
+14
+1711401098
+
+Brassic
+Comedy
+2019
+5
+10
+1711401121
+
+Scrubs
+Comedy
+2001
+9
+11
+1711401139
+
+Ted Lasso
+Comedy
+2020
+3
+13
+1711401153
+
+Avatar: The Last Airbender
+Sci-fi
+2004
+3
+20
+1711401172
+
+Tom and Jerry
+Sci-fi
+1940
+1
+50
+1711401194
+
+Rick and Morty
+Sci-fi
+2013
+8
+8
+1711401208
+
+Spider Man
+Sci-fi
+1994
+5
+23
+1711401226
+
+Gravity Falls
+Sci-fi
+2012
+2
+26
+1711401246
+
+House
+Horror
+2004
+8
+17
+1711401259
+
+Stranger Things
+Horror
+2016
+5
+12
+1711401274
+
+Dexter
+Horror
+2006
+8
+14
+1711401289
+
+Narcos
+Horror
+2015
+3
+15
+1711401304
+
+The Sopranos
+Horror
+1999
+6
+20
+1711401318

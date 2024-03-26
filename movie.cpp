@@ -1,12 +1,10 @@
 #include "movie.h"
+#include "show.h"
 using namespace std;
 
-Movie::Movie(char* name, int year, char* category, int length) :Show(name, year, category) {
+Movie::Movie(string name, int year, string category, int length):Show(name, year, category) {
 	this->length = length;
 }
-
-Movie::Movie() {}
-
 
 ostream& operator<<(ostream& os, const Movie& m) {
 	os << m.getName() << " " << m.getYear() << " " << m.getCategory() << " " << m.getMovieLength();
