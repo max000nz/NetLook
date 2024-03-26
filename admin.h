@@ -13,8 +13,4 @@ public:
 	void findMovieByCategory();
 	void findSeriesByName();
 	void findSeriesByCategory();
-	vector<Movie> openFile(vector<Movie> movies, string way);
-	vector<Movie> closeFile(vector<Movie> movies, string way);
-	vector<Series> openFile(vector<Series> series, string way);
-	vector<Series> closeFile(vector<Series> series, string way);
 };

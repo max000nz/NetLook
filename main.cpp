@@ -2,6 +2,8 @@
 #include "user.h"
 #include "show.h"
 #include "movie.h"
+#include "moviesDB.h"
+#include "seriesDB.h"
 #include "series.h"
 #include "admin.h"
 #include "viewer.h"
@@ -12,16 +14,19 @@
 #include <algorithm>
 using namespace std;
 
-
 User createUser();
 Admin createAdmin();
 void userMenu(User user);
 void adminMenu(Admin admin);
 
 int main() {
+	MoviesDB::setupMoviesDB("movies.txt");
+	MoviesDB::setupMoviesDB("moviesWatchList.txt");
+	SeriesDB::setupSeriesDB("series.txt");
+	SeriesDB::setupSeriesDB("seriesWatchList.txt");
 	int answer = 0;
 	string name;
-	vector<Show> watchList;
+	//vector<Show> watchList;
 	//User user = createUser();
 	//Admin admin = createAdmin();
 	User user = { 337875397, "Max", "Prokopchuk", 14, 02, 2000};
@@ -41,6 +46,10 @@ int main() {
 			adminMenu(admin);
 			break;
 		case 3:
+			MoviesDB::updateFileMoviesDB("movies.txt");
+			MoviesDB::updateFileMoviesDB("moviesWatchList.txt");
+			SeriesDB::updateFileSeriesDB("series.txt");
+			SeriesDB::updateFileSeriesDB("seriesWatchList.txt");
 			break;
 		}
 	}

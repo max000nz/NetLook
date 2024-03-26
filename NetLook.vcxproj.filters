@@ -33,6 +33,12 @@
     <ClInclude Include="admin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="moviesDB.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="seriesDB.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="series.cpp">
@@ -54,6 +60,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moviesDB.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="seriesDB.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,5 +1,9 @@
 #include "movie.h"
 #include "show.h"
+#include <vector>
+#include <algorithm>
+#include <string>
+#include <iostream>
 using namespace std;
 
 Movie::Movie(string name, int year, string category, int length):Show(name, year, category) {
