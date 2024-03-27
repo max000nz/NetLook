@@ -146,6 +146,7 @@
     <ClCompile Include="show.cpp" />
     <ClCompile Include="user.cpp" />
     <ClCompile Include="validationFile.cpp" />
+    <ClCompile Include="validationFile.h" />
     <ClCompile Include="viewer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -7,10 +7,13 @@
 #include "series.h"
 #include "admin.h"
 #include "viewer.h"
+#include "validationFile.h"
 #include <iostream>
+#include <sstream>
 #include <fstream>
 #include <string>
 #include <vector>
+#include <limits>
 #include <algorithm>
 using namespace std;
 
@@ -26,16 +29,12 @@ int main() {
 	SeriesDB::setupSeriesDB("series.txt");
 	SeriesDB::setupSeriesDB("seriesWatchList.txt");
 	int answer = 0;
-	string name;
+	string name, answerS, message;
 	User currUser;
 	Admin currAdmin;
 	while (answer != 3) {
-		cout << "1.User\n2.Admin\n3.Exit" << endl;
-		cin >> answer;
-		if (answer < 1 || answer > 3) {
-			cout << "Wrong answer, try again" << endl;
-			continue;
-		}
+		message = "1.User\n2.Admin\n3.Exit\n";
+		answer = answerIntViewer(message, 1, 3);
 		switch (answer) {
 		case 1:
 			//if (validateUser(currUser)) {
@@ -58,18 +57,22 @@ int main() {
 }
 
 int validateUser(User currUser) {
-	string fname, lname;
+	string fname, lname, message;
 	int id, answer = 0;
 	currUser.getPersonalInfo();
 	while (true) {
-		cout << "Enter name for validate" << endl;
-		cin >> fname >> lname;
-		cout << "Enter password for validate" << endl;
-		cin >> id;
+		message = "Enter name for validate\n";
+		fname = answerStringViewer(message, 1, 2, 15);
+		message = "Enter surname for validate\n";
+		lname = answerStringViewer(message, 1, 2, 15);
+		message = "Enter password for validate\n";
+		id = answerIntViewer(message, 100000000, 999999999);
 		if (fname == currUser.getFname() && id == currUser.getId())break;
 		else {
-			cout << "Wrong data, please select:\n1.Try again\n2.Return to menu" << endl;
-			cin >> answer;
+			message = "Wrong data, please select:\n"
+					  "1.Try again\n"
+					  "2.Return to menu\n";
+			answer = answerIntViewer(message, 1, 2);
 			if (answer == 1) continue;
 			else break;
 		}
@@ -79,18 +82,22 @@ int validateUser(User currUser) {
 }
 
 int validateAdmin(Admin currAdmin) {
-	string fname, lname;
+	string fname, lname, message;
 	int id, answer = 0;
 	currAdmin.getPersonalInfo();
 	while (true) {
-		cout << "Enter name for validate" << endl;
-		cin >> fname >> lname;
-		cout << "Enter password for validate" << endl;
-		cin >> id;
+		message = "Enter name for validate\n";
+		fname = answerStringViewer(message, 1, 2, 15);
+		message = "Enter surname for validate\n";
+		lname = answerStringViewer(message, 1, 2, 15);
+		message = "Enter password for validate\n";
+		id = answerIntViewer(message, 100000000, 999999999);
 		if (fname == currAdmin.getFname() && id == currAdmin.getId())break;
 		else {
-			cout << "Wrong data, please select:\n1.Try again\n2.Return to menu" << endl;
-			cin >> answer;
+			message = "Wrong data, please select:\n"
+					  "1.Try again\n"
+				      "2.Return to menu\n";
+			answer = answerIntViewer(message, 1, 2);
 			if (answer == 1) continue;
 			else break;
 		}
@@ -102,16 +109,23 @@ int validateAdmin(Admin currAdmin) {
 
 void userMenu(User user) {
 	int answer;
+	string message;
 	int logOut = 0;
 	while (!logOut) {
-		cout << "1.Add new movie to watch list\n2.Add new series to watch list\n3.Search for movie/series\n4.Watch movie from watch list" << endl;
-		cout << "5.Watch series from watch list\n6.Delete movie from watch list\n7.Delete series from watch list\n8.Exit to main menu" << endl;
-		cin >> answer;
+		message = "1.Add new movie to watch list\n"
+				  "2.Add new series to watch list\n"
+				  "3.Search for movie/series\n"
+				  "4.Watch movie from watch list\n"
+				  "5.Watch series from watch list\n"
+				  "6.Delete movie from watch list\n"
+				  "7.Delete series from watch list\n"
+				  "8.Exit to main menu\n";
+		answer = answerIntViewer(message, 1, 8);
 		switch (answer) {
 		case 1:
-			cout << "You want to search by newest movies or by category" << endl;
-			cout << "1.Newest movies\n2.By category" << endl;
-			cin >> answer;
+			message = "You want to search by newest movies or by category\n"
+					  "1.Newest movies\n2.By category\n";
+			answer = answerIntViewer(message, 1, 2);
 			if (answer == 1) {
 				user.chooseFromMovies();
 			}
@@ -120,9 +134,9 @@ void userMenu(User user) {
 			}
 			break;
 		case 2:
-			cout << "You want to search by newest series or by category" << endl;
-			cout << "1.Newest series\n2.By category" << endl;
-			cin >> answer;
+			message = "You want to search by newest series or by category\n"
+					  "1.Newest series\n2.By category\n";
+			answer = answerIntViewer(message, 1, 2);
 			if (answer == 1) {
 				user.chooseFromSeries();
 			}
@@ -131,9 +145,9 @@ void userMenu(User user) {
 			}
 			break;
 		case 3:
-			cout << "You want to search movie or series" << endl;
-			cout << "1.Movie\n2.Series" << endl;
-			cin >> answer;
+			message = "You want to search movie or series\n"
+					  "1.Movie\n2.Series\n";
+			answer = answerIntViewer(message, 1, 2);
 			if (answer == 1) {
 				user.findMovieByName();
 			}
@@ -162,12 +176,15 @@ void userMenu(User user) {
 
 void adminMenu(Admin admin) {
 	int answer;
-	string name;
+	string name, message;
 	int logOut = 0;
 	while (!logOut) {
-		cout << "1.Add new movie\n2.Add new series" << endl;
-		cout << "3.Delete movie\n4.Delete series\n5.Exit to main menu" << endl;
-		cin >> answer;
+		message = "1.Add new movie\n"
+				  "2.Add new series\n"
+				  "3.Delete movie\n"
+				  "4.Delete series\n"
+				  "5.Exit to main menu\n";
+		answer = answerIntViewer(message, 1, 5);
 		switch (answer) {
 		case 1:
 			admin.addMovie();
@@ -176,8 +193,9 @@ void adminMenu(Admin admin) {
 			admin.addSeries();
 			break;
 		case 3:
-			cout << "1.Find by name\n2.Find by category" << endl;
-			cin >> answer;
+			message = "1.Find by name\n"
+					  "2.Find by category\n";
+			answer = answerIntViewer(message, 1, 2);
 			if (answer == 1) {
 				admin.findMovieByName();
 			}
@@ -186,8 +204,9 @@ void adminMenu(Admin admin) {
 			}
 			break;
 		case 4:
-			cout << "1.Find by name\n2.Find by category" << endl;
-			cin >> answer;
+			message = "1.Find by name\n"
+					  "2.Find by category\n";
+			answer = answerIntViewer(message, 1, 2);
 			if (answer == 1) {
 
 				admin.findSeriesByName();

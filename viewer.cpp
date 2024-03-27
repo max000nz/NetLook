@@ -1,6 +1,7 @@
 #include "viewer.h"
 #include "movie.h"
 #include "series.h"
+#include "validationFile.h"
 #include <string>
 #include <cstring>
 #include <iostream>
@@ -39,9 +40,9 @@ bool Viewer::isEmpty(vector<Series> series) {
 
 string Viewer::chooseCategory() {
 	int answer;
-	string category;
-	cout << "1.Sci-fi\n2.Horror\n3.Comedy\n4.Thriller" << endl;
-	cin >> answer;
+	string category, message;
+	message = "1.Sci-fi\n2.Horror\n3.Comedy\n4.Thriller\n";
+	answer = answerIntViewer(message, 1, 4);
 	switch (answer) {
 	case 1:
 		category = "Sci-fi";
