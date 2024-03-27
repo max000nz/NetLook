@@ -8,6 +8,7 @@
 #include <ctime>
 using namespace std;
 
+
 Admin::Admin(int id, string fname, string lname, int day, int month, int year) :Viewer(id, fname, lname, day, month, year) {}
 
 void Admin::addMovie() {
@@ -85,20 +86,17 @@ void Admin::findMovieByName() {
 	int sizeWatch = watchListMovies.size();
 
 	for (vector<Movie>::iterator i = movies.begin(); i != movies.end(); ++i) {//delete from vector of data base
-		if (i->getName() == name) {
-			if (i->getIsWL() == "Y") {
-				for (vector<Movie>::iterator j = watchListMovies.begin(); j != watchListMovies.end(); ++j) {//delete from vector watch list of user
-					if (j->getName() == name) {
-						watchListMovies.erase(j);
-						break;
-					}
-				}
-			}
-			movies.erase(i);
+		if (i->getName() != name) continue;
+		if (i->getIsWL() != "Y") continue;
+		for (vector<Movie>::iterator j = watchListMovies.begin(); j != watchListMovies.end(); ++j) {//delete from vector watch list of user
+			if (j->getName() != name) continue;
+			watchListMovies.erase(j);
 			break;
+			
 		}
+		movies.erase(i);
+		break;
 	}
-
 	if (size == movies.size()) {
 		cout << "Movie with this name is not exist in data base" << endl;
 		return;
@@ -109,6 +107,7 @@ void Admin::findMovieByName() {
 		return;
 	}
 }
+
 
 void Admin::findMovieByCategory() {
 	int answer = 0;
@@ -143,22 +142,19 @@ void Admin::findMovieByCategory() {
 	counter=0;
 
 	for (vector<Movie>::iterator i = movies.begin(); i != movies.end(); ++i) {//delete from vector
-		if (i->getCategory() == category) {
-			counter++;
-			if (counter == answer) {
-				name = i->getName();
-				if (i->getIsWL() == "Y") {
-					for (vector<Movie>::iterator j = watchListMovies.begin(); j != watchListMovies.end(); ++j) {//delete from vector watch list of user
-						if (j->getName() == name) {
-							watchListMovies.erase(j);
-							break;
-						}
-					}
-				}
-				movies.erase(i);
+		if (i->getCategory() != category) continue;
+		counter++;
+		if (counter != answer) continue;
+		name = i->getName();
+		if (i->getIsWL() != "Y") break;
+		for (vector<Movie>::iterator j = watchListMovies.begin(); j != watchListMovies.end(); ++j) {//delete from vector
+			if (j->getName() == name) {
+				watchListMovies.erase(j);
 				break;
 			}
 		}
+		movies.erase(i);
+		break;
 	}
 
 	cout << "Movie deleted succesfully" << endl;
@@ -182,19 +178,17 @@ void Admin::findSeriesByName(){
 	int size = series.size();
 	int sizeSeries = watchListSeries.size();
 
-	for (vector<Series>::iterator i = series.begin(); i != series.end(); ++i) {//delete from vector
-		if (i->getName() == name) {
-			if (i->getIsWL() == "Y") {
-				for (vector<Series>::iterator j = watchListSeries.begin(); j != watchListSeries.end(); ++j) {//delete from vector
-					if (j->getName() == name) {
-						watchListSeries.erase(j);
-						break;
-					}
-				}
-			}
-			series.erase(i);
+	for (vector<Series>::iterator i = series.begin(); i != series.end(); ++i) {//delete from vector of data base
+		if (i->getName() != name) continue;
+		if (i->getIsWL() != "Y") continue;
+		for (vector<Series>::iterator j = watchListSeries.begin(); j != watchListSeries.end(); ++j) {//delete from vector watch list of user
+			if (j->getName() != name) continue;
+			watchListSeries.erase(j);
 			break;
+
 		}
+		series.erase(i);
+		break;
 	}
 
 	if (size == series.size()) {
@@ -209,67 +203,6 @@ void Admin::findSeriesByName(){
 
 }
 
-void Admin::findSeriesByCategory() {
-	int answer = 0;
-	int counter = 1;
-	string category, name;
-	vector<Series>& series = SeriesDB::getSeriesDB();
-	vector<Series>& watchListSeries = SeriesDB::getSeriesWatchListDB();
-	
-
-	if (isEmpty(series)) {
-		cout << "No series in data base, fail" << endl;
-		return;
-	}
-
-	cout << "Write category of series you want delete" << endl;
-	category = chooseCategory();
-
-	for (int i = 0; i < series.size(); ++i) {
-		if (series[i].getCategory() == category) {
-			cout << counter << ": " << series[i] << endl;
-			counter++;
-		}
-	}
-
-	if (counter == 1) {
-		cout << "No series in this category, fail" << endl;
-		return;
-	}
-
-	cout << "Which series you want delete" << endl;
-	cin >> answer;
-
-	counter = 0;
-
-	for (vector<Series>::iterator i = series.begin(); i != series.end(); ++i) {//delete from vector
-		if (i->getCategory() == category) {
-			counter++;
-			if (counter == answer) {
-				name = i->getName();
-				if (i->getIsWL() == "Y") {
-					for (vector<Series>::iterator j = watchListSeries.begin(); j != watchListSeries.end(); ++j) {//delete from vector
-						if (j->getName() == name) {
-							watchListSeries.erase(j);
-							break;
-						}
-					}
-					series.erase(i);
-					break;
-				}
-			}
-		}
-	}
-
-	for (vector<Series>::iterator j = watchListSeries.begin(); j != watchListSeries.end(); ++j) {//delete from vector
-		if (j->getName() == name) {
-			watchListSeries.erase(j);
-			break;
-		}
-	}
-
-	cout << "Series deleted succesfully" << endl;
-}
 
 void Admin::getPersonalInfo()
 {
@@ -294,3 +227,56 @@ void Admin::getPersonalInfo()
 	}
 	fin.close();
 }
+
+void Admin::findSeriesByCategory() {
+	int answer = 0;
+	int counter = 1;
+	string category, name;
+	vector<Series>& series = SeriesDB::getSeriesDB();
+	vector<Series>& watchListSeries = SeriesDB::getSeriesWatchListDB();
+
+
+	if (isEmpty(series)) {
+		cout << "No series in data base, fail" << endl;
+		return;
+	}
+
+	cout << "Write category of series you want delete" << endl;
+	category = chooseCategory();
+
+	for (int i = 0; i < series.size(); ++i) {
+		if (series[i].getCategory() == category) {
+			cout << counter << ": " << series[i] << endl;
+			counter++;
+		}
+	}
+
+	if (counter == 1) {
+		cout << "No series in this category, fail" << endl;
+		return;
+	}
+
+	cout << "Which series you want delete" << endl;
+	cin >> answer;
+	counter = 0;
+
+	for (vector<Series>::iterator i = series.begin(); i != series.end(); ++i) {//delete from vector
+		if (i->getCategory() != category) continue;
+		counter++;
+		if (counter != answer) continue;
+		name = i->getName();
+		if (i->getIsWL() != "Y") break;
+		for (vector<Series>::iterator j = watchListSeries.begin(); j != watchListSeries.end(); ++j) {//delete from vector
+			if (j->getName() == name) {
+				watchListSeries.erase(j);
+				break;
+			}
+		}
+		series.erase(i);
+		break;
+	}
+	cout << "Series deleted succesfully" << endl;
+}
+	
+
+
