@@ -38,14 +38,14 @@ int main() {
 		}
 		switch (answer) {
 		case 1:
-			if (validateUser(currUser)) {
+			//if (validateUser(currUser)) {
 				userMenu(currUser);
-			}
+			//}
 			break;
 		case 2:
-			if (validateAdmin(currAdmin)) {
+			//if (validateAdmin(currAdmin)) {
 				adminMenu(currAdmin);
-			}
+			//}
 			break;
 		case 3:
 			MoviesDB::updateFileMoviesDB("movies.txt");
@@ -61,12 +61,14 @@ int validateUser(User currUser) {
 	string fname, lname;
 	int id, answer = 0;
 	currUser.getPersonalInfo();
-	cout << "Enter name for validate" << endl;
-	cin >> fname >> lname;
 	while (true) {
-		if (fname == currUser.getFname())break;
+		cout << "Enter name for validate" << endl;
+		cin >> fname >> lname;
+		cout << "Enter password for validate" << endl;
+		cin >> id;
+		if (fname == currUser.getFname() && id == currUser.getId())break;
 		else {
-			cout << "Wrong name, please select:\n1.Try again\n2.Return to menu" << endl;
+			cout << "Wrong data, please select:\n1.Try again\n2.Return to menu" << endl;
 			cin >> answer;
 			if (answer == 1) continue;
 			else break;
@@ -80,12 +82,14 @@ int validateAdmin(Admin currAdmin) {
 	string fname, lname;
 	int id, answer = 0;
 	currAdmin.getPersonalInfo();
-	cout << "Enter name for validate" << endl;
-	cin >> fname >> lname;
 	while (true) {
-		if (fname == currAdmin.getFname())break;
+		cout << "Enter name for validate" << endl;
+		cin >> fname >> lname;
+		cout << "Enter password for validate" << endl;
+		cin >> id;
+		if (fname == currAdmin.getFname() && id == currAdmin.getId())break;
 		else {
-			cout << "Wrong name, please select:\n1.Try again\n2.Return to menu" << endl;
+			cout << "Wrong data, please select:\n1.Try again\n2.Return to menu" << endl;
 			cin >> answer;
 			if (answer == 1) continue;
 			else break;

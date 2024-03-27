@@ -12,7 +12,7 @@ static vector<Movie> moviesdb;
 static vector<Movie> moviesWLdb;
 
 void MoviesDB::setupMoviesDB(string way) {
-	string name, category, year, length, buffer, time;
+	string name, category, year, length, buffer, time, isWL;
 	int iyear, ilength, itime;
 	string path = way;
 	Movie currentMovie;
@@ -38,6 +38,8 @@ void MoviesDB::setupMoviesDB(string way) {
 			getline(fin, time);
 			itime = stoi(time);
 			currentMovie.setTime(itime);
+			getline(fin, isWL);
+			currentMovie.setIsWL(isWL);
 			if (way == "movies.txt")	moviesdb.emplace_back(currentMovie);
 			else moviesWLdb.emplace_back(currentMovie);
 			getline(fin, buffer);
@@ -57,7 +59,7 @@ vector<Movie>& MoviesDB::getMoviesWatchListDB()
 }
 
 void MoviesDB::updateFileMoviesDB(string way) {
-	string name, category, year, length, buffer;
+	//string name, category, year, length, buffer;
 	string path = way;
 	Movie currentMovie;
 
@@ -74,6 +76,7 @@ void MoviesDB::updateFileMoviesDB(string way) {
 				fout << currentMovie.getYear() << endl;
 				fout << currentMovie.getMovieLength() << endl;
 				fout << currentMovie.getTime() << endl;
+				fout << currentMovie.getIsWL() << endl;
 				fout << "\n";
 			}
 		}
@@ -85,6 +88,7 @@ void MoviesDB::updateFileMoviesDB(string way) {
 				fout << currentMovie.getYear() << endl;
 				fout << currentMovie.getMovieLength() << endl;
 				fout << currentMovie.getTime() << endl;
+				fout << currentMovie.getIsWL() << endl;
 				fout << "\n";
 			}
 		}

@@ -14,4 +14,5 @@ public:
 	void setMovieLength(int length) { this->length = length; };
 	int getMovieLength() const { return length; };
 	friend ostream& operator<<(ostream& os, const Movie& m);
+	void setDeleteWL(string name);
 };

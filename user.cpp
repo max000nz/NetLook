@@ -19,22 +19,22 @@ User::User(int id, string name, string surname, int day, int month, int year):Vi
 
 void User::chooseFromMovies() {
 	int answer = 0;
+	int counter = 1;
 	string name;
 	vector<Movie>& movies = MoviesDB::getMoviesDB();
 	vector<Movie>& watchListMovies = MoviesDB::getMoviesWatchListDB();
 	Movie currentMovies; //buffer object
 
-	if (!isEmpty(watchListMovies)) {
-		notToAddTwice(movies);
-	}
-
 	for (int i = 0; i < movies.size(); i++) {
-		cout << i + 1 << ": " << movies[i] << endl; //printing the vector in list-like form
+		if (movies[i].getIsWL() == "Y") continue;
+		cout << counter << ": " << movies[i] << endl; //printing the vector in list-like form
+		counter++;
 		cout << "You wanna add this movie?" << endl;
 		cout << "1.Yes\n2.No\n3.Exit" << endl;
 		cin >> answer;
 		switch (answer){
 			case 1:
+				movies[i].setAddWL();
 				watchListMovies.emplace_back(movies[i]);
 				continue;
 			case 2:
@@ -54,16 +54,11 @@ void User::chooseFromMoviesByCategory() {
 	vector<Movie>& watchListMovies = MoviesDB::getMoviesWatchListDB();
 	Movie currentMovies; //buffer object
 
-	//sort(movies.begin(), movies.end(), greater<Movie>()); //sort vector by year and time
-
-	if (!isEmpty(watchListMovies)) {
-		notToAddTwice(movies);
-	}
-
 	cout << "In which category you want search movies?" << endl;
 	category = chooseCategory();
 
 	for (int i = 0; i < movies.size(); ++i) {
+		if (movies[i].getIsWL() == "Y") continue;
 		if (movies[i].getCategory() == category) {
 			cout << counter << ": " << movies[i] << endl;
 			counter++;
@@ -72,6 +67,7 @@ void User::chooseFromMoviesByCategory() {
 			cin >> answer;
 			switch (answer) {
 			case 1:
+				movies[i].setAddWL();
 				watchListMovies.emplace_back(movies[i]);
 				continue;
 			case 2:
@@ -87,26 +83,22 @@ void User::chooseFromMoviesByCategory() {
 
 void User::chooseFromSeries() {
 	int answer = 0;
+	int counter = 1;
 	string name;
 	vector<Series>& series = SeriesDB::getSeriesDB();
 	vector<Series>& watchListSeries = SeriesDB::getSeriesWatchListDB();
-
 	Series currentSeries; //buffer object
 
-	//sort(series.begin(), series.end(), greater<Series>()); //sort vector by year and time
-
-	//delete from vector movies that already in watch list(if watch list not empty)
-	if (!isEmpty(watchListSeries)) {
-		notToAddTwice(series);
-	}
-
 	for (int i = 0; i < series.size(); i++) {
-		cout << i + 1 << ": " << series[i] << endl; //printing the vector in list-like form
+		if (series[i].getIsWL() == "Y") continue;
+		cout << counter << ": " << series[i] << endl; //printing the vector in list-like form
+		counter++;
 		cout << "You wanna add this series?" << endl;
 		cout << "1.Yes\n2.No\n3.Exit" << endl;
 		cin >> answer;
 		switch (answer) {
 		case 1:
+			series[i].setAddWL();
 			watchListSeries.emplace_back(series[i]);
 			continue;
 		case 2:
@@ -126,17 +118,11 @@ void User::chooseFromSeriesByCategory() {
 	vector<Series>& watchListSeries = SeriesDB::getSeriesWatchListDB();
 	Series currentSeries; //buffer object
 
-	//sort(series.begin(), series.end(), greater<Series>()); //sort vector by year and time
-
-	//delete from vector movies that already in watch list(if watch list not empty)
-	if (!isEmpty(watchListSeries)) {
-		notToAddTwice(series);
-	}
-
 	cout << "In which category you want search series?" << endl;
 	category = chooseCategory();
 
 	for (int i = 0; i < series.size(); ++i) {
+		if (series[i].getIsWL() == "Y") continue;
 		if (series[i].getCategory() == category) {
 			cout << counter << ": " << series[i] << endl;
 			counter++;
@@ -145,6 +131,7 @@ void User::chooseFromSeriesByCategory() {
 			cin >> answer;
 			switch (answer) {
 			case 1:
+				series[i].setAddWL();
 				watchListSeries.emplace_back(series[i]);
 				continue;
 			case 2:
@@ -173,19 +160,17 @@ void User::findMovieByName() {
 		return;
 	}
 
-	if (!isEmpty(watchListMovies)) {
-		notToAddTwice(movies);
-	}
-
 	int size = movies.size();
 
 	for (int i = 0; i < movies.size(); i++) {//delete from vector
+		if (movies[i].getIsWL() == "Y") continue;
 		if (movies[i].getName() == name) {
 			cout << "You want to add this movie?" << endl;
 			cout << movies[i] << endl;
 			cout << "1.Yes\n2.No" << endl;
 			cin >> answer;
 			if (answer == 1) {
+				movies[i].setAddWL();
 				watchListMovies.emplace_back(movies[i]);
 				size++;
 				break;
@@ -218,19 +203,17 @@ void User::findSeriesByName() {
 		return;
 	}
 
-	if (!isEmpty(watchListSeries)) {
-		notToAddTwice(series);
-	}
-
 	int size = series.size();
 
 	for (int i = 0; i < series.size(); i++) {//delete from vector
+		if (series[i].getIsWL() == "Y") continue;
 		if (series[i].getName() == name) {
 			cout << "You want to add this series?" << endl;
 			cout << series[i] << endl;
 			cout << "1.Yes\n2.No" << endl;
 			cin >> answer;
 			if (answer == 1) {
+				series[i].setAddWL();
 				watchListSeries.emplace_back(series[i]);
 				size++;
 				break;
@@ -286,6 +269,7 @@ void User::watchSeriesFromList() {
 
 void User::deleteMovieFromList() {
 	int answer;
+	string name;
 	vector<Movie>& watchListMovies = MoviesDB::getMoviesWatchListDB();
 
 	if (isEmpty(watchListMovies)) {
@@ -301,6 +285,8 @@ void User::deleteMovieFromList() {
 
 	for (vector<Movie>::iterator i = watchListMovies.begin(); i != watchListMovies.end(); ++i) {//delete from vector
 		advance(i,answer-1);
+		name = i->getName();
+		i->setDeleteWL(name);
 		watchListMovies.erase(i);
 		break;
 	}
@@ -328,28 +314,6 @@ void User::deleteSeriesFromList(){
 		break;
 	}
 	cout << "Chosen series deleted sucsesfully" << endl;
-}
-
-void User::notToAddTwice(vector<Movie> movies) {
-	for (vector<Movie>::iterator j = watchListMovies.begin(); j != watchListMovies.end(); ++j) {//REPAIR
-		for (vector<Movie>::iterator k = movies.begin(); k != movies.end(); ++k) {
-			if (j->getName() == k->getName()) {
-				movies.erase(k);
-				break;
-			}
-		}
-	}//delete from vector movies that already in watch list(if watch list not empty)
-}
-
-void User::notToAddTwice(vector<Series> series) {
-	for (vector<Series>::iterator j = watchListSeries.begin(); j != watchListSeries.end(); ++j) {
-		for (vector<Series>::iterator k = series.begin(); k != series.end(); ++k) {
-			if (j->getName() == k->getName()) {
-				series.erase(k);
-				break;
-			}
-		}
-	}//delete from vector series that already in watch list(if watch list not empty)
 }
 
 void User::getPersonalInfo(){

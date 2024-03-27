@@ -4,6 +4,7 @@ Comedy
 3
 13
 1711401153
+Y
 
 Brassic
 Comedy
@@ -11,6 +12,7 @@ Comedy
 5
 10
 1711401121
+N
 
 Stranger Things
 Horror
@@ -18,6 +20,7 @@ Horror
 5
 12
 1711401274
+N
 
 Narcos
 Horror
@@ -25,6 +28,7 @@ Horror
 3
 15
 1711401304
+N
 
 Better Call Saul
 Thriller
@@ -32,6 +36,7 @@ Thriller
 6
 12
 1711401051
+N
 
 Rick and Morty
 Sci-fi
@@ -39,6 +44,7 @@ Sci-fi
 8
 8
 1711401208
+N
 
 Gravity Falls
 Sci-fi
@@ -46,6 +52,7 @@ Sci-fi
 2
 26
 1711401246
+N
 
 Game of Thrones
 Thriller
@@ -53,6 +60,7 @@ Thriller
 8
 12
 1711401000
+N
 
 Sherlock
 Thriller
@@ -60,6 +68,7 @@ Thriller
 4
 5
 1711401033
+N
 
 The Mentalist
 Thriller
@@ -67,6 +76,7 @@ Thriller
 7
 18
 1711401067
+N
 
 Breaking Bad
 Thriller
@@ -74,6 +84,7 @@ Thriller
 5
 13
 1711400135
+N
 
 Dexter
 Horror
@@ -81,6 +92,7 @@ Horror
 8
 14
 1711401289
+N
 
 The Office
 Comedy
@@ -88,6 +100,7 @@ Comedy
 9
 15
 1711401083
+Y
 
 House
 Horror
@@ -95,6 +108,7 @@ Horror
 8
 17
 1711401259
+N
 
 Avatar: The Last Airbender
 Sci-fi
@@ -102,6 +116,7 @@ Sci-fi
 3
 20
 1711401172
+N
 
 Scrubs
 Comedy
@@ -109,6 +124,7 @@ Comedy
 9
 11
 1711401139
+N
 
 The Sopranos
 Horror
@@ -116,6 +132,7 @@ Horror
 6
 20
 1711401318
+N
 
 Spider Man
 Sci-fi
@@ -123,6 +140,7 @@ Sci-fi
 5
 23
 1711401226
+N
 
 Friends
 Comedy
@@ -130,6 +148,7 @@ Comedy
 10
 14
 1711401098
+N
 
 Tom and Jerry
 Sci-fi
@@ -137,4 +156,5 @@ Sci-fi
 1
 50
 1711401194
+N
 
