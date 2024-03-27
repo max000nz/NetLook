@@ -12,7 +12,7 @@ Comedy
 5
 10
 1711401121
-N
+Y
 
 Stranger Things
 Horror
@@ -132,14 +132,6 @@ Horror
 6
 20
 1711401318
-N
-
-Spider Man
-Sci-fi
-1994
-5
-23
-1711401226
 N
 
 Friends
