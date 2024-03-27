@@ -58,3 +58,6 @@ string Viewer::chooseCategory() {
 	}
 	return category;
 }
+
+void Viewer::getPersonalInfo()
+{}

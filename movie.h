@@ -1,9 +1,12 @@
 #pragma once
 #include "show.h"
 
-class Movie :public Show {
 
+
+class Movie :public Show {
+protected:
 	int length;//minutes
+
 
 public:
 	Movie() = default;
@@ -11,4 +14,5 @@ public:
 	void setMovieLength(int length) { this->length = length; };
 	int getMovieLength() const { return length; };
 	friend ostream& operator<<(ostream& os, const Movie& m);
+	void setDeleteWL(string name);
 };

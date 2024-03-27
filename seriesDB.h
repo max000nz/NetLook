@@ -1,0 +1,17 @@
+#pragma once
+#include <vector>
+#include <algorithm>
+#include <string>
+#include <iostream>
+#include <fstream>
+#include "series.h"
+
+class SeriesDB
+{
+public:
+	static vector<Series>& getSeriesDB();
+	static vector<Series>& getSeriesWatchListDB();
+	static void setupSeriesDB(string way);
+	static void updateFileSeriesDB(string way);
+	static void addSeriesToDB(Series& series);
+};

@@ -3,6 +3,7 @@
 
 class Series:public Show {
 
+protected:
 	int seasons;
 	int episodes;
 
@@ -14,4 +15,5 @@ public:
 	void setSeasons(int seasons) { this->seasons = seasons; };
 	void setEpisodes(int episodes) { this->episodes = episodes; };
 	friend ostream& operator<<(ostream& os, const Series& s);
+	void setDeleteWL(string name);
 };

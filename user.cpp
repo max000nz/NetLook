@@ -2,7 +2,9 @@
 #include "user.h"
 #include "show.h"
 #include "movie.h"
+#include "moviesDB.h"
 #include "series.h"
+#include "seriesDB.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -17,24 +19,22 @@ User::User(int id, string name, string surname, int day, int month, int year):Vi
 
 void User::chooseFromMovies() {
 	int answer = 0;
+	int counter = 1;
 	string name;
-	vector<Movie> movies = openFile(movies, "movies.txt");
-	vector<Movie> watchListMovies = openFile(watchListMovies, "moviesWatchList.txt");
+	vector<Movie>& movies = MoviesDB::getMoviesDB();
+	vector<Movie>& watchListMovies = MoviesDB::getMoviesWatchListDB();
 	Movie currentMovies; //buffer object
 
-	sort(movies.begin(), movies.end(), greater<Movie>()); //sort vector by year and time
-
-	if (!isEmpty(watchListMovies)) {
-		notToAddTwice(movies);
-	}
-
 	for (int i = 0; i < movies.size(); i++) {
-		cout << i + 1 << ": " << movies[i] << endl; //printing the vector in list-like form
+		if (movies[i].getIsWL() == "Y") continue;
+		cout << counter << ": " << movies[i] << endl; //printing the vector in list-like form
+		counter++;
 		cout << "You wanna add this movie?" << endl;
 		cout << "1.Yes\n2.No\n3.Exit" << endl;
 		cin >> answer;
 		switch (answer){
 			case 1:
+				movies[i].setAddWL();
 				watchListMovies.emplace_back(movies[i]);
 				continue;
 			case 2:
@@ -44,29 +44,22 @@ void User::chooseFromMovies() {
 		}
 		break;
 	}
-
-	watchListMovies = closeWatchListMovies(watchListMovies);
 }
 
 void User::chooseFromMoviesByCategory() {
 	int answer = 0;
 	int counter = 1;
 	string category;
-	vector<Movie> movies = openFile(movies, "movies.txt");
-	vector<Movie> watchListMovies = openFile(watchListMovies, "moviesWatchList.txt");
+	vector<Movie>& movies = MoviesDB::getMoviesDB();
+	vector<Movie>& watchListMovies = MoviesDB::getMoviesWatchListDB();
 	Movie currentMovies; //buffer object
-
-	sort(movies.begin(), movies.end(), greater<Movie>()); //sort vector by year and time
-
-	if (!isEmpty(watchListMovies)) {
-		notToAddTwice(movies);
-	}
 
 	cout << "In which category you want search movies?" << endl;
 	category = chooseCategory();
 
 	for (int i = 0; i < movies.size(); ++i) {
-		if (movies[i].category == category) {
+		if (movies[i].getIsWL() == "Y") continue;
+		if (movies[i].getCategory() == category) {
 			cout << counter << ": " << movies[i] << endl;
 			counter++;
 			cout << "You want to add this movie to your watch list?" << endl;
@@ -74,6 +67,7 @@ void User::chooseFromMoviesByCategory() {
 			cin >> answer;
 			switch (answer) {
 			case 1:
+				movies[i].setAddWL();
 				watchListMovies.emplace_back(movies[i]);
 				continue;
 			case 2:
@@ -85,30 +79,26 @@ void User::chooseFromMoviesByCategory() {
 		}
 		//cout << "No more movies in this category" << endl;
 	}
-	watchListMovies = closeWatchListMovies(watchListMovies);
 }
 
 void User::chooseFromSeries() {
 	int answer = 0;
+	int counter = 1;
 	string name;
-	vector<Series> series = openFile(series, "series.txt");
-	vector<Series> watchListSeries = openFile(watchListSeries, "seriesWatchList.txt");
+	vector<Series>& series = SeriesDB::getSeriesDB();
+	vector<Series>& watchListSeries = SeriesDB::getSeriesWatchListDB();
 	Series currentSeries; //buffer object
 
-	sort(series.begin(), series.end(), greater<Series>()); //sort vector by year and time
-
-	//delete from vector movies that already in watch list(if watch list not empty)
-	if (!isEmpty(watchListSeries)) {
-		notToAddTwice(series);
-	}
-
 	for (int i = 0; i < series.size(); i++) {
-		cout << i + 1 << ": " << series[i] << endl; //printing the vector in list-like form
+		if (series[i].getIsWL() == "Y") continue;
+		cout << counter << ": " << series[i] << endl; //printing the vector in list-like form
+		counter++;
 		cout << "You wanna add this series?" << endl;
 		cout << "1.Yes\n2.No\n3.Exit" << endl;
 		cin >> answer;
 		switch (answer) {
 		case 1:
+			series[i].setAddWL();
 			watchListSeries.emplace_back(series[i]);
 			continue;
 		case 2:
@@ -118,30 +108,22 @@ void User::chooseFromSeries() {
 		}
 		break;
 	}
-
-	watchListSeries = closeWatchListSeries(watchListSeries);
 }
 
 void User::chooseFromSeriesByCategory() {
 	int answer = 0;
 	int counter = 1;
 	string category;
-	vector<Series> series = openFile(series, "series.txt");
-	vector<Series> watchListSeries = openFile(watchListSeries, "seriesWatchList.txt");
+	vector<Series>& series = SeriesDB::getSeriesDB();
+	vector<Series>& watchListSeries = SeriesDB::getSeriesWatchListDB();
 	Series currentSeries; //buffer object
-
-	sort(series.begin(), series.end(), greater<Series>()); //sort vector by year and time
-
-	//delete from vector movies that already in watch list(if watch list not empty)
-	if (!isEmpty(watchListSeries)) {
-		notToAddTwice(series);
-	}
 
 	cout << "In which category you want search series?" << endl;
 	category = chooseCategory();
 
 	for (int i = 0; i < series.size(); ++i) {
-		if (series[i].category == category) {
+		if (series[i].getIsWL() == "Y") continue;
+		if (series[i].getCategory() == category) {
 			cout << counter << ": " << series[i] << endl;
 			counter++;
 			cout << "You want to add this series to your watch list?" << endl;
@@ -149,6 +131,7 @@ void User::chooseFromSeriesByCategory() {
 			cin >> answer;
 			switch (answer) {
 			case 1:
+				series[i].setAddWL();
 				watchListSeries.emplace_back(series[i]);
 				continue;
 			case 2:
@@ -160,14 +143,13 @@ void User::chooseFromSeriesByCategory() {
 		}
 		//cout << "No more movies in this category" << endl;
 	}
-	watchListSeries = closeWatchListSeries(watchListSeries);
 }
 
 void User::findMovieByName() {
 	string name;
 	int answer;
-	vector<Movie> movies = openFile(movies, "movies.txt");
-	vector<Movie> watchListMovies = openFile(watchListMovies, "moviesWatchList.txt");
+	vector<Movie>& movies = MoviesDB::getMoviesDB();
+	vector<Movie>& watchListMovies = MoviesDB::getMoviesWatchListDB();
 
 	cout << "Please write which movie you want to find" << endl;
 	cin.get();
@@ -178,19 +160,17 @@ void User::findMovieByName() {
 		return;
 	}
 
-	if (!isEmpty(watchListMovies)) {
-		notToAddTwice(movies);
-	}
-
 	int size = movies.size();
 
 	for (int i = 0; i < movies.size(); i++) {//delete from vector
+		if (movies[i].getIsWL() == "Y") continue;
 		if (movies[i].getName() == name) {
 			cout << "You want to add this movie?" << endl;
 			cout << movies[i] << endl;
 			cout << "1.Yes\n2.No" << endl;
 			cin >> answer;
 			if (answer == 1) {
+				movies[i].setAddWL();
 				watchListMovies.emplace_back(movies[i]);
 				size++;
 				break;
@@ -206,15 +186,13 @@ void User::findMovieByName() {
 		cout << "Movie with this name is not exist, sorry" << endl;
 		return;
 	}
-
-	watchListMovies = closeWatchListMovies(watchListMovies);
 }
 
 void User::findSeriesByName() {
 	string name;
 	int answer;
-	vector<Series> series = openFile(series, "series.txt");
-	vector<Series> watchListSeries = openFile(watchListSeries, "seriesWatchList.txt");
+	vector<Series>& series = SeriesDB::getSeriesDB();
+	vector<Series>& watchListSeries = SeriesDB::getSeriesWatchListDB();
 
 	cout << "Please write which series you want to find" << endl;
 	cin.get();
@@ -225,19 +203,17 @@ void User::findSeriesByName() {
 		return;
 	}
 
-	if (!isEmpty(watchListSeries)) {
-		notToAddTwice(series);
-	}
-
 	int size = series.size();
 
 	for (int i = 0; i < series.size(); i++) {//delete from vector
+		if (series[i].getIsWL() == "Y") continue;
 		if (series[i].getName() == name) {
 			cout << "You want to add this series?" << endl;
 			cout << series[i] << endl;
 			cout << "1.Yes\n2.No" << endl;
 			cin >> answer;
 			if (answer == 1) {
+				series[i].setAddWL();
 				watchListSeries.emplace_back(series[i]);
 				size++;
 				break;
@@ -253,13 +229,11 @@ void User::findSeriesByName() {
 		cout << "Series with this name is not exist, sorry" << endl;
 		return;
 	}
-
-	watchListSeries = closeWatchListSeries(watchListSeries);
 }
 
 void User::watchMovieFromList() {
 	int answer;
-	vector<Movie> watchListMovies = openFile(watchListMovies, "moviesWatchList.txt");
+	vector<Movie>& watchListMovies = MoviesDB::getMoviesWatchListDB();
 	for (int i = 0; i < watchListMovies.size(); i++) {
 		cout << "You now watching" << endl;
 		cout << watchListMovies[i] << endl;
@@ -277,7 +251,7 @@ void User::watchMovieFromList() {
 
 void User::watchSeriesFromList() {
 	int answer;
-	vector<Series> watchListSeries = openFile(watchListSeries, "seriesWatchList.txt");
+	vector<Series>& watchListSeries = SeriesDB::getSeriesWatchListDB();
 	for (int i = 0; i < watchListSeries.size(); i++) {
 		cout << "You now watching" << endl;
 		cout << watchListSeries[i] << endl;
@@ -295,7 +269,8 @@ void User::watchSeriesFromList() {
 
 void User::deleteMovieFromList() {
 	int answer;
-	vector<Movie> watchListMovies = openFile(watchListMovies, "moviesWatchList.txt");
+	string name;
+	vector<Movie>& watchListMovies = MoviesDB::getMoviesWatchListDB();
 
 	if (isEmpty(watchListMovies)) {
 		cout << "No movies in watch list, fail" << endl;
@@ -310,16 +285,17 @@ void User::deleteMovieFromList() {
 
 	for (vector<Movie>::iterator i = watchListMovies.begin(); i != watchListMovies.end(); ++i) {//delete from vector
 		advance(i,answer-1);
+		name = i->getName();
+		i->setDeleteWL(name);
 		watchListMovies.erase(i);
 		break;
 	}
 	cout << "Chosen movie deleted sucsesfully" << endl;
-	watchListMovies = closeWatchListMovies(watchListMovies);
 }
 
 void User::deleteSeriesFromList(){
 	int answer;
-	vector<Series> watchListSeries = openFile(watchListSeries, "seriesWatchList.txt");
+	vector<Series>& watchListSeries = SeriesDB::getSeriesWatchListDB();
 
 	if (isEmpty(watchListSeries)) {
 		cout << "No series in watch list, fail" << endl;
@@ -338,152 +314,27 @@ void User::deleteSeriesFromList(){
 		break;
 	}
 	cout << "Chosen series deleted sucsesfully" << endl;
-	watchListSeries = closeWatchListSeries(watchListSeries);
-
 }
 
-vector<Movie> User::openFile(vector<Movie> movies, string way) {
-	string name, category, year, length, buffer, time;
-	int iyear, ilength, itime;
-	string path = way;
-	Movie currentMovie;
-
+void User::getPersonalInfo(){
+	string lname, fname, byear, bmonth, bday, id;
+	string path = "user.txt";
 	ifstream fin;
 	fin.open(path, ios::in);
 	if (!fin.is_open()) { cout << "file not found" << endl; }
 	else {
-		while (!fin.eof()) {
-			getline(fin, name);
-			if (name == "") {
-				break;
-			}
-			currentMovie.setName(name);
-			getline(fin, category);
-			currentMovie.setCategory(category);
-			getline(fin, year);
-			iyear = stoi(year);
-			currentMovie.setYear(iyear);
-			getline(fin, length);
-			ilength = stoi(length);
-			currentMovie.setMovieLength(ilength);
-			getline(fin, time);
-			itime = stoi(time);
-			currentMovie.setTime(itime);
-			movies.emplace_back(currentMovie);
-			getline(fin, buffer);
-		}
+		getline(fin, fname);
+		this->fname = fname;
+		getline(fin, lname);
+		this->lname = lname;
+		getline(fin, id);
+		this->id = stoi(id);
+		getline(fin, bday);
+		this->bday = stoi(bday);
+		getline(fin, bmonth);
+		this->bmonth = stoi(bmonth);
+		getline(fin, byear);
+		this->byear = stoi(byear);
 	}
 	fin.close();
-	return movies;
-}
-
-vector<Series> User::openFile(vector<Series> series, string way) {
-	string name, category, year, seasons, episodes, buffer, time;
-	int iyear, iseasons, iepisodes, itime;
-	string path = way;
-	Series currentSeries;
-
-	ifstream fin;
-	fin.open(path, ios::in);
-	if (!fin.is_open()) { cout << "file not found" << endl; }
-	else {
-		while (!fin.eof()) {
-			getline(fin, name);
-			if (name == "") {
-				break;
-			}
-			currentSeries.setName(name);
-			getline(fin, category);
-			currentSeries.setCategory(category);
-			getline(fin, year);
-			iyear = stoi(year);
-			currentSeries.setYear(iyear);
-			getline(fin, seasons);
-			iseasons = stoi(seasons);
-			currentSeries.setSeasons(iseasons);
-			getline(fin, episodes);
-			iepisodes = stoi(episodes);
-			currentSeries.setEpisodes(iepisodes);
-			getline(fin, time);
-			itime = stoi(time);
-			currentSeries.setTime(itime);
-			series.emplace_back(currentSeries);
-			getline(fin, buffer);
-		}
-	}
-	fin.close();
-	return series;
-}
-
-vector<Movie> User::closeWatchListMovies(vector<Movie> movies) {
-	string name, category, year, length, buffer;
-	string path = "moviesWatchList.txt";
-	Movie currentMovie;
-
-	ofstream fout;
-	fout.open(path, ios::trunc | ios::out);
-	if (!fout.is_open()) { cout << "File cannot open!" << endl; }//open file and put new vector
-	else
-	{
-		//cout << "moviesWatchList.txt open" << endl;
-		for (int i = 0; i < movies.size(); i++) {
-			currentMovie = movies[i];
-			fout << currentMovie.getName() << endl;
-			fout << currentMovie.getCategory() << endl;
-			fout << currentMovie.getYear() << endl;
-			fout << currentMovie.getMovieLength() << endl;
-			fout << currentMovie.getTime() << endl;
-			fout << "\n";
-		}
-	}
-	fout.close();
-	return movies;
-}
-
-vector<Series> User::closeWatchListSeries(vector<Series> series) {
-	string name, category, year, seasons, episodes, buffer;
-	string path = "seriesWatchList.txt";
-	Series currentSeries;
-
-	ofstream fout;
-	fout.open(path, ios::trunc | ios::out);
-	if (!fout.is_open()) { cout << "File cannot open!" << endl; }//open file and put new vector
-	else
-	{
-		//cout << "moviesWatchList.txt open" << endl;
-		for (int i = 0; i < series.size(); i++) {
-			currentSeries = series[i];
-			fout << currentSeries.getName() << endl;
-			fout << currentSeries.getCategory() << endl;
-			fout << currentSeries.getYear() << endl;
-			fout << currentSeries.getSeasons() << endl;
-			fout << currentSeries.getEpisodes() << endl;
-			fout << currentSeries.getTime() << endl;
-			fout << "\n";
-		}
-	}
-	fout.close();
-	return series;
-}
-
-void User::notToAddTwice(vector<Movie> movies) {
-	for (vector<Movie>::iterator j = watchListMovies.begin(); j != watchListMovies.end(); ++j) {
-		for (vector<Movie>::iterator k = movies.begin(); k != movies.end(); ++k) {
-			if (j->getName() == k->getName()) {
-				movies.erase(k);
-				break;
-			}
-		}
-	}//delete from vector movies that already in watch list(if watch list not empty)
-}
-
-void User::notToAddTwice(vector<Series> series) {
-	for (vector<Series>::iterator j = watchListSeries.begin(); j != watchListSeries.end(); ++j) {
-		for (vector<Series>::iterator k = series.begin(); k != series.end(); ++k) {
-			if (j->getName() == k->getName()) {
-				series.erase(k);
-				break;
-			}
-		}
-	}//delete from vector series that already in watch list(if watch list not empty)
 }

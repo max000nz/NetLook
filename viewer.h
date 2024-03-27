@@ -26,12 +26,13 @@ public:
 	int   getMonth() const { return bmonth; };
 	int   getYear() const { return byear; };
 	void setId(int year) { this->id = id; };
-	void setFname(const string fname);
-	void setLname(const string lname);
+	//void setFname(const string fname);
+	//void setLname(const string lname);
 	void setBDay(int bday) { this->bday = bday; };
 	void setBMonth(int bmonth) { this->bmonth = bmonth; };
 	void setBYear(int byear) { this->byear = byear; };
 	bool isEmpty(vector<Movie> movie);
 	bool isEmpty(vector<Series> series);
 	string chooseCategory();
+	virtual void getPersonalInfo();
 };

@@ -2,19 +2,19 @@
 #pragma once
 #include <iostream>
 #include <fstream>
+#include <ctime>
 using namespace std;
-#include <ctime>//need to check how to use(for sort by adding date, update)
 
 class Show {
 
-public:
+protected:
 	string name;
 	int year;
 	string category;
 	int time;
-
+	string isWL;
 public:
-	Show() = default;
+	Show();
 	Show(string name, int year, string category);
 	string getName() const { return name; };
 	int   getYear() const { return year; };
@@ -24,8 +24,8 @@ public:
 	void setYear(int year) { this->year = year; };
 	void setCategory(const string category);
 	void setTime(int time) { this->time = time; };
-	bool operator > (const Show& str) const {
-		if (getYear() != str.getYear())	return (getYear() > str.getYear());
-		return (getTime() > str.getTime());
-	}
+	void setIsWL(string isWL) { this->isWL = isWL; };
+	string getIsWL() const { return isWL; };
+	void setAddWL();
+	void setDeleteWLDB();
 };
