@@ -146,7 +146,7 @@ void Admin::findMovieByCategory() {
 			counter++;
 		}
 	}
-
+	
 	if (counter == 1) {
 		cout << "No movies in this category, fail" << endl;
 		return;
@@ -167,6 +167,7 @@ void Admin::findMovieByCategory() {
 			}
 		}
 	}
+
 
 	for (vector<Movie>::iterator j = watchListMovie.begin(); j != watchListMovie.end(); ++j) {//delete from vector watch list of user
 		if (j->getName() == name) {
