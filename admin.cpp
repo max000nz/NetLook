@@ -86,16 +86,17 @@ void Admin::findMovieByName() {
 
 	for (vector<Movie>::iterator i = movies.begin(); i != movies.end(); ++i) {//delete from vector of data base
 		if (i->getName() == name) {
+			if (i->getIsWL() == "Y") {
+				for (vector<Movie>::iterator j = watchListMovies.begin(); j != watchListMovies.end(); ++j) {//delete from vector watch list of user
+					if (j->getName() == name) {
+						watchListMovies.erase(j);
+						break;
+					}
+				}
+			}
 			movies.erase(i);
 			break;
 		}
-	}
-
-	for (vector<Movie>::iterator j = watchListMovies.begin(); j != watchListMovies.end(); ++j) {//delete from vector watch list of user
-		if (j->getName() == name) {
-			watchListMovies.erase(j);
-			break;
-		} 
 	}
 
 	if (size == movies.size()) {
@@ -146,19 +147,19 @@ void Admin::findMovieByCategory() {
 			counter++;
 			if (counter == answer) {
 				name = i->getName();
+				if (i->getIsWL() == "Y") {
+					for (vector<Movie>::iterator j = watchListMovies.begin(); j != watchListMovies.end(); ++j) {//delete from vector watch list of user
+						if (j->getName() == name) {
+							watchListMovies.erase(j);
+							break;
+						}
+					}
+				}
 				movies.erase(i);
 				break;
 			}
 		}
 	}
-
-	for (vector<Movie>::iterator j = watchListMovies.begin(); j != watchListMovies.end(); ++j) {//delete from vector watch list of user
-		if (j->getName() == name) {
-			watchListMovies.erase(j);
-			break;
-		}
-	}
-
 
 	cout << "Movie deleted succesfully" << endl;
 }
@@ -183,14 +184,15 @@ void Admin::findSeriesByName(){
 
 	for (vector<Series>::iterator i = series.begin(); i != series.end(); ++i) {//delete from vector
 		if (i->getName() == name) {
+			if (i->getIsWL() == "Y") {
+				for (vector<Series>::iterator j = watchListSeries.begin(); j != watchListSeries.end(); ++j) {//delete from vector
+					if (j->getName() == name) {
+						watchListSeries.erase(j);
+						break;
+					}
+				}
+			}
 			series.erase(i);
-			break;
-		}
-	}
-
-	for (vector<Series>::iterator j = watchListSeries.begin(); j != watchListSeries.end(); ++j) {//delete from vector
-		if (j->getName() == name) {
-			watchListSeries.erase(j);
 			break;
 		}
 	}
@@ -245,8 +247,16 @@ void Admin::findSeriesByCategory() {
 			counter++;
 			if (counter == answer) {
 				name = i->getName();
-				series.erase(i);
-				break;
+				if (i->getIsWL() == "Y") {
+					for (vector<Series>::iterator j = watchListSeries.begin(); j != watchListSeries.end(); ++j) {//delete from vector
+						if (j->getName() == name) {
+							watchListSeries.erase(j);
+							break;
+						}
+					}
+					series.erase(i);
+					break;
+				}
 			}
 		}
 	}

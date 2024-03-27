@@ -1,36 +1,28 @@
-Dune
-Sci-fi
-2024
-160
-1711386502
-
-Oppenheimer
-Thriller
-2021
-150
-1711386602
-
 Wonka
 Comedy
 2024
 116
 1711386612
+Y
 
 Dune
 Sci-fi
 2024
 160
 1711386502
-
-Monster
-Thriller
-2023
-126
-1711386532
+Y
 
 Barby
 Comedy
 2023
 120
 1711386432
+Y
+
+Imaginary
+Thriller
+2022
+97
+1711386522
+Y
 

@@ -24,7 +24,7 @@ public:
 	void chooseFromMoviesByCategory();
 	void chooseFromSeriesByCategory();
 	void chooseFromSeries();
-	void notToAddTwice(vector<Movie> movies);
-	void notToAddTwice(vector<Series> series);
+	//void notToAddTwice(vector<Movie>& movies, vector<Movie>& watchListMovies);
+	//void notToAddTwice(vector<Series>& series, vector<Series>& watchListSeries);
 	virtual void getPersonalInfo();
 };

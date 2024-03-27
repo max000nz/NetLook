@@ -22,7 +22,7 @@ vector<Series>& SeriesDB::getSeriesWatchListDB()
 }
 
 void SeriesDB::setupSeriesDB(string way) {
-	string name, category, year, seasons, episodes, buffer, time;
+	string name, category, year, seasons, episodes, buffer, time, isWL;
 	int iyear, iepisodes, iseasons, itime;
 	string path = way;
 	Series currentSeries;
@@ -51,6 +51,8 @@ void SeriesDB::setupSeriesDB(string way) {
 			getline(fin, time);
 			itime = stoi(time);
 			currentSeries.setTime(itime);
+			getline(fin, isWL);
+			currentSeries.setIsWL(isWL);
 			if (way == "series.txt") seriesdb.emplace_back(currentSeries);
 			else seriesWLdb.emplace_back(currentSeries);
 			getline(fin, buffer);
@@ -79,6 +81,7 @@ void SeriesDB::updateFileSeriesDB(string way) {
 				fout << currentSeries.getSeasons() << endl;
 				fout << currentSeries.getEpisodes() << endl;
 				fout << currentSeries.getTime() << endl;
+				fout << currentSeries.getIsWL() << endl;
 				fout << "\n";
 			}
 		}
@@ -91,6 +94,7 @@ void SeriesDB::updateFileSeriesDB(string way) {
 				fout << currentSeries.getSeasons() << endl;
 				fout << currentSeries.getEpisodes() << endl;
 				fout << currentSeries.getTime() << endl;
+				fout << currentSeries.getIsWL() << endl;
 				fout << "\n";
 			}
 		}
