@@ -12,30 +12,10 @@
 #include <vector>
 #include <limits>
 #include <algorithm>
+using namespace std;
 
 int validateInt(int ans, int min, int max);
-int answerIntViewer(string message, int min, int max);
 string answerStringViewer(string message, int onlyLetters, int min, int max);
-/*
-validation:
-   -- validate int  +++++
-        (get answer, min , max and return if valid)
-   -- validate string +++++
-        (get string and check if valid:
-        number of chars
-        )
-   --  validate Movie
-        
-   --  validate Series
-
-   --  validate Admin
-
-   --  validate User
-
-
-
-testing:
-  -- setup movie db
-  -- setup series db
-
-*/
+int answerIntViewer(string message, int min, int max);
+int isEmptyVec(vector<Movie>& check);
+int isEmptyVec(vector<Series>& check);

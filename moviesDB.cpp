@@ -1,4 +1,5 @@
 #include "moviesDB.h"
+#include "validationFile.h"
 #include "movie.h"
 #include "show.h"
 #include <vector>
@@ -46,6 +47,35 @@ void MoviesDB::setupMoviesDB(string way) {
 		}
 	}
 	fin.close();
+	if (way == "movies.txt") {
+		if (isEmptyVec(moviesdb));
+	}
+	else {
+		if (isEmptyVec(moviesWLdb));
+	}
+}
+
+void MoviesDB::compareMoviesDB() {
+	string name;
+	if (moviesdb.size() == 0) return;
+	for (vector<Movie>::iterator i = moviesdb.begin(); i != moviesdb.end(); ++i) {
+		if (i->getIsWL() == "Y") {
+			name = i->getName();
+			if (!existInWL(name)) {
+				i->setDeleteWLDB();
+			}
+		}
+	}
+}
+
+int MoviesDB::existInWL(string name) {
+	if (moviesWLdb.size() == 0) return 0;
+	for (vector<Movie>::iterator j = moviesWLdb.begin(); j != moviesWLdb.end(); ++j) {
+		if (j->getName() == name) {
+			return 1;
+		}
+	}
+	return 0;
 }
 
 vector<Movie>& MoviesDB::getMoviesDB()
@@ -59,7 +89,6 @@ vector<Movie>& MoviesDB::getMoviesWatchListDB()
 }
 
 void MoviesDB::updateFileMoviesDB(string way) {
-	//string name, category, year, length, buffer;
 	string path = way;
 	Movie currentMovie;
 
@@ -106,4 +135,13 @@ void MoviesDB::addMovieToDB(Movie& movie) {
 		place++;
 	}
 	moviesdb.insert(moviesdb.begin() + place, movie);
+}
+
+void MoviesDB::deleteFromMoviesWatchList(vector<Movie>& watchListMovies, string name) {
+	for (vector<Movie>::iterator j = watchListMovies.begin(); j != watchListMovies.end(); ++j) {//delete from vector
+		if (j->getName() == name) {
+			watchListMovies.erase(j);
+			break;
+		}
+	}
 }

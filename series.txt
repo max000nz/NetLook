@@ -94,22 +94,6 @@ Horror
 1711401289
 N
 
-The Office
-Comedy
-2005
-9
-15
-1711401083
-Y
-
-House
-Horror
-2004
-8
-17
-1711401259
-N
-
 Avatar: The Last Airbender
 Sci-fi
 2004
@@ -132,14 +116,6 @@ Horror
 6
 20
 1711401318
-N
-
-Friends
-Comedy
-1994
-10
-14
-1711401098
 N
 
 Tom and Jerry

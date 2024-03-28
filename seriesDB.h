@@ -14,4 +14,5 @@ public:
 	static void setupSeriesDB(string way);
 	static void updateFileSeriesDB(string way);
 	static void addSeriesToDB(Series& series);
+	static void deleteFromSeriesWatchList(vector<Series>& watchListSeries, string name);
 };
