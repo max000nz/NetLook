@@ -18,26 +18,6 @@ Viewer::Viewer(int id, string fname, string lname, int day, int month, int year)
 	this->byear = year;
 }
 
-bool Viewer::isEmpty(vector<Movie> movie) {
-	int size = movie.size();
-	if (size == 0) {
-		return true;
-	}
-	else {
-		return false;
-	}
-}
-
-bool Viewer::isEmpty(vector<Series> series) {
-	int size = series.size();
-	if (size == 0) {
-		return true;
-	}
-	else {
-		return false;
-	}
-}
-
 string Viewer::chooseCategory() {
 	int answer;
 	string category, message;
@@ -62,3 +42,30 @@ string Viewer::chooseCategory() {
 
 void Viewer::getPersonalInfo()
 {}
+
+int Viewer::validateViewerInfo(string fname, string lname, int id, int day, int month, int year) {
+	try {
+		if (fname == "") {
+			throw out_of_range("Missing name");
+		}
+		if (lname == "") {
+			throw out_of_range("Missing last name");
+		}
+		if (id < 100000000 || id>999999999) {
+			throw out_of_range("Wrong ID");
+		}
+		if (day < 1 || day>31) {
+			throw out_of_range("Wrong day");
+		}
+		if (month < 1 || month > 12) {
+			throw out_of_range("Wrong month");
+		}
+		if (year < 1900 || year > 2024) {
+			throw out_of_range("Wrong year");
+		}
+	}catch(const out_of_range& e) {
+			cerr << e.what() << endl;
+			return 0;
+	}
+	return 1;
+}

@@ -113,3 +113,13 @@ void SeriesDB::addSeriesToDB(Series& series) {
 	}
 	seriesdb.insert(seriesdb.begin() + place, series);
 }
+
+
+void SeriesDB::deleteFromSeriesWatchList(vector<Series>& watchListSeries, string name) {
+	for (vector<Series>::iterator j = watchListSeries.begin(); j != watchListSeries.end(); ++j) {//delete from vector
+		if (j->getName() == name) {
+			watchListSeries.erase(j);
+			break;
+		}
+	}
+}

@@ -1,4 +1,5 @@
 #define _CRT_SECURE_NO_WARNINGS
+#pragma comment(lib, "Winscard")
 #include "user.h"
 #include "show.h"
 #include "movie.h"
@@ -26,6 +27,7 @@ int validateAdmin(Admin currAdmin);
 int main() {
 	MoviesDB::setupMoviesDB("movies.txt");
 	MoviesDB::setupMoviesDB("moviesWatchList.txt");
+	MoviesDB::compareMoviesDB();
 	SeriesDB::setupSeriesDB("series.txt");
 	SeriesDB::setupSeriesDB("seriesWatchList.txt");
 	int answer = 0;
@@ -37,14 +39,14 @@ int main() {
 		answer = answerIntViewer(message, 1, 3);
 		switch (answer) {
 		case 1:
-			//if (validateUser(currUser)) {
+			if (validateUser(currUser)) {
 				userMenu(currUser);
-			//}
+			}
 			break;
 		case 2:
-			//if (validateAdmin(currAdmin)) {
+			if (validateAdmin(currAdmin)) {
 				adminMenu(currAdmin);
-			//}
+			}
 			break;
 		case 3:
 			MoviesDB::updateFileMoviesDB("movies.txt");
@@ -67,7 +69,7 @@ int validateUser(User currUser) {
 		lname = answerStringViewer(message, 1, 2, 15);
 		message = "Enter password for validate\n";
 		id = answerIntViewer(message, 100000000, 999999999);
-		if (fname == currUser.getFname() && id == currUser.getId())break;
+		if (fname == currUser.getFname() && id == currUser.getId() && lname == currUser.getLname())break;
 		else {
 			message = "Wrong data, please select:\n"
 					  "1.Try again\n"
@@ -92,7 +94,7 @@ int validateAdmin(Admin currAdmin) {
 		lname = answerStringViewer(message, 1, 2, 15);
 		message = "Enter password for validate\n";
 		id = answerIntViewer(message, 100000000, 999999999);
-		if (fname == currAdmin.getFname() && id == currAdmin.getId())break;
+		if (fname == currAdmin.getFname() && id == currAdmin.getId() && lname == currAdmin.getLname())break;
 		else {
 			message = "Wrong data, please select:\n"
 					  "1.Try again\n"

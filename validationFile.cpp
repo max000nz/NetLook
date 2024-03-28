@@ -5,7 +5,6 @@
 #include <stdexcept>
 #include <cctype>
 #include <fstream>
-
 using namespace std;
 
 int validateInt(int ans, int min, int max) {
@@ -16,11 +15,11 @@ int validateInt(int ans, int min, int max) {
 string answerStringViewer(string message, int onlyLetters, int min, int max) {
 	string answer;
 	while (true) {
-		cout << message;
+		cout << message << "\nAnswer: ";
 		try {
-			//cin >> answer;
-			cin.get();
+			cin >> ws;
 			getline(cin, answer);
+
 			if (answer == "") {
 				throw invalid_argument("String empty, please try again");
 			}
@@ -36,22 +35,22 @@ string answerStringViewer(string message, int onlyLetters, int min, int max) {
 			}
 			break;
 		}
-		catch (const std::invalid_argument& e) {
+		catch (const invalid_argument& e) {
 			cerr << e.what() << endl;
 		}
 		catch (const out_of_range& e) {
-			cerr << e.what()<< ", must be between "<< min << " and " << max << endl;
+			cerr << e.what() << ", must be between "<< min << " and " << max << endl;
 		}
 	}
+	cout << "\n-----------------------------------------------------\n\n";
 	return answer;
 }
-
 
 int answerIntViewer(string message, int min, int max) {
 	string answerS;
 	int answer;
 	while (true) {
-		cout << message;
+		cout << message << "\nAnswer: ";
 		try {
 			cin >> answerS;
 			answer = stoi(answerS);
@@ -71,5 +70,28 @@ int answerIntViewer(string message, int min, int max) {
 		}
 
 	}
+	cout << "\n-----------------------------------------------------\n\n";
 	return answer;
+}
+
+int isEmptyVec(vector<Movie>& check) {
+	try {
+		if (!check.size()) throw out_of_range("Vector is empty");
+	}
+	catch (const out_of_range& e) {
+		cerr << e.what() << endl;
+		return 1;
+	}
+	return 0;
+}
+
+int isEmptyVec(vector<Series>& check) {
+	try {
+		if (!check.size()) throw out_of_range("Vector is empty");
+	}
+	catch (const out_of_range& e) {
+		cerr << e.what() << endl;
+		return 1;
+	}
+	return 0;
 }
