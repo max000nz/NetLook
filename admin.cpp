@@ -37,6 +37,7 @@ void Admin::addMovie() {
 	answer = answerIntViewer(message, 1, 2);
 	if (answer == 1) {
 		MoviesDB::addMovieToDB(currentMovie);
+		MoviesDB::updateFileMoviesDB("movies.txt");
 	}else return;
 }
 
@@ -70,13 +71,15 @@ void Admin::addSeries() {
 	answer = answerIntViewer(message, 1, 2);
 	if (answer == 1) {
 		SeriesDB::addSeriesToDB(currentSeries);
+		SeriesDB::updateFileSeriesDB("series.txt");
+		
 	}
 	else return;
 }
 
 void Admin::findMovieByName() {
-	int answer = 0;
-	string name, message;
+	int answer = 0, counter = 0;
+	string name, message, lowName, lowCurrName;
 	vector<Movie>& movies = MoviesDB::getMoviesDB();
 	vector<Movie>& watchListMovies = MoviesDB::getMoviesWatchListDB();
 
@@ -87,26 +90,40 @@ void Admin::findMovieByName() {
 
 	message = "Write name of movie you want delete\n";
 	name = answerStringViewer(message, 0, 2, 25);
-
+	lowName = name;
+	transform(lowName.begin(), lowName.end(), lowName.begin(), ::tolower);
 	int size = movies.size();
 
 	for (vector<Movie>::iterator i = movies.begin(); i != movies.end(); ++i) {//delete from vector of data base
-		if (i->getName() == name) {
-			if (i->getIsWL() == "Y") {
-				MoviesDB::deleteFromMoviesWatchList(watchListMovies, name);
+		lowCurrName = i->getName();
+		transform(lowCurrName.begin(), lowCurrName.end(), lowCurrName.begin(), ::tolower);
+		if (lowCurrName == lowName) {
+			cout << movies[counter];
+			message = "\n\n This is the movie?\n 1: yes\n 2: no";
+			if (answerIntViewer(message, 1, 2) == 1){
+				if (i->getIsWL() == "Y") {
+					MoviesDB::deleteFromMoviesWatchList(lowName);
+					MoviesDB::updateFileMoviesDB("moviesWatchList.txt");
+				}
+				movies.erase(i);
+				MoviesDB::updateFileMoviesDB("movies.txt");
+				break;
 			}
-			movies.erase(i);
-			break;
+			else return;
+
+			
 		}
+		counter = 0;
 	}
-	if (size == movies.size()) {
-		cout << "Movie with this name is not exist in data base" << endl;
+	if (size != movies.size()) {
+		cout << "Movie deleted succesfully\n\n" << endl;
 		return;
 	}
-
-	cout << "Movie deleted succesfully" << endl;
-}
-
+	else {
+		cout << "Movie with this name is not exist in data base\n\n" << endl;
+		return;
+	}
+}  
 
 void Admin::findMovieByCategory() {
 	int answer = 0;
@@ -149,9 +166,11 @@ void Admin::findMovieByCategory() {
 		if (counter != answer) continue;
 		name = i->getName();
 		if (i->getIsWL() == "Y") {
-			MoviesDB::deleteFromMoviesWatchList(watchListMovies, name);
+			MoviesDB::deleteFromMoviesWatchList(name);
+			MoviesDB::updateFileMoviesDB("moviesWatchlist.txt");
 		}
 		movies.erase(i);
+		MoviesDB::updateFileMoviesDB("movies.txt");
 		break;
 	}
 
@@ -159,8 +178,8 @@ void Admin::findMovieByCategory() {
 }
 
 void Admin::findSeriesByName(){
-	int answer = 0;
-	string name, message;
+	int answer = 0, counter = 0;
+	string name, message, lowCurrName;
 	vector<Series>& series = SeriesDB::getSeriesDB();
 	vector<Series>& watchListSeries = SeriesDB::getSeriesWatchListDB();
 
@@ -171,25 +190,34 @@ void Admin::findSeriesByName(){
 
 	message = "Write name of series you want delete\n";
 	name = answerStringViewer(message, 0, 2, 25);
-
+	transform(name.begin(), name.end(), name.begin(), ::tolower);
 	int size = series.size();
-
-	for (vector<Series>::iterator i = series.begin(); i != series.end(); ++i) {//delete from vector of data base
-		if (i->getName() == name) {
-			if (i->getIsWL() == "Y") {
-				SeriesDB::deleteFromSeriesWatchList(watchListSeries, name);
+	for (vector<Series>::iterator i = series.begin(); i != series.end(); ++i) {
+		lowCurrName = i->getName();
+		transform(lowCurrName.begin(), lowCurrName.end(), lowCurrName.begin(), ::tolower);
+		if (lowCurrName == name) {
+			cout << series[counter];
+			message = "\n\n This is the series?\n 1: yes\n 2: no";
+			if (answerIntViewer(message, 1, 2) == 1) {
+				if (i->getIsWL() == "Y") {
+					SeriesDB::deleteFromSeriesWatchList(watchListSeries, name);
+					SeriesDB::updateFileSeriesDB("seriesWatchList.txt");
+				}
+				series.erase(i);
+				SeriesDB::updateFileSeriesDB("series.txt");
+				break;
 			}
-		series.erase(i);
-		break;
+			else return;
 		}
 	}
 
-	if (size == series.size()) {
-		cout << "Series with this name is not exist in data base" << endl;
+	if (size != series.size()) {
+		cout << "Series deleted succesfully" << endl;
 		return;
 	}
-
-	cout << "Series deleted succesfully" << endl;
+	else {
+		cout << "Series with this name is not exist in data base" << endl;
+	}
 }
 
 void Admin::findSeriesByCategory() {
@@ -235,20 +263,22 @@ void Admin::findSeriesByCategory() {
 		name = i->getName();
 		if (i->getIsWL() == "Y") {
 			SeriesDB::deleteFromSeriesWatchList(watchListSeries, name);
+			SeriesDB::updateFileSeriesDB("seriesWatchList.txt");
 		}
 		series.erase(i);
+		SeriesDB::updateFileSeriesDB("series.txt");
 		break;
 	}
 	cout << "Series deleted succesfully" << endl;
 }
 
-void Admin::getPersonalInfo()
+void Admin::getPersonalInfo()  throw (invalid_argument)
 {
 	string lname, fname, byear, bmonth, bday, id;
 	string path = "admin.txt";
 	ifstream fin;
 	fin.open(path, ios::in);
-	if (!fin.is_open()) { cout << "file not found" << endl; }
+	if (!fin.is_open()) { cout << "File not found" << endl; }
 	else {
 		getline(fin, fname);
 		this->fname = fname;

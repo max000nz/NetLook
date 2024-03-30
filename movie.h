@@ -1,8 +1,6 @@
 #pragma once
 #include "show.h"
 
-
-
 class Movie :public Show {
 protected:
 	int length;//minutes

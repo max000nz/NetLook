@@ -13,5 +13,5 @@ public:
 	void findMovieByCategory();
 	void findSeriesByName();
 	void findSeriesByCategory();
-	virtual void getPersonalInfo();
+	virtual void getPersonalInfo() throw (invalid_argument);
 };

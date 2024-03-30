@@ -40,7 +40,7 @@ string Viewer::chooseCategory() {
 	return category;
 }
 
-void Viewer::getPersonalInfo()
+void Viewer::getPersonalInfo()  throw (invalid_argument)
 {}
 
 int Viewer::validateViewerInfo(string fname, string lname, int id, int day, int month, int year) {

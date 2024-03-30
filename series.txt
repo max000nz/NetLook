@@ -1,26 +1,10 @@
-Ted Lasso
-Comedy
-2020
-3
-13
-1711401153
-Y
-
-Brassic
-Comedy
-2019
-5
-10
-1711401121
-Y
-
 Stranger Things
 Horror
 2016
 5
 12
 1711401274
-N
+Y
 
 Narcos
 Horror

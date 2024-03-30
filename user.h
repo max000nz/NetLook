@@ -7,10 +7,6 @@
 
 class User :public Viewer {
 
-private:
-	vector<Movie> watchListMovies;
-	vector<Series> watchListSeries;
-
 public:
 	User() = default;
 	User(int id, string fname, string lname, int day, int month, int year);
@@ -24,7 +20,5 @@ public:
 	void chooseFromMoviesByCategory();
 	void chooseFromSeriesByCategory();
 	void chooseFromSeries();
-	//void notToAddTwice(vector<Movie>& movies, vector<Movie>& watchListMovies);
-	//void notToAddTwice(vector<Series>& series, vector<Series>& watchListSeries);
-	virtual void getPersonalInfo();
+	virtual void getPersonalInfo() throw (invalid_argument);
 };

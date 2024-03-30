@@ -61,7 +61,6 @@ void SeriesDB::setupSeriesDB(string way) {
 	fin.close();
 }
 
-
 void SeriesDB::updateFileSeriesDB(string way) {
 	string name, category, year, seasons, episodes, buffer;
 	string path = way;
@@ -102,7 +101,6 @@ void SeriesDB::updateFileSeriesDB(string way) {
 	fout.close();
 }
 
-
 void SeriesDB::addSeriesToDB(Series& series) {
 	int place = 0;
 	for (vector<Series>::iterator i = seriesdb.begin(); i != seriesdb.end(); ++i) {//delete from vector of data base
@@ -114,10 +112,12 @@ void SeriesDB::addSeriesToDB(Series& series) {
 	seriesdb.insert(seriesdb.begin() + place, series);
 }
 
-
 void SeriesDB::deleteFromSeriesWatchList(vector<Series>& watchListSeries, string name) {
+	string lowCurrName;
 	for (vector<Series>::iterator j = watchListSeries.begin(); j != watchListSeries.end(); ++j) {//delete from vector
-		if (j->getName() == name) {
+		lowCurrName = j->getName();
+		transform(lowCurrName.begin(), lowCurrName.end(), lowCurrName.begin(), ::tolower);
+		if (lowCurrName == name) {
 			watchListSeries.erase(j);
 			break;
 		}
