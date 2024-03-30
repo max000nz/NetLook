@@ -9,7 +9,6 @@
 #include <fstream>
 using namespace std;
 
-
 static vector<Movie> moviesdb;
 static vector<Movie> moviesWLdb;
 
@@ -61,7 +60,7 @@ void MoviesDB::setupMoviesDB(string way) {
 }
 
 /// <summary>
-/// for the setup-check if all the mark movies are in watchlist 
+/// for the setup-check if all the marked movies are in watchlist and no movies that not exist in data base 
 /// </summary>
 void MoviesDB::compareMoviesDB() {
 	string name;
@@ -74,6 +73,13 @@ void MoviesDB::compareMoviesDB() {
 			}
 		}
 	}
+	for (vector<Movie>::iterator j = moviesWLdb.begin(); j != moviesWLdb.end(); ++j) {
+			name = j->getName();
+			if (!isMarked(name)) {
+				deleteFromMoviesWatchList(name);
+				break;
+			}
+	}
 }
 
 /// <summary>
@@ -85,6 +91,17 @@ int MoviesDB::existInWL(string name) {
 	if (moviesWLdb.size() == 0) return 0;
 	for (vector<Movie>::iterator j = moviesWLdb.begin(); j != moviesWLdb.end(); ++j) {
 		if (j->getName() == name) {
+			return 1;
+		}
+	}
+	return 0;
+}
+
+int MoviesDB::isMarked(string name) {
+	if (moviesdb.size() == 0) return 0;
+	for (vector<Movie>::iterator j = moviesdb.begin(); j != moviesdb.end(); ++j) {
+		if (j->getName() == name) {
+			j->setAddWL();
 			return 1;
 		}
 	}
@@ -173,6 +190,7 @@ void MoviesDB::addMovieToDB(Movie& movie) {
 /// <param name="name"></param>
 void MoviesDB::deleteFromMoviesWatchList(string name) {
 	string lowCurrName;
+	transform(name.begin(), name.end(), name.begin(), ::tolower);
 	for (vector<Movie>::iterator j = moviesWLdb.begin(); j != moviesWLdb.end(); ++j) {//delete from vector
 		lowCurrName = j->getName();
 		transform(lowCurrName.begin(), lowCurrName.end(), lowCurrName.begin(), ::tolower);

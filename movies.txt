@@ -1,9 +1,16 @@
-Monster
-Thriller
+Wonka
+Comedy
+2024
+116
+1711386612
+N
+
+Barby
+Comedy
 2023
-126
-1711386532
-Y
+120
+1711386432
+N
 
 Imaginary
 Thriller
@@ -11,6 +18,20 @@ Thriller
 97
 1711386522
 Y
+
+Popo
+Horror
+2021
+88
+1711483889
+N
+
+Oppenheimer
+Thriller
+2021
+150
+1711386602
+N
 
 Gentleman
 Comedy
@@ -96,25 +117,11 @@ Horror
 1711386702
 N
 
-Liad
-Comedy
-2001
-55
-1711618227
-N
-
 Stormy
 Horror
 2001
 99
 1711386712
-N
-
-Maximka
-Sci-fi
-2000
-44
-1711618170
 N
 
 Poor

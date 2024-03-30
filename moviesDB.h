@@ -15,5 +15,6 @@ public:
 	static void addMovieToDB(Movie& movie);
 	static void deleteFromMoviesWatchList(string name);
 	static void compareMoviesDB();
+	static int isMarked(string name);
 	static int existInWL(string name);
 };
