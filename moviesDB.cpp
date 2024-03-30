@@ -9,9 +9,14 @@
 #include <fstream>
 using namespace std;
 
+
 static vector<Movie> moviesdb;
 static vector<Movie> moviesWLdb;
 
+/// <summary>
+/// function will get all the movies from the file to movies vector
+/// </summary>
+/// <param name="way">path to the relevant file</param>
 void MoviesDB::setupMoviesDB(string way) {
 	string name, category, year, length, buffer, time, isWL;
 	int iyear, ilength, itime;
@@ -55,6 +60,9 @@ void MoviesDB::setupMoviesDB(string way) {
 	}
 }
 
+/// <summary>
+/// for the setup-check if all the mark movies are in watchlist 
+/// </summary>
 void MoviesDB::compareMoviesDB() {
 	string name;
 	if (moviesdb.size() == 0) return;
@@ -68,6 +76,11 @@ void MoviesDB::compareMoviesDB() {
 	}
 }
 
+/// <summary>
+/// check if the movie is in watchlist
+/// </summary>
+/// <param name="name">name of the movie</param>
+/// <returns>1- yes, 0- no</returns>
 int MoviesDB::existInWL(string name) {
 	if (moviesWLdb.size() == 0) return 0;
 	for (vector<Movie>::iterator j = moviesWLdb.begin(); j != moviesWLdb.end(); ++j) {
@@ -78,16 +91,28 @@ int MoviesDB::existInWL(string name) {
 	return 0;
 }
 
+/// <summary>
+/// return the vector movies
+/// </summary>
+/// <returns></returns>
 vector<Movie>& MoviesDB::getMoviesDB()
 {
 	 return moviesdb; 
 }
 
+/// <summary>
+/// return the movies watchlist vector
+/// </summary>
+/// <returns></returns>
 vector<Movie>& MoviesDB::getMoviesWatchListDB()
 {
 	return moviesWLdb;
 }
 
+/// <summary>
+/// update the file of the movies
+/// </summary>
+/// <param name="way">path to the file</param>
 void MoviesDB::updateFileMoviesDB(string way) {
 	string path = way;
 	Movie currentMovie;
@@ -125,7 +150,10 @@ void MoviesDB::updateFileMoviesDB(string way) {
 	fout.close();
 }
 
-
+/// <summary>
+/// adding the movie that admin create to the vector
+/// </summary>
+/// <param name="movie"></param>
 void MoviesDB::addMovieToDB(Movie& movie) {
 	int place = 0;
 	for (vector<Movie>::iterator i = moviesdb.begin(); i != moviesdb.end(); ++i) {//delete from vector of data base
@@ -135,12 +163,21 @@ void MoviesDB::addMovieToDB(Movie& movie) {
 		place++;
 	}
 	moviesdb.insert(moviesdb.begin() + place, movie);
+
 }
 
-void MoviesDB::deleteFromMoviesWatchList(vector<Movie>& watchListMovies, string name) {
-	for (vector<Movie>::iterator j = watchListMovies.begin(); j != watchListMovies.end(); ++j) {//delete from vector
-		if (j->getName() == name) {
-			watchListMovies.erase(j);
+/// <summary>
+/// delete the movie that the admin want
+/// </summary>
+/// <param name="watchListMovies">name of the movie, vector of movies</param>
+/// <param name="name"></param>
+void MoviesDB::deleteFromMoviesWatchList(string name) {
+	string lowCurrName;
+	for (vector<Movie>::iterator j = moviesWLdb.begin(); j != moviesWLdb.end(); ++j) {//delete from vector
+		lowCurrName = j->getName();
+		transform(lowCurrName.begin(), lowCurrName.end(), lowCurrName.begin(), ::tolower);
+		if (lowCurrName == name) {
+			moviesWLdb.erase(j);
 			break;
 		}
 	}

@@ -13,7 +13,7 @@ public:
 	static void setupMoviesDB(string way);
 	static void updateFileMoviesDB(string way);
 	static void addMovieToDB(Movie& movie);
-	static void deleteFromMoviesWatchList(vector<Movie>& watchListMovies, string name);
+	static void deleteFromMoviesWatchList(string name);
 	static void compareMoviesDB();
 	static int existInWL(string name);
 };

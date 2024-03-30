@@ -3,14 +3,14 @@ Thriller
 2023
 126
 1711386532
-N
+Y
 
 Imaginary
 Thriller
 2022
 97
 1711386522
-N
+Y
 
 Gentleman
 Comedy
@@ -31,14 +31,14 @@ Horror
 2017
 109
 1711386722
-N
+Y
 
 Stopmotion
 Thriller
 2014
 130
 1711386552
-N
+Y
 
 Aquaman
 Horror

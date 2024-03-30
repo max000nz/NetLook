@@ -15,6 +15,7 @@ using namespace std;
 
 
 User::User(int id, string name, string surname, int day, int month, int year):Viewer(id, name, surname, day, month, year){
+
 }
 
 void User::chooseFromMovies() {
@@ -41,6 +42,8 @@ void User::chooseFromMovies() {
 			case 1:
 				movies[i].setAddWL();
 				watchListMovies.emplace_back(movies[i]);
+				MoviesDB::updateFileMoviesDB("movies.txt");
+				MoviesDB::updateFileMoviesDB("moviesWatchList.txt");
 				continue;
 			case 2:
 				continue;
@@ -80,6 +83,8 @@ void User::chooseFromMoviesByCategory() {
 			case 1:
 				movies[i].setAddWL();
 				watchListMovies.emplace_back(movies[i]);
+				MoviesDB::updateFileMoviesDB("moviesWatchList.txt");
+				MoviesDB::updateFileMoviesDB("movies.txt");
 				continue;
 			case 2:
 				continue;
@@ -116,6 +121,8 @@ void User::chooseFromSeries() {
 		case 1:
 			series[i].setAddWL();
 			watchListSeries.emplace_back(series[i]);
+			SeriesDB::updateFileSeriesDB("seriesWatchList.txt");
+			SeriesDB::updateFileSeriesDB("series.txt");
 			continue;
 		case 2:
 			continue;
@@ -154,6 +161,8 @@ void User::chooseFromSeriesByCategory() {
 			case 1:
 				series[i].setAddWL();
 				watchListSeries.emplace_back(series[i]);
+				SeriesDB::updateFileSeriesDB("seriesWatchList.txt");
+				SeriesDB::updateFileSeriesDB("series.txt");
 				continue;
 			case 2:
 				continue;
@@ -167,23 +176,24 @@ void User::chooseFromSeriesByCategory() {
 }
 
 void User::findMovieByName() {
-	string name, message;
+	string name, message, currName;
 	int answer;
 	vector<Movie>& movies = MoviesDB::getMoviesDB();
 	vector<Movie>& watchListMovies = MoviesDB::getMoviesWatchListDB();
 
 	message = "Please write which movie you want to find\n";
 	name = answerStringViewer(message, 0, 2, 25);
-
+	transform(name.begin(), name.end(), name.begin(), [](unsigned char c) { return std::tolower(c); });
 	if (isEmptyVec(movies)) {
 		cout << "No movies in data base\n" << endl;
 		return;
 	}
-
 	int size = movies.size();
 
 	for (int i = 0; i < movies.size(); i++) {//delete from vector
-		if (movies[i].getName() == name) {
+		currName = movies[i].getName();
+		transform(currName.begin(), currName.end(), currName.begin(), [](unsigned char c) { return std::tolower(c); });
+		if (currName == name) {
 			if (movies[i].getIsWL() == "Y") {
 				cout << "That movie already in your watch list\n" << endl;
 				return;
@@ -196,6 +206,9 @@ void User::findMovieByName() {
 				movies[i].setAddWL();
 				watchListMovies.emplace_back(movies[i]);
 				size++;
+				MoviesDB::updateFileMoviesDB("moviesWatchList.txt");
+				MoviesDB::updateFileMoviesDB("movies.txt");
+				cout << "Movie added successfully";
 				break;
 			}
 			else {
@@ -212,22 +225,24 @@ void User::findMovieByName() {
 }
 
 void User::findSeriesByName() {
-	string name, message;
+	string name, message, currName;
 	int answer;
 	vector<Series>& series = SeriesDB::getSeriesDB();
 	vector<Series>& watchListSeries = SeriesDB::getSeriesWatchListDB();
 
 	message = "Please write which series you want to find\n";
 	name = answerStringViewer(message, 0, 2, 25);
+	transform(name.begin(), name.end(), name.begin(), [](unsigned char c) { return std::tolower(c); });
 
 	if (isEmptyVec(series)) {
 		cout << "No series in data base\n" << endl;
 		return;
 	}
-
 	int size = series.size();
 
 	for (int i = 0; i < series.size(); i++) {//delete from vector
+		currName = series[i].getName();
+		transform(currName.begin(), currName.end(), currName.begin(), [](unsigned char c) { return std::tolower(c); });
 		if (series[i].getName() == name) {
 			if (series[i].getIsWL() == "Y") {
 				cout << "That series already in your watch list\n" << endl;
@@ -241,6 +256,8 @@ void User::findSeriesByName() {
 				series[i].setAddWL();
 				watchListSeries.emplace_back(series[i]);
 				size++;
+				SeriesDB::updateFileSeriesDB("seriesWatchList.txt");
+				SeriesDB::updateFileSeriesDB("series.txt");
 				break;
 			}
 			else {
@@ -335,6 +352,8 @@ void User::deleteMovieFromList() {
 		watchListMovies.erase(i);
 		break;
 	}
+	MoviesDB::updateFileMoviesDB("moviesWatchList.txt");
+	MoviesDB::updateFileMoviesDB("movies.txt");
 	cout << "Chosen movie deleted sucsesfully\n" << endl;
 }
 
@@ -364,10 +383,12 @@ void User::deleteSeriesFromList(){
 		watchListSeries.erase(i);
 		break;
 	}
+	SeriesDB::updateFileSeriesDB("seriesWatchList.txt");
+	SeriesDB::updateFileSeriesDB("series.txt");
 	cout << "Chosen series deleted sucsesfully\n" << endl;
 }
 
-void User::getPersonalInfo(){
+void User::getPersonalInfo() throw (invalid_argument){
 	string lname, fname, byear, bmonth, bday, id;
 	string path = "user.txt";
 	ifstream fin;
@@ -399,3 +420,7 @@ void User::getPersonalInfo(){
 		}
 	}
 }
+
+
+
+

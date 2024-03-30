@@ -12,7 +12,7 @@ int validateInt(int ans, int min, int max) {
     return 0;
 }
 
-string answerStringViewer(string message, int onlyLetters, int min, int max) {
+string answerStringViewer(string message, int onlyLetters, int min, int max) throw(invalid_argument, out_of_range) {
 	string answer;
 	while (true) {
 		cout << message << "\nAnswer: ";
@@ -29,6 +29,9 @@ string answerStringViewer(string message, int onlyLetters, int min, int max) {
 			if (onlyLetters) {
 				for (char c : answer) {//if onlyLetters = 1(no numbers)
 					if (!isalpha(c)) {
+						if (c ==  ' ') {
+							continue;
+						}
 						throw invalid_argument("String contains non-letter characters, please try again");
 					}
 				}
@@ -46,7 +49,7 @@ string answerStringViewer(string message, int onlyLetters, int min, int max) {
 	return answer;
 }
 
-int answerIntViewer(string message, int min, int max) {
+int answerIntViewer(string message, int min, int max) throw(invalid_argument, out_of_range) {
 	string answerS;
 	int answer;
 	while (true) {
@@ -74,7 +77,7 @@ int answerIntViewer(string message, int min, int max) {
 	return answer;
 }
 
-int isEmptyVec(vector<Movie>& check) {
+int isEmptyVec(vector<Movie>& check) throw(out_of_range) {
 	try {
 		if (!check.size()) throw out_of_range("Vector is empty");
 	}
@@ -85,7 +88,7 @@ int isEmptyVec(vector<Movie>& check) {
 	return 0;
 }
 
-int isEmptyVec(vector<Series>& check) {
+int isEmptyVec(vector<Series>& check) throw(out_of_range) {
 	try {
 		if (!check.size()) throw out_of_range("Vector is empty");
 	}
@@ -94,4 +97,71 @@ int isEmptyVec(vector<Series>& check) {
 		return 1;
 	}
 	return 0;
+}
+
+int validateUser(User currUser) {
+	string fname, lname, message, rFName, rLName;
+	int id, answer = 0;
+	currUser.getPersonalInfo();
+	while (true) {
+		message = "Enter name for validate\n";
+		fname = answerStringViewer(message, 1, 2, 15);
+		message = "Enter surname for validate\n";
+		lname = answerStringViewer(message, 1, 2, 15);
+		message = "Enter password for validate\n";
+		id = answerIntViewer(message, 100000000, 999999999);
+		rFName = currUser.getFname();
+		rLName = currUser.getLname();
+
+		transform(fname.begin(), fname.end(), fname.begin(), [](unsigned char c) { return std::tolower(c); });
+		transform(rFName.begin(), rFName.end(), rFName.begin(), [](unsigned char c) { return std::tolower(c); });
+		transform(rLName.begin(), rLName.end(), rLName.begin(), [](unsigned char c) { return std::tolower(c); });
+		transform(lname.begin(), lname.end(), lname.begin(), [](unsigned char c) { return std::tolower(c); });
+
+		if (fname == rFName && id == currUser.getId() && lname == rLName)break;
+		else {
+			message = "Wrong data, please select:\n"
+				"1.Try again\n"
+				"2.Return to menu\n";
+			answer = answerIntViewer(message, 1, 2);
+			if (answer == 1) continue;
+			else break;
+		}
+	}
+	if (answer == 2) return 0;
+	return 1;
+}
+
+int validateAdmin(Admin currAdmin) {
+	string fname, lname, message, rFName, rLName;
+	int id, answer = 0;
+	currAdmin.getPersonalInfo();
+	while (true) {
+		message = "Enter name for validate\n";
+		fname = answerStringViewer(message, 1, 2, 15);
+		message = "Enter surname for validate\n";
+		lname = answerStringViewer(message, 1, 2, 15);
+		message = "Enter password for validate\n";
+		id = answerIntViewer(message, 100000000, 999999999);
+		rFName = currAdmin.getFname();
+		rLName = currAdmin.getLname();
+
+		transform(fname.begin(), fname.end(), fname.begin(), [](unsigned char c) { return std::tolower(c); });
+		transform(rFName.begin(), rFName.end(), rFName.begin(), [](unsigned char c) { return std::tolower(c); });
+		transform(rLName.begin(), rLName.end(), rLName.begin(), [](unsigned char c) { return std::tolower(c); });
+		transform(lname.begin(), lname.end(), lname.begin(), [](unsigned char c) { return std::tolower(c); });
+
+
+		if (fname == rFName && id == currAdmin.getId() && lname == rLName)break;
+		else {
+			message = "Wrong data, please select:\n"
+				"1.Try again\n"
+				"2.Return to menu\n";
+			answer = answerIntViewer(message, 1, 2);
+			if (answer == 1) continue;
+			else break;
+		}
+	}
+	if (answer == 2) return 0;
+	return 1;
 }

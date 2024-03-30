@@ -6,7 +6,6 @@
 #include <vector>
 #include <algorithm>
 using namespace std;
-
 Series::Series(string name, int year, string category, int seasons, int episodes) :Show(name, year, category) {
 	this->episodes = episodes;
 	this->seasons = seasons;

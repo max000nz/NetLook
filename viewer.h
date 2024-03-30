@@ -30,6 +30,6 @@ public:
 	void setBMonth(int bmonth) { this->bmonth = bmonth; };
 	void setBYear(int byear) { this->byear = byear; };
 	string chooseCategory();
-	virtual void getPersonalInfo();
+	virtual void getPersonalInfo() throw (invalid_argument);
 	int validateViewerInfo(string fname, string lname, int id, int day, int month, int year);
 };
