@@ -1,3 +1,4 @@
+#pragma once
 #include "user.h"
 #include "show.h"
 #include "movie.h"
