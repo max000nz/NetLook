@@ -5,6 +5,7 @@
 #include "moviesDB.h"
 #include "series.h"
 #include "validationFile.h"
+#include "strings.h"
 #include "outputs.h"
 #include "seriesDB.h"
 #include <iostream>
@@ -23,23 +24,21 @@ User::User(int id, string name, string surname, int day, int month, int year):Vi
 void User::chooseFromMovies() {
 	int answer = 0;
 	int counter = 1;
-	string name, message;
+	string name;
 	vector<Movie>& movies = MoviesDB::getMoviesDB();
 	vector<Movie>& watchListMovies = MoviesDB::getMoviesWatchListDB();
-	Movie currentMovies; //buffer object
+	Movie currentMovies;
 
 	if (isEmptyVec(movies)) {
-		cout << "No movies in data base\n" << endl;
+		cout << emptyMoviesDB << endl;
 		return;
 	}
 
 	for (int i = 0; i < movies.size(); i++) {
 		if (movies[i].getIsWL() == "Y") continue;
-		cout << counter << ": " << movies[i] << endl; //printing the vector in list-like form
+		cout << counter << ": " << movies[i] << endl;
 		counter++;
-		message = "\nYou wanna add this movie?\n"
-				  "1.Yes\n2.No\n3.Exit\n";
-		answer = answerIntViewer(message, 1, 3);
+		answer = answerIntViewer(userAddMovie, 1, 3);
 		switch (answer){
 			case 1:
 				movies[i].setAddWL();
@@ -47,7 +46,6 @@ void User::chooseFromMovies() {
 				MoviesDB::updateFileMoviesDB("movies.txt");
 				MoviesDB::updateFileMoviesDB("moviesWatchList.txt");
 				addedSuccessfully("Movie");
-				//cout << "Movie added successfully\n" << endl;
 				continue;
 			case 2:
 				continue;
@@ -62,17 +60,17 @@ void User::chooseFromMovies() {
 void User::chooseFromMoviesByCategory() {
 	int answer = 0;
 	int counter = 1;
-	string category, message;
+	string category;
 	vector<Movie>& movies = MoviesDB::getMoviesDB();
 	vector<Movie>& watchListMovies = MoviesDB::getMoviesWatchListDB();
-	Movie currentMovies; //buffer object
+	Movie currentMovies;
 
 	if (isEmptyVec(movies)) {
-		cout << "No movies in data base\n" << endl;
+		cout << emptyMoviesDB << endl;
 		return;
 	}
 
-	cout << "In which category you want search movies?" << endl;
+	cout << categoryChoice << endl;
 	category = chooseCategory();
 
 	for (int i = 0; i < movies.size(); ++i) {
@@ -80,9 +78,7 @@ void User::chooseFromMoviesByCategory() {
 		if (movies[i].getCategory() == category) {
 			cout << counter << ": " << movies[i] << endl;
 			counter++;
-			message = "\nYou want to add this movie to your watch list?\n"
-					  "1.Yes\n2.No\n3.Exit\n";
-			answer = answerIntViewer(message, 1, 3);
+			answer = answerIntViewer(userAddMovie, 1, 3);
 			switch (answer) {
 			case 1:
 				movies[i].setAddWL();
@@ -96,7 +92,6 @@ void User::chooseFromMoviesByCategory() {
 			case 3:
 				return;
 			}
-			//break;
 		}
 	
 	}
@@ -108,23 +103,21 @@ void User::chooseFromMoviesByCategory() {
 void User::chooseFromSeries() {
 	int answer = 0;
 	int counter = 1;
-	string name, message;
+	string name;
 	vector<Series>& series = SeriesDB::getSeriesDB();
 	vector<Series>& watchListSeries = SeriesDB::getSeriesWatchListDB();
-	Series currentSeries; //buffer object
+	Series currentSeries;
 
 	if (isEmptyVec(series)) {
-		cout << "No series in data base\n" << endl;
+		cout << emptySeriesDB << endl;
 		return;
 	}
 
 	for (int i = 0; i < series.size(); i++) {
 		if (series[i].getIsWL() == "Y") continue;
-		cout << counter << ": " << series[i] << endl; //printing the vector in list-like form
+		cout << counter << ": " << series[i] << endl;
 		counter++;
-		message = "\nYou want to add this series to your watch list?\n"
-				  "1.Yes\n2.No\n3.Exit\n";
-		answer = answerIntViewer(message, 1, 3);
+		answer = answerIntViewer(userAddSeries, 1, 3);
 		switch (answer) {
 		case 1:
 			series[i].setAddWL();
@@ -145,17 +138,17 @@ void User::chooseFromSeries() {
 void User::chooseFromSeriesByCategory() {
 	int answer = 0;
 	int counter = 1;
-	string category, message;
+	string category;
 	vector<Series>& series = SeriesDB::getSeriesDB();
 	vector<Series>& watchListSeries = SeriesDB::getSeriesWatchListDB();
-	Series currentSeries; //buffer object
+	Series currentSeries;
 
 	if (isEmptyVec(series)) {
-		cout << "No series in data base\n" << endl;
+		cout << emptySeriesDB << endl;
 		return;
 	}
 
-	cout << "In which category you want search series?" << endl;
+	cout << categoryChoice << endl;
 	category = chooseCategory();
 
 	for (int i = 0; i < series.size(); ++i) {
@@ -163,9 +156,7 @@ void User::chooseFromSeriesByCategory() {
 		if (series[i].getCategory() == category) {
 			cout << counter << ": " << series[i] << endl;
 			counter++;
-			message = "\nYou want to add this series to your watch list?\n"
-				      "1.Yes\n2.No\n3.Exit\n";
-			answer = answerIntViewer(message, 1, 3);
+			answer = answerIntViewer(userAddSeries, 1, 3);
 			switch (answer) {
 			case 1:
 				series[i].setAddWL();
@@ -179,9 +170,7 @@ void User::chooseFromSeriesByCategory() {
 			case 3:
 				return;
 			}
-			//break;
 		}
-		
 	}
 	if (answer != 3) {
 		noMore("series");
@@ -189,21 +178,20 @@ void User::chooseFromSeriesByCategory() {
 }
 
 void User::findMovieByName() {
-	string name, message, currName;
+	string name, currName;
 	int answer;
 	vector<Movie>& movies = MoviesDB::getMoviesDB();
 	vector<Movie>& watchListMovies = MoviesDB::getMoviesWatchListDB();
 
-	message = "Please write which movie you want to find\n";
-	name = answerStringViewer(message, 0, 2, 25);
+	name = answerStringViewer(whatShowName, 0, 2, 25);
 	transform(name.begin(), name.end(), name.begin(), [](unsigned char c) { return std::tolower(c); });
 	if (isEmptyVec(movies)) {
-		cout << "No movies in data base\n" << endl;
+		cout << emptyMoviesDB << endl;
 		return;
 	}
 	int size = movies.size();
 
-	for (int i = 0; i < movies.size(); i++) {//delete from vector
+	for (int i = 0; i < movies.size(); i++) {
 		currName = movies[i].getName();
 		transform(currName.begin(), currName.end(), currName.begin(), [](unsigned char c) { return std::tolower(c); });
 		if (currName == name) {
@@ -211,10 +199,8 @@ void User::findMovieByName() {
 				alreadyInWL("Movie");
 				return;
 			}
-			cout << "You want to add this movie?" << endl;
 			cout << movies[i] << endl;
-			message = "1.Yes\n2.No\n";
-			answer = answerIntViewer(message, 1, 2);
+			answer = answerIntViewer(AddMovieWE, 1, 2);
 			if (answer == 1) {
 				movies[i].setAddWL();
 				watchListMovies.emplace_back(movies[i]);
@@ -232,28 +218,27 @@ void User::findMovieByName() {
 	}
 
 	if (size == movies.size()) {
-		cout << "Movie with this name is not exist, sorry\n" << endl;
+		cout << nameNotExist << endl;
 		return;
 	}
 }
 
 void User::findSeriesByName() {
-	string name, message, currName;
+	string name, currName;
 	int answer;
 	vector<Series>& series = SeriesDB::getSeriesDB();
 	vector<Series>& watchListSeries = SeriesDB::getSeriesWatchListDB();
 
-	message = "Please write which series you want to find\n";
-	name = answerStringViewer(message, 0, 2, 25);
+	name = answerStringViewer(whatShowName, 0, 2, 25);
 	transform(name.begin(), name.end(), name.begin(), [](unsigned char c) { return std::tolower(c); });
 
 	if (isEmptyVec(series)) {
-		cout << "No series in data base\n" << endl;
+		cout << emptySeriesDB << endl;
 		return;
 	}
 	int size = series.size();
 
-	for (int i = 0; i < series.size(); i++) {//delete from vector
+	for (int i = 0; i < series.size(); i++) {
 		currName = series[i].getName();
 		transform(currName.begin(), currName.end(), currName.begin(), [](unsigned char c) { return std::tolower(c); });
 		if (currName == name) {
@@ -261,10 +246,8 @@ void User::findSeriesByName() {
 				alreadyInWL("Series");
 				return;
 			}
-			cout << "You want to add this series?" << endl;
 			cout << series[i] << endl;
-			message = "1.Yes\n2.No\n";
-			answer = answerIntViewer(message, 1, 2);
+			answer = answerIntViewer(AddSeriesWE, 1, 2);
 			if (answer == 1) {
 				series[i].setAddWL();
 				watchListSeries.emplace_back(series[i]);
@@ -282,26 +265,24 @@ void User::findSeriesByName() {
 	}
 
 	if (size == series.size()) {
-		cout << "Series with this name is not exist, sorry\n" << endl;
+		cout << nameNotExist << endl;
 		return;
 	}
 }
 
 void User::watchMovieFromList() {
 	int answer;
-	string message;
 	vector<Movie>& watchListMovies = MoviesDB::getMoviesWatchListDB();
 
 	if (isEmptyVec(watchListMovies)) {
-		cout << "No movies in watch list\n" << endl;
+		cout << emptyMoviesWL << endl;
 		return;
 	}
 
 	for (int i = 0; i < watchListMovies.size(); i++) {
-		cout << "You now watching" << endl;
+		cout << userWatching << endl;
 		cout << "   " << watchListMovies[i] << endl;
-		message = "\n1.Watch next\n2.Exit\n";
-		answer = answerIntViewer(message, 1, 2);
+		answer = answerIntViewer(userWatchNext, 1, 2);
 
 		if (answer == 1) {
 			continue;
@@ -315,19 +296,17 @@ void User::watchMovieFromList() {
 
 void User::watchSeriesFromList() {
 	int answer;
-	string message;
 	vector<Series>& watchListSeries = SeriesDB::getSeriesWatchListDB();
 
 	if (isEmptyVec(watchListSeries)) {
-		cout << "No series in watch list\n" << endl;
+		cout << emptySeriesWL << endl;
 		return;
 	}
 
 	for (int i = 0; i < watchListSeries.size(); i++) {
-		cout << "You now watching" << endl;
+		cout << userWatching << endl;
 		cout << "   " << watchListSeries[i] << endl;
-		message = "\n1.Watch next\n2.Exit\n";
-		answer = answerIntViewer(message, 1, 2);
+		answer = answerIntViewer(userWatchNext, 1, 2);
 		if (answer == 1) {
 			continue;
 		}
@@ -340,11 +319,11 @@ void User::watchSeriesFromList() {
 
 void User::deleteMovieFromList() {
 	int answer;
-	string name, message;
+	string name;
 	vector<Movie>& watchListMovies = MoviesDB::getMoviesWatchListDB();
 
 	if (isEmptyVec(watchListMovies)) {
-		cout << "No movies in watch list\n" << endl;
+		cout << emptyMoviesWL << endl;
 		return;
 	}
 
@@ -353,13 +332,12 @@ void User::deleteMovieFromList() {
 	}
 	
 	cout << watchListMovies.size()+1 << ": \n   ------Exit------" << endl;
-	message = "\nWhich movie you want delete?\n";
-	answer = answerIntViewer(message, 1, watchListMovies.size()+1);
+	answer = answerIntViewer(DeleteFromWLorDB, 1, watchListMovies.size()+1);
 	if (answer == watchListMovies.size() + 1) {
 		return;
 	}
 
-	for (vector<Movie>::iterator i = watchListMovies.begin(); i != watchListMovies.end(); ++i) {//delete from vector
+	for (vector<Movie>::iterator i = watchListMovies.begin(); i != watchListMovies.end(); ++i) {
 		advance(i,answer-1);
 		name = i->getName();
 		i->setDeleteWL(name);
@@ -373,11 +351,10 @@ void User::deleteMovieFromList() {
 
 void User::deleteSeriesFromList(){
 	int answer;
-	string message;
 	vector<Series>& watchListSeries = SeriesDB::getSeriesWatchListDB();
 
 	if (isEmptyVec(watchListSeries)) {
-		cout << "No series in watch list\n" << endl;
+		cout << emptySeriesWL << endl;
 		return;
 	}
 
@@ -386,13 +363,12 @@ void User::deleteSeriesFromList(){
 	}
 	
 	cout << watchListSeries.size() + 1 << ": \n   ------Exit------" << endl;
-	message = "\nWhich series you want delete?\n";
-	answer = answerIntViewer(message, 1, watchListSeries.size()+1);
+	answer = answerIntViewer(DeleteFromWLorDB, 1, watchListSeries.size()+1);
 	if (answer == watchListSeries.size() + 1) {
 		return;
 	}
 
-	for (vector<Series>::iterator i = watchListSeries.begin(); i != watchListSeries.end(); ++i) {//delete from vector
+	for (vector<Series>::iterator i = watchListSeries.begin(); i != watchListSeries.end(); ++i) {
 		advance(i, answer - 1);
 		watchListSeries.erase(i);
 		break;

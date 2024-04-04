@@ -9,6 +9,7 @@
 #include "admin.h"
 #include "viewer.h"
 #include "validationFile.h"
+#include "strings.h"
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -21,23 +22,12 @@ using namespace std;
 
 void userMenu(User user) {
 	int answer;
-	string message;
 	int logOut = 0;
 	while (!logOut) {
-		message = "1.Add new movie to watch list\n"
-			"2.Add new series to watch list\n"
-			"3.Search for movie/series\n"
-			"4.Watch movie from watch list\n"
-			"5.Watch series from watch list\n"
-			"6.Delete movie from watch list\n"
-			"7.Delete series from watch list\n"
-			"8.Exit to main menu\n";
-		answer = answerIntViewer(message, 1, 8);
+		answer = answerIntViewer(main_user_M, 1, 8);
 		switch (answer) {
 		case 1:
-			message = "You want to search by newest movies or by category\n"
-				"1.Newest movies\n2.By category\n";
-			answer = answerIntViewer(message, 1, 2);
+			answer = answerIntViewer(addMovieToWL, 1, 2);
 			if (answer == 1) {
 				user.chooseFromMovies();
 			}
@@ -46,9 +36,7 @@ void userMenu(User user) {
 			}
 			break;
 		case 2:
-			message = "You want to search by newest series or by category\n"
-				"1.Newest series\n2.By category\n";
-			answer = answerIntViewer(message, 1, 2);
+			answer = answerIntViewer(addSeriesToWL, 1, 2);
 			if (answer == 1) {
 				user.chooseFromSeries();
 			}
@@ -57,9 +45,7 @@ void userMenu(User user) {
 			}
 			break;
 		case 3:
-			message = "You want to search movie or series\n"
-				"1.Movie\n2.Series\n";
-			answer = answerIntViewer(message, 1, 2);
+			answer = answerIntViewer(userFindByName, 1, 2);
 			if (answer == 1) {
 				user.findMovieByName();
 			}
@@ -91,12 +77,7 @@ void adminMenu(Admin admin) {
 	string name, message;
 	int logOut = 0;
 	while (!logOut) {
-		message = "1.Add new movie\n"
-			"2.Add new series\n"
-			"3.Delete movie\n"
-			"4.Delete series\n"
-			"5.Exit to main menu\n";
-		answer = answerIntViewer(message, 1, 5);
+		answer = answerIntViewer(main_admin_M, 1, 5);
 		switch (answer) {
 		case 1:
 			admin.addMovie();
@@ -105,9 +86,7 @@ void adminMenu(Admin admin) {
 			admin.addSeries();
 			break;
 		case 3:
-			message = "1.Find by name\n"
-				"2.Find by category\n";
-			answer = answerIntViewer(message, 1, 2);
+			answer = answerIntViewer(adminNameOrCategory, 1, 2);
 			if (answer == 1) {
 				admin.findMovieByName();
 			}
@@ -116,9 +95,7 @@ void adminMenu(Admin admin) {
 			}
 			break;
 		case 4:
-			message = "1.Find by name\n"
-				"2.Find by category\n";
-			answer = answerIntViewer(message, 1, 2);
+			answer = answerIntViewer(adminNameOrCategory, 1, 2);
 			if (answer == 1) {
 
 				admin.findSeriesByName();

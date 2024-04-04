@@ -1,4 +1,5 @@
 #define _CRT_SECURE_NO_WARNINGS
+#pragma comment(lib, "Winscard")
 #include <iostream>
 #include <string>
 #include <sstream>

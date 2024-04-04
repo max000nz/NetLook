@@ -3,6 +3,7 @@
 #include "validationFile.h"
 #include "outputs.h"
 #include "moviesDB.h"
+#include "strings.h"
 #include "seriesDB.h"
 #include <iostream>
 #include <fstream>
@@ -16,26 +17,22 @@ void Admin::addMovie() {
 	Movie currentMovie;
 	time_t currTime = time(nullptr);
 	string path = "movies.txt";
-	string name, message, category;
+	string name, category;
 	int year, length, answer;
 	ofstream fout;
-	cout << "Which movie you want to add?" << endl;
-	message = "Name?\n";
-	name = answerStringViewer(message, 0, 2, 30);
-	cout << "Category?" << endl;
+	cout << adminQuestion << endl;
+	name = answerStringViewer(adminAddShowName, 0, 2, 30);
+	cout << adminAddShowCategory;
 	category = chooseCategory();
-	message = "Year of release?\n";
-	year = answerIntViewer(message, 1950, 2024);
-	message = "Length?\n";
-	length = answerIntViewer(message, 30, 300);
+	year = answerIntViewer(adminAddShowYear, 1950, 2024);
+	length = answerIntViewer(adminAddMovieLength, 30, 300);
 	currentMovie.setName(name);
 	currentMovie.setCategory(category);
 	currentMovie.setYear(year);
 	currentMovie.setMovieLength(length);
 	currentMovie.setTime(currTime);
 	cout << currentMovie << endl;
-	message = "\nAdd this movie?\n1.Yes\n2.No\n";
-	answer = answerIntViewer(message, 1, 2);
+	answer = answerIntViewer(AddMovieWE, 1, 2);
 	if (answer == 1) {
 		MoviesDB::addMovieToDB(currentMovie);
 		MoviesDB::updateFileMoviesDB("movies.txt");
@@ -46,21 +43,17 @@ void Admin::addSeries() {
 	time_t currTime = time(nullptr);
 	Series currentSeries;
 	string path = "series.txt";
-	string name, category, message;
+	string name, category;
 	int year, seasons, episodes, answer;
 	ofstream fout;
 
-	cout << "Which series you want to add?" << endl;
-	message = "Name?\n";
-	name = answerStringViewer(message, 0, 2, 30);
-	cout << "Category?" << endl;
+	cout << adminQuestion << endl;
+	name = answerStringViewer(adminAddShowName, 0, 2, 30);
+	cout << adminAddShowCategory;
 	category = chooseCategory();
-	message = "Year of release?\n";
-	year = answerIntViewer(message, 1950, 2024);
-	message = "How much seasons in series?\n";
-	seasons = answerIntViewer(message, 1, 30);
-	message = "How much episodes in every season?\n";
-	episodes = answerIntViewer(message, 1, 30);
+	year = answerIntViewer(adminAddShowYear, 1950, 2024);
+	seasons = answerIntViewer(adminAddSeriesSeasons, 1, 30);
+	episodes = answerIntViewer(adminAddSeriesEpisodes, 1, 30);
 	currentSeries.setName(name);
 	currentSeries.setCategory(category);
 	currentSeries.setYear(year);
@@ -68,8 +61,7 @@ void Admin::addSeries() {
 	currentSeries.setEpisodes(episodes);
 	currentSeries.setTime(currTime);
 	cout << currentSeries << endl;
-	message = "\nAdd this series?\n1.Yes\n2.No\n";
-	answer = answerIntViewer(message, 1, 2);
+	answer = answerIntViewer(AddSeriesWE, 1, 2);
 	if (answer == 1) {
 		SeriesDB::addSeriesToDB(currentSeries);
 		SeriesDB::updateFileSeriesDB("series.txt");
@@ -89,19 +81,17 @@ void Admin::findMovieByName() {
 		return;
 	}
 
-	message = "Write name of movie you want delete\n";
-	name = answerStringViewer(message, 0, 2, 25);
+	name = answerStringViewer(DeleteFromWLorDB, 0, 2, 25);
 	lowName = name;
 	transform(lowName.begin(), lowName.end(), lowName.begin(), ::tolower);
 	int size = movies.size();
 
-	for (vector<Movie>::iterator i = movies.begin(); i != movies.end(); ++i) {//delete from vector of data base
+	for (vector<Movie>::iterator i = movies.begin(); i != movies.end(); ++i) {
 		lowCurrName = i->getName();
 		transform(lowCurrName.begin(), lowCurrName.end(), lowCurrName.begin(), ::tolower);
 		if (lowCurrName == lowName) {
 			cout << movies[counter];
-			message = "\n\nThis is the movie?\n1:Yes\n2:No";
-			if (answerIntViewer(message, 1, 2) == 1){
+			if (answerIntViewer(deleteMovieWE, 1, 2) == 1){
 				if (i->getIsWL() == "Y") {
 					MoviesDB::deleteFromMoviesWatchList(lowName);
 					MoviesDB::updateFileMoviesDB("moviesWatchList.txt");
@@ -121,7 +111,7 @@ void Admin::findMovieByName() {
 		return;
 	}
 	else {
-		cout << "Movie with this name is not exist in data base\n\n" << endl;
+		cout << noMovieDB << endl;
 		return;
 	}
 }
@@ -138,7 +128,7 @@ void Admin::findMovieByCategory() {
 		return;
 	}
 
-	cout << "Write category of movie you want delete" << endl;
+	cout << categoryChoice << endl;
 	category = chooseCategory();
 
 	for (int i = 0; i < movies.size(); ++i) {
@@ -149,19 +139,18 @@ void Admin::findMovieByCategory() {
 	}
 	
 	if (counter == 1) {
-		cout << "No movies in this category, fail" << endl;
+		cout << emptyCategoryMovie << endl;
 		return;
 	}
 	cout << counter << ": \n   ------Exit------\n" << endl;
-	message = "Which movie you want delete\n";
-	answer = answerIntViewer(message, 1, counter+1);
+	answer = answerIntViewer(deleteMovieChoice, 1, counter+1);
 	if (answer == counter) {
 		return;
 	}
 
 	counter=0;
 
-	for (vector<Movie>::iterator i = movies.begin(); i != movies.end(); ++i) {//delete from vector
+	for (vector<Movie>::iterator i = movies.begin(); i != movies.end(); ++i) {
 		if (i->getCategory() != category) continue;
 		counter++;
 		if (counter != answer) continue;
@@ -189,8 +178,7 @@ void Admin::findSeriesByName(){
 		return;
 	}
 
-	message = "Write name of series you want delete\n";
-	name = answerStringViewer(message, 0, 2, 25);
+	name = answerStringViewer(DeleteFromWLorDB, 0, 2, 25);
 	transform(name.begin(), name.end(), name.begin(), ::tolower);
 	int size = series.size();
 	for (vector<Series>::iterator i = series.begin(); i != series.end(); ++i) {
@@ -198,8 +186,7 @@ void Admin::findSeriesByName(){
 		transform(lowCurrName.begin(), lowCurrName.end(), lowCurrName.begin(), ::tolower);
 		if (lowCurrName == name) {
 			cout << series[counter];
-			message = "\n\nThis is the series?\n1:Yes\n2:No";
-			if (answerIntViewer(message, 1, 2) == 1) {
+			if (answerIntViewer(deleteSeriesWE, 1, 2) == 1) {
 				if (i->getIsWL() == "Y") {
 					SeriesDB::deleteFromSeriesWatchList(name);
 					SeriesDB::updateFileSeriesDB("seriesWatchList.txt");
@@ -218,7 +205,7 @@ void Admin::findSeriesByName(){
 		return;
 	}
 	else {
-		cout << "Series with this name is not exist in data base" << endl;
+		cout << noSeriesDB;
 	}
 }
 
@@ -230,11 +217,11 @@ void Admin::findSeriesByCategory() {
 	vector<Series>& watchListSeries = SeriesDB::getSeriesWatchListDB();
 
 	if (isEmptyVec(series)) {
-		cout << "No series in data base" << endl;
+		cout << emptySeriesDB;
 		return;
 	}
 
-	cout << "Write category of series you want delete" << endl;
+	cout << categoryChoice << endl;
 	category = chooseCategory();
 
 	for (int i = 0; i < series.size(); ++i) {
@@ -245,13 +232,12 @@ void Admin::findSeriesByCategory() {
 	}
 
 	if (counter == 1) {
-		cout << "No series in this category, fail" << endl;
+		cout << emptyCategorySeries << endl;
 		return;
 	}
 
 	cout << counter << ": \n   ------Exit------\n" << endl;
-	message = "Which series you want delete\n";
-	answer = answerIntViewer(message, 1, counter);
+	answer = answerIntViewer(deleteSeriesChoice, 1, counter);
 	if (answer == counter) {
 		return;
 	}

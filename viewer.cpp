@@ -2,6 +2,7 @@
 #include "movie.h"
 #include "series.h"
 #include "validationFile.h"
+#include "strings.h"
 #include <string>
 #include <cstring>
 #include <iostream>
@@ -20,9 +21,8 @@ Viewer::Viewer(int id, string fname, string lname, int day, int month, int year)
 
 string Viewer::chooseCategory() {
 	int answer;
-	string category, message;
-	message = "1.Sci-fi\n2.Horror\n3.Comedy\n4.Thriller\n";
-	answer = answerIntViewer(message, 1, 4);
+	string category;
+	answer = answerIntViewer(categoryShow, 1, 4);
 	switch (answer) {
 	case 1:
 		category = "Sci-fi";
