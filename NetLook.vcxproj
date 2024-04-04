@@ -131,6 +131,7 @@
     <ClInclude Include="menus.h" />
     <ClInclude Include="movie.h" />
     <ClInclude Include="moviesDB.h" />
+    <ClInclude Include="outputs.h" />
     <ClInclude Include="series.h" />
     <ClInclude Include="seriesDB.h" />
     <ClInclude Include="show.h" />
@@ -143,10 +144,10 @@
     <ClCompile Include="menus.cpp" />
     <ClCompile Include="movie.cpp" />
     <ClCompile Include="moviesDB.cpp" />
+    <ClCompile Include="outputs.cpp" />
     <ClCompile Include="series.cpp" />
     <ClCompile Include="seriesDB.cpp" />
     <ClCompile Include="show.cpp" />
-    <ClCompile Include="test_movie.cpp" />
     <ClCompile Include="user.cpp" />
     <ClCompile Include="validationFile.cpp" />
     <ClCompile Include="validationFile.h" />

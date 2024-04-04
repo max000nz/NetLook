@@ -26,6 +26,7 @@ int main() {
 	MoviesDB::compareMoviesDB();
 	SeriesDB::setupSeriesDB("series.txt");
 	SeriesDB::setupSeriesDB("seriesWatchList.txt");
+	SeriesDB::compareSeriesDB();
 	int answer = 0;
 	string name, answerS, message;
 	User currUser;
