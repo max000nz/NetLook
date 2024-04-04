@@ -3,14 +3,14 @@ Comedy
 2024
 116
 1711386612
-N
+Y
 
 Barby
 Comedy
 2023
 120
 1711386432
-N
+Y
 
 Imaginary
 Thriller
@@ -26,13 +26,6 @@ Horror
 1711483889
 N
 
-Oppenheimer
-Thriller
-2021
-150
-1711386602
-N
-
 Gentleman
 Comedy
 2020
@@ -45,7 +38,7 @@ Horror
 2019
 66
 1711386732
-Y
+N
 
 Thanksgiving
 Horror

@@ -1,6 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "admin.h"
 #include "validationFile.h"
+#include "outputs.h"
 #include "moviesDB.h"
 #include "seriesDB.h"
 #include <iostream>
@@ -84,7 +85,7 @@ void Admin::findMovieByName() {
 	vector<Movie>& watchListMovies = MoviesDB::getMoviesWatchListDB();
 
 	if (isEmptyVec(movies)) {
-		cout << "No movies in data base\n" << endl;
+		noMore("movies");
 		return;
 	}
 
@@ -99,7 +100,7 @@ void Admin::findMovieByName() {
 		transform(lowCurrName.begin(), lowCurrName.end(), lowCurrName.begin(), ::tolower);
 		if (lowCurrName == lowName) {
 			cout << movies[counter];
-			message = "\n\n This is the movie?\n 1: yes\n 2: no";
+			message = "\n\nThis is the movie?\n1:Yes\n2:No";
 			if (answerIntViewer(message, 1, 2) == 1){
 				if (i->getIsWL() == "Y") {
 					MoviesDB::deleteFromMoviesWatchList(lowName);
@@ -113,17 +114,17 @@ void Admin::findMovieByName() {
 
 			
 		}
-		counter = 0;
+		counter++;
 	}
 	if (size != movies.size()) {
-		cout << "Movie deleted succesfully\n\n" << endl;
+		deletedSuccessfully("Movie");
 		return;
 	}
 	else {
 		cout << "Movie with this name is not exist in data base\n\n" << endl;
 		return;
 	}
-}  
+}
 
 void Admin::findMovieByCategory() {
 	int answer = 0;
@@ -133,7 +134,7 @@ void Admin::findMovieByCategory() {
 	vector<Movie>& watchListMovies = MoviesDB::getMoviesWatchListDB();
 
 	if (isEmptyVec(movies)) {
-		cout << "No movies in data base\n" << endl;
+		noMore("movies");
 		return;
 	}
 
@@ -174,7 +175,7 @@ void Admin::findMovieByCategory() {
 		break;
 	}
 
-	cout << "Movie deleted succesfully" << endl;
+	deletedSuccessfully("Movie");
 }
 
 void Admin::findSeriesByName(){
@@ -184,7 +185,7 @@ void Admin::findSeriesByName(){
 	vector<Series>& watchListSeries = SeriesDB::getSeriesWatchListDB();
 
 	if (isEmptyVec(series)) {
-		cout << "No series in data base" << endl;
+		noMore("series");
 		return;
 	}
 
@@ -197,10 +198,10 @@ void Admin::findSeriesByName(){
 		transform(lowCurrName.begin(), lowCurrName.end(), lowCurrName.begin(), ::tolower);
 		if (lowCurrName == name) {
 			cout << series[counter];
-			message = "\n\n This is the series?\n 1: yes\n 2: no";
+			message = "\n\nThis is the series?\n1:Yes\n2:No";
 			if (answerIntViewer(message, 1, 2) == 1) {
 				if (i->getIsWL() == "Y") {
-					SeriesDB::deleteFromSeriesWatchList(watchListSeries, name);
+					SeriesDB::deleteFromSeriesWatchList(name);
 					SeriesDB::updateFileSeriesDB("seriesWatchList.txt");
 				}
 				series.erase(i);
@@ -209,10 +210,11 @@ void Admin::findSeriesByName(){
 			}
 			else return;
 		}
+		counter++;
 	}
 
 	if (size != series.size()) {
-		cout << "Series deleted succesfully" << endl;
+		deletedSuccessfully("Series");
 		return;
 	}
 	else {
@@ -262,14 +264,14 @@ void Admin::findSeriesByCategory() {
 		if (counter != answer) continue;
 		name = i->getName();
 		if (i->getIsWL() == "Y") {
-			SeriesDB::deleteFromSeriesWatchList(watchListSeries, name);
+			SeriesDB::deleteFromSeriesWatchList(name);
 			SeriesDB::updateFileSeriesDB("seriesWatchList.txt");
 		}
 		series.erase(i);
 		SeriesDB::updateFileSeriesDB("series.txt");
 		break;
 	}
-	cout << "Series deleted succesfully" << endl;
+	deletedSuccessfully("Series");
 }
 
 void Admin::getPersonalInfo()  throw (invalid_argument)
@@ -295,4 +297,3 @@ void Admin::getPersonalInfo()  throw (invalid_argument)
 	}
 	fin.close();
 }
-

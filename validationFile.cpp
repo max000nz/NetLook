@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include "validationFile.h"
 #include <iostream>
 #include <string>
@@ -41,7 +42,7 @@ string answerStringViewer(string message, int onlyLetters, int min, int max) thr
 			getline(cin, answer);
 
 			if (answer == "") {
-				throw invalid_argument("String empty, please try again");
+				throw invalid_argument("String empty, please try again\n");
 			}
 			if (answer.size() < min || answer.size() > max) {
 				throw out_of_range("String length error");
@@ -52,7 +53,7 @@ string answerStringViewer(string message, int onlyLetters, int min, int max) thr
 						if (c ==  ' ') {
 							continue;
 						}
-						throw invalid_argument("String contains non-letter characters, please try again");
+						throw invalid_argument("String contains non-letter characters, please try again\n");
 					}
 				}
 			}
@@ -62,7 +63,7 @@ string answerStringViewer(string message, int onlyLetters, int min, int max) thr
 			cerr << e.what() << endl;
 		}
 		catch (const out_of_range& e) {
-			cerr << e.what() << ", must be between "<< min << " and " << max << endl;
+			cerr << e.what() << ", must be between "<< min << " and " << max << endl << endl;
 		}
 	}
 	cout << "\n-----------------------------------------------------\n\n";
@@ -83,13 +84,19 @@ int answerIntViewer(string message, int min, int max) throw(invalid_argument, ou
 			break;
 		}
 		catch (const invalid_argument& e) {
+			cout << "\n-----------------------------------------------------\n\n";
 			cerr << "Input must be an integer, please try again" << endl;
+			cout << "\n-----------------------------------------------------\n\n";
 		}
 		catch (const out_of_range& e) {
+			cout << "\n-----------------------------------------------------\n\n";
 			cerr << "Number must be between " << min << " and " << max << endl;
+			cout << "\n-----------------------------------------------------\n\n";
 		}
 		catch (...) {
-			cerr << "Try again" << endl;
+			cout << "\n-----------------------------------------------------\n\n";
+			cerr << "Try again\n" << endl;
+			cout << "\n-----------------------------------------------------\n\n";
 		}
 
 	}

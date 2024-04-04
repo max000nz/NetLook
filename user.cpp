@@ -5,6 +5,7 @@
 #include "moviesDB.h"
 #include "series.h"
 #include "validationFile.h"
+#include "outputs.h"
 #include "seriesDB.h"
 #include <iostream>
 #include <fstream>
@@ -44,6 +45,8 @@ void User::chooseFromMovies() {
 				watchListMovies.emplace_back(movies[i]);
 				MoviesDB::updateFileMoviesDB("movies.txt");
 				MoviesDB::updateFileMoviesDB("moviesWatchList.txt");
+				addedSuccessfully("Movie");
+				//cout << "Movie added successfully\n" << endl;
 				continue;
 			case 2:
 				continue;
@@ -52,7 +55,7 @@ void User::chooseFromMovies() {
 		}
 		break;
 	}
-	cout << "No more movies in data base\n" << endl;
+	noMore("movie");
 }
 
 void User::chooseFromMoviesByCategory() {
@@ -85,15 +88,19 @@ void User::chooseFromMoviesByCategory() {
 				watchListMovies.emplace_back(movies[i]);
 				MoviesDB::updateFileMoviesDB("moviesWatchList.txt");
 				MoviesDB::updateFileMoviesDB("movies.txt");
+				addedSuccessfully("Movie");
 				continue;
 			case 2:
 				continue;
 			case 3:
-				break;
+				return;
 			}
-			break;
+			//break;
 		}
-		//cout << "No more movies in this category" << endl;
+	
+	}
+	if (answer != 3) {
+		noMore("movies");
 	}
 }
 
@@ -123,6 +130,7 @@ void User::chooseFromSeries() {
 			watchListSeries.emplace_back(series[i]);
 			SeriesDB::updateFileSeriesDB("seriesWatchList.txt");
 			SeriesDB::updateFileSeriesDB("series.txt");
+			addedSuccessfully("Series");
 			continue;
 		case 2:
 			continue;
@@ -163,15 +171,19 @@ void User::chooseFromSeriesByCategory() {
 				watchListSeries.emplace_back(series[i]);
 				SeriesDB::updateFileSeriesDB("seriesWatchList.txt");
 				SeriesDB::updateFileSeriesDB("series.txt");
+				addedSuccessfully("Series");
 				continue;
 			case 2:
 				continue;
 			case 3:
-				break;
+				return;
 			}
-			break;
+			//break;
 		}
-		//cout << "No more movies in this category" << endl;
+		
+	}
+	if (answer != 3) {
+		noMore("series");
 	}
 }
 
@@ -195,7 +207,7 @@ void User::findMovieByName() {
 		transform(currName.begin(), currName.end(), currName.begin(), [](unsigned char c) { return std::tolower(c); });
 		if (currName == name) {
 			if (movies[i].getIsWL() == "Y") {
-				cout << "That movie already in your watch list\n" << endl;
+				alreadyInWL("Movie");
 				return;
 			}
 			cout << "You want to add this movie?" << endl;
@@ -208,7 +220,7 @@ void User::findMovieByName() {
 				size++;
 				MoviesDB::updateFileMoviesDB("moviesWatchList.txt");
 				MoviesDB::updateFileMoviesDB("movies.txt");
-				cout << "Movie added successfully";
+				addedSuccessfully("Movie");
 				break;
 			}
 			else {
@@ -243,9 +255,9 @@ void User::findSeriesByName() {
 	for (int i = 0; i < series.size(); i++) {//delete from vector
 		currName = series[i].getName();
 		transform(currName.begin(), currName.end(), currName.begin(), [](unsigned char c) { return std::tolower(c); });
-		if (series[i].getName() == name) {
+		if (currName == name) {
 			if (series[i].getIsWL() == "Y") {
-				cout << "That series already in your watch list\n" << endl;
+				alreadyInWL("Series");
 				return;
 			}
 			cout << "You want to add this series?" << endl;
@@ -258,6 +270,7 @@ void User::findSeriesByName() {
 				size++;
 				SeriesDB::updateFileSeriesDB("seriesWatchList.txt");
 				SeriesDB::updateFileSeriesDB("series.txt");
+				addedSuccessfully("Series");
 				break;
 			}
 			else {
@@ -296,7 +309,7 @@ void User::watchMovieFromList() {
 			return;
 		}
 	}
-	cout << "No more movies in your watch list\n" << endl;
+	noMore("movies");
 }
 
 void User::watchSeriesFromList() {
@@ -321,7 +334,7 @@ void User::watchSeriesFromList() {
 			return;
 		}
 	}
-	cout << "No more series in your watch list\n" << endl;
+	noMore("series");
 }
 
 void User::deleteMovieFromList() {
@@ -354,7 +367,7 @@ void User::deleteMovieFromList() {
 	}
 	MoviesDB::updateFileMoviesDB("moviesWatchList.txt");
 	MoviesDB::updateFileMoviesDB("movies.txt");
-	cout << "Chosen movie deleted sucsesfully\n" << endl;
+	deletedSuccessfully("Movie");
 }
 
 void User::deleteSeriesFromList(){
@@ -385,7 +398,7 @@ void User::deleteSeriesFromList(){
 	}
 	SeriesDB::updateFileSeriesDB("seriesWatchList.txt");
 	SeriesDB::updateFileSeriesDB("series.txt");
-	cout << "Chosen series deleted sucsesfully\n" << endl;
+	deletedSuccessfully("Series");
 }
 
 void User::getPersonalInfo() throw (invalid_argument){

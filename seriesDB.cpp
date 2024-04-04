@@ -112,14 +112,56 @@ void SeriesDB::addSeriesToDB(Series& series) {
 	seriesdb.insert(seriesdb.begin() + place, series);
 }
 
-void SeriesDB::deleteFromSeriesWatchList(vector<Series>& watchListSeries, string name) {
+void SeriesDB::deleteFromSeriesWatchList(string name) {
 	string lowCurrName;
-	for (vector<Series>::iterator j = watchListSeries.begin(); j != watchListSeries.end(); ++j) {//delete from vector
+	transform(name.begin(), name.end(), name.begin(), ::tolower);
+	for (vector<Series>::iterator j = seriesWLdb.begin(); j != seriesWLdb.end(); ++j) {//delete from vector
 		lowCurrName = j->getName();
 		transform(lowCurrName.begin(), lowCurrName.end(), lowCurrName.begin(), ::tolower);
 		if (lowCurrName == name) {
-			watchListSeries.erase(j);
+			seriesWLdb.erase(j);
 			break;
 		}
 	}
+}
+
+void SeriesDB::compareSeriesDB() {
+	string name;
+	if (seriesdb.size() == 0) return;
+	for (vector<Series>::iterator i = seriesdb.begin(); i != seriesdb.end(); ++i) {
+		if (i->getIsWL() == "Y") {
+			name = i->getName();
+			if (!existInWL(name)) {
+				i->setDeleteWLDB();
+			}
+		}
+	}
+	for (vector<Series>::iterator j = seriesWLdb.begin(); j != seriesWLdb.end(); ++j) {
+		name = j->getName();
+		if (!isMarked(name)) {
+			deleteFromSeriesWatchList(name);
+			break;
+		}
+	}
+}
+
+int SeriesDB::existInWL(string name) {
+	if (seriesWLdb.size() == 0) return 0;
+	for (vector<Series>::iterator j = seriesWLdb.begin(); j != seriesWLdb.end(); ++j) {
+		if (j->getName() == name) {
+			return 1;
+		}
+	}
+	return 0;
+}
+
+int SeriesDB::isMarked(string name) {
+	if (seriesdb.size() == 0) return 0;
+	for (vector<Series>::iterator j = seriesdb.begin(); j != seriesdb.end(); ++j) {
+		if (j->getName() == name) {
+			j->setAddWL();
+			return 1;
+		}
+	}
+	return 0;
 }
