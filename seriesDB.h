@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include "series.h"
+using namespace std;
 
 class SeriesDB
 {
@@ -18,4 +19,4 @@ public:
 	static void compareSeriesDB();
 	static int isMarked(string name);
 	static int existInWL(string name);
-}
+};

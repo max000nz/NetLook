@@ -7,7 +7,7 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
-
+using namespace std;
 
 Viewer::Viewer(int id, string fname, string lname, int day, int month, int year) {
 	this->id = id;

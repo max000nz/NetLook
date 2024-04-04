@@ -4,6 +4,7 @@
 #include "show.h"
 #include "movie.h"
 #include "series.h"
+using namespace std;
 
 class User :public Viewer {
 

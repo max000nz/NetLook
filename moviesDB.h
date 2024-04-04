@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include "movie.h"
+using namespace std;
 
 class MoviesDB{
 public:

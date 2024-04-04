@@ -1,5 +1,6 @@
 #pragma once
 #include "show.h"
+using namespace std;
 
 class Series:public Show {
 

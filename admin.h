@@ -1,6 +1,9 @@
 #pragma once
 #include "user.h"
 #include "viewer.h"
+#include <iostream>
+#include <string>
+#include <vector>
 using namespace std;
 
 class Admin :public Viewer {

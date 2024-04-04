@@ -17,8 +17,8 @@
 #include "series.h"
 #include "admin.h"
 #include "viewer.h"
-
 using namespace std;
+
 
 int validateInt(int ans, int min, int max);
 string answerStringViewer(string message, int onlyLetters, int min, int max) throw(invalid_argument, out_of_range);

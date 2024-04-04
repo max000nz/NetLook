@@ -1,10 +1,10 @@
 #pragma once
 #include "show.h"
+using namespace std;
 
 class Movie :public Show {
 protected:
 	int length;//minutes
-
 
 public:
 	Movie() = default;
