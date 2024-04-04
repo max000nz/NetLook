@@ -13,6 +13,7 @@
 #include <vector>
 #include <limits>
 #include <algorithm>
+
 using namespace std;
 
 int validateInt(int ans, int min, int max);

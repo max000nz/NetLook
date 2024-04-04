@@ -6,6 +6,7 @@
 #include <cstring>
 #include <fstream>
 #include <vector>
+
 using namespace std;
 
 class Viewer {

@@ -135,6 +135,7 @@
     <ClInclude Include="series.h" />
     <ClInclude Include="seriesDB.h" />
     <ClInclude Include="show.h" />
+    <ClInclude Include="strings.h" />
     <ClInclude Include="user.h" />
     <ClInclude Include="viewer.h" />
   </ItemGroup>
@@ -148,6 +149,7 @@
     <ClCompile Include="series.cpp" />
     <ClCompile Include="seriesDB.cpp" />
     <ClCompile Include="show.cpp" />
+    <ClCompile Include="strings.cpp" />
     <ClCompile Include="user.cpp" />
     <ClCompile Include="validationFile.cpp" />
     <ClCompile Include="validationFile.h" />

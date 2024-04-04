@@ -4,7 +4,7 @@ Horror
 5
 12
 1711401274
-Y
+N
 
 Narcos
 Horror
@@ -12,7 +12,7 @@ Horror
 3
 15
 1711401304
-Y
+N
 
 Better Call Saul
 Thriller
@@ -20,7 +20,7 @@ Thriller
 6
 12
 1711401051
-Y
+N
 
 Gravity Falls
 Sci-fi
@@ -36,7 +36,7 @@ Thriller
 8
 12
 1711401000
-Y
+N
 
 Sherlock
 Thriller
@@ -60,7 +60,7 @@ Thriller
 5
 13
 1711400135
-Y
+N
 
 Dexter
 Horror

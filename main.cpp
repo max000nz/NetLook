@@ -1,5 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 #pragma comment(lib, "Winscard")
+#include "strings.h"
 #include "menus.h"
 #include "user.h"
 #include "show.h"
@@ -32,8 +33,7 @@ int main() {
 	User currUser;
 	Admin currAdmin;
 	while (answer != 3) {
-		message = "1.User\n2.Admin\n3.Exit\n";
-		answer = answerIntViewer(message, 1, 3);
+		answer = answerIntViewer(main_M, 1, 3);
 		switch (answer) {
 		case 1:
 			if (validateUser(currUser)) {

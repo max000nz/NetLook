@@ -1,4 +1,5 @@
 #include "seriesDB.h"
+#include "validationFile.h"
 #include "series.h"
 #include "show.h"
 #include <vector>
@@ -6,6 +7,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+
 using namespace std;
 
 static vector<Series> seriesdb;
