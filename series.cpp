@@ -14,6 +14,9 @@ Series::Series(string name, int year, string category, int seasons, int episodes
 	this->seasons = seasons;
 }
 
+/// <summary>
+/// delete mark from series in data base
+/// </summary>
 void Series::setDeleteWL(string name) {
 	vector<Series>& series = SeriesDB::getSeriesDB();
 	for (vector<Series>::iterator i = series.begin(); i != series.end(); ++i) {
@@ -23,6 +26,9 @@ void Series::setDeleteWL(string name) {
 	}
 }
 
+/// <summary>
+/// prints series class with esthetic
+/// </summary>
 ostream& operator<<(ostream& os, const Series& s) {
     char row = 205, col = 179, cornerL = 192, cornerR = 217, midd = 197, cornerLU = 218;
     char cornerRU = 188, middU = 193, cornerRR = 191, cornerLL = 218, middleSingle = 194; //ascii codes

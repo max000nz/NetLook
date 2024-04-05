@@ -19,7 +19,9 @@
 #include <algorithm>
 using namespace std;
 
-
+/// <summary>
+/// user menu with all functions
+/// </summary>
 void userMenu(User user) {
 	int answer;
 	int logOut = 0;
@@ -72,6 +74,9 @@ void userMenu(User user) {
 	}
 }
 
+/// <summary>
+/// admin menu with all functions
+/// </summary>
 void adminMenu(Admin admin) {
 	int answer;
 	string name, message;

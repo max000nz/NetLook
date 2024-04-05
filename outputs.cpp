@@ -19,26 +19,33 @@
 #include "viewer.h"
 using namespace std;
 
-void deletedSuccessfully(string show);
-void addedSuccessfully(string show);
-void noMore(string show);
-void alreadyInWL(string show);
-
+/// <summary>
+/// prints if show added
+/// </summary>
 void addedSuccessfully(string show) {
 	cout << show << " added successfully\n";
 	cout << "\n-----------------------------------------------------\n\n";
 }
 
+/// <summary>
+/// prints if show deleted
+/// </summary>
 void deletedSuccessfully(string show) {
 	cout << show << " deleted successfully\n";
 	cout << "\n-----------------------------------------------------\n\n";
 }
 
+/// <summary>
+/// prints if no more shows avaliable
+/// </summary>
 void noMore(string show) {
 	cout << "No more " << show << " avaliable\n";
 	cout << "\n-----------------------------------------------------\n\n";
 }
 
+/// <summary>
+/// prints if show already added
+/// </summary>
 void alreadyInWL(string show) {
 	cout << show << " already in your watch list\n";
 	cout << "\n-----------------------------------------------------\n\n";

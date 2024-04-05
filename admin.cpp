@@ -13,6 +13,9 @@ using namespace std;
 
 Admin::Admin(int id, string fname, string lname, int day, int month, int year) :Viewer(id, fname, lname, day, month, year) {}
 
+/// <summary>
+/// adds movie with admin input to data base in txt file
+/// </summary>
 void Admin::addMovie() {
 	Movie currentMovie;
 	time_t currTime = time(nullptr);
@@ -39,6 +42,9 @@ void Admin::addMovie() {
 	}else return;
 }
 
+/// <summary>
+/// adds series with admin input to data base in txt file
+/// </summary>
 void Admin::addSeries() {
 	time_t currTime = time(nullptr);
 	Series currentSeries;
@@ -70,6 +76,9 @@ void Admin::addSeries() {
 	else return;
 }
 
+/// <summary>
+/// deletes movie from data base by given name from admin
+/// </summary>
 void Admin::findMovieByName() {
 	int answer = 0, counter = 0;
 	string name, message, lowName, lowCurrName;
@@ -114,6 +123,9 @@ void Admin::findMovieByName() {
 	}
 }
 
+/// <summary>
+/// deletes movie in exact category
+/// </summary>
 void Admin::findMovieByCategory() {
 	int answer = 0;
 	int counter = 1;
@@ -165,6 +177,9 @@ void Admin::findMovieByCategory() {
 	deletedSuccessfully("Movie");
 }
 
+/// <summary>
+/// deletes series from data base by given name from admin
+/// </summary>
 void Admin::findSeriesByName(){
 	int answer = 0, counter = 0;
 	string name, message, lowCurrName;
@@ -207,6 +222,9 @@ void Admin::findSeriesByName(){
 	}
 }
 
+/// <summary>
+/// deletes series in exact category
+/// </summary>
 void Admin::findSeriesByCategory() {
 	int answer = 0;
 	int counter = 1;
@@ -258,6 +276,9 @@ void Admin::findSeriesByCategory() {
 	deletedSuccessfully("Series");
 }
 
+/// <summary>
+/// get admin info from specific file
+/// </summary>
 void Admin::getPersonalInfo()  throw (invalid_argument)
 {
 	string lname, fname, byear, bmonth, bday, id;

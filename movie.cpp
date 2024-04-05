@@ -15,6 +15,9 @@ Movie::Movie(string name, int year, string category, int length):Show(name, year
 	this->length = length;
 }
 
+/// <summary>
+/// delete mark from movie in data base
+/// </summary>
 void Movie::setDeleteWL(string name){
 	vector<Movie>& movies = MoviesDB::getMoviesDB();
 	for (vector<Movie>::iterator i = movies.begin(); i != movies.end(); ++i) {
@@ -24,6 +27,9 @@ void Movie::setDeleteWL(string name){
 	}
 }
 
+/// <summary>
+/// prints movie class with esthetic
+/// </summary>
 ostream& operator<<(ostream& os, const Movie& m) {
     char row = 205, col = 179, cornerL = 192, cornerR = 217, midd = 197, cornerLU = 218;
     char cornerRU = 188, middU = 193, cornerRR = 191, cornerLL = 218, middleSingle = 194; //ascii codes

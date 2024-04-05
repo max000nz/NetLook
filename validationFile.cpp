@@ -97,10 +97,11 @@ int answerIntViewer(string message, int min, int max) throw(invalid_argument, ou
 
 int isEmptyVecM(vector<Movie>& check) throw(out_of_range) {
 	try {
-		if (!check.size()) throw out_of_range("Vector is empty");
+		if (!check.size()) throw out_of_range("Movie vector is empty");
 	}
 	catch (const out_of_range& e) {
 		cerr << e.what() << endl;
+		cout << "\n-----------------------------------------------------\n\n";
 		return 1;
 	}
 	return 0;
@@ -108,10 +109,11 @@ int isEmptyVecM(vector<Movie>& check) throw(out_of_range) {
 
 int isEmptyVecS(vector<Series>& check) throw(out_of_range) {
 	try {
-		if (!check.size()) throw out_of_range("Vector is empty");
+		if (!check.size()) throw out_of_range("Series vector is empty");
 	}
 	catch (const out_of_range& e) {
 		cerr << e.what() << endl;
+		cout << "\n-----------------------------------------------------\n\n";
 		return 1;
 	}
 	return 0;

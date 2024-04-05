@@ -23,6 +23,9 @@ vector<Series>& SeriesDB::getSeriesWatchListDB()
 	return seriesWLdb;
 }
 
+/// <summary>
+/// function will get all the series from the file to series vector
+/// </summary>
 void SeriesDB::setupSeriesDB(string way) {
 	string name, category, year, seasons, episodes, buffer, time, isWL;
 	int iyear, iepisodes, iseasons, itime;
@@ -64,11 +67,11 @@ void SeriesDB::setupSeriesDB(string way) {
 	if (way == "series.txt") {
 		if (isEmptyVecS(seriesdb));
 	}
-	else {
-		if (isEmptyVecS(seriesWLdb));
-	}
 }
 
+/// <summary>
+/// 
+/// </summary>
 void SeriesDB::updateFileSeriesDB(string way) {
 	string name, category, year, seasons, episodes, buffer;
 	string path = way;
