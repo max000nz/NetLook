@@ -10,6 +10,7 @@
 #include <limits>
 #include <algorithm>
 #include "validationFile.h"
+#include "strings.h"
 #include "user.h"
 #include "movie.h"
 #include "moviesDB.h"
@@ -19,11 +20,17 @@
 
 using namespace std;
 
+/// <summary>
+/// check range of numbers
+/// </summary>
 int validateInt(int ans, int min, int max) {
     if (ans >= min && ans <= max) return 1;
     return 0;
 }
 
+/// <summary>
+/// checks if string is valid
+/// </summary>
 string answerStringViewer(string message, int onlyLetters, int min, int max) throw(invalid_argument, out_of_range) {
 	string answer;
 	while (true) {
@@ -61,13 +68,22 @@ string answerStringViewer(string message, int onlyLetters, int min, int max) thr
 	return answer;
 }
 
+/// <summary>
+/// checks if integer is valid
+/// </summary>
 int answerIntViewer(string message, int min, int max) throw(invalid_argument, out_of_range) {
 	string answerS;
 	int answer;
 	while (true) {
 		cout << message << "\nAnswer: ";
 		try {
-			cin >> answerS;
+			cin >> ws;
+			getline(cin, answerS);
+			for (char c : answerS) {//if onlyLetters = 1(no numbers)
+				if (isalpha(c) || !isdigit(c)) {
+					throw invalid_argument("");
+				}
+			}
 			answer = stoi(answerS);
 			if (!validateInt(answer, min, max)) {
 				throw out_of_range("");
@@ -95,6 +111,9 @@ int answerIntViewer(string message, int min, int max) throw(invalid_argument, ou
 	return answer;
 }
 
+/// <summary>
+/// checks if vector of movies is empty
+/// </summary>
 int isEmptyVecM(vector<Movie>& check) throw(out_of_range) {
 	try {
 		if (!check.size()) throw out_of_range("Movie vector is empty");
@@ -107,6 +126,9 @@ int isEmptyVecM(vector<Movie>& check) throw(out_of_range) {
 	return 0;
 }
 
+/// <summary>
+/// checks if vector of series is empty
+/// </summary>
 int isEmptyVecS(vector<Series>& check) throw(out_of_range) {
 	try {
 		if (!check.size()) throw out_of_range("Series vector is empty");
@@ -119,17 +141,17 @@ int isEmptyVecS(vector<Series>& check) throw(out_of_range) {
 	return 0;
 }
 
+/// <summary>
+/// checks if user enters correct info
+/// </summary>
 int validateUser(User currUser) {
-	string fname, lname, message, rFName, rLName;
+	string fname, lname, rFName, rLName;
 	int id, answer = 0;
 	currUser.getPersonalInfo();
 	while (true) {
-		message = "Enter name for validate\n";
-		fname = answerStringViewer(message, 1, 2, 15);
-		message = "Enter surname for validate\n";
-		lname = answerStringViewer(message, 1, 2, 15);
-		message = "Enter password for validate\n";
-		id = answerIntViewer(message, 100000000, 999999999);
+		fname = answerStringViewer(viewerName, 1, 2, 15);
+		lname = answerStringViewer(viewerLastName, 1, 2, 15);
+		id = answerIntViewer(viewerID, 100000000, 999999999);
 		rFName = currUser.getFname();
 		rLName = currUser.getLname();
 
@@ -140,10 +162,7 @@ int validateUser(User currUser) {
 
 		if (fname == rFName && id == currUser.getId() && lname == rLName)break;
 		else {
-			message = "Wrong data, please select:\n"
-				"1.Try again\n"
-				"2.Return to menu\n";
-			answer = answerIntViewer(message, 1, 2);
+			answer = answerIntViewer(viewerWrongData, 1, 2);
 			if (answer == 1) continue;
 			else break;
 		}
@@ -152,17 +171,17 @@ int validateUser(User currUser) {
 	return 1;
 }
 
+/// <summary>
+/// checks if admin enters correct info
+/// </summary>
 int validateAdmin(Admin currAdmin) {
-	string fname, lname, message, rFName, rLName;
+	string fname, lname, rFName, rLName;
 	int id, answer = 0;
 	currAdmin.getPersonalInfo();
 	while (true) {
-		message = "Enter name for validate\n";
-		fname = answerStringViewer(message, 1, 2, 15);
-		message = "Enter surname for validate\n";
-		lname = answerStringViewer(message, 1, 2, 15);
-		message = "Enter password for validate\n";
-		id = answerIntViewer(message, 100000000, 999999999);
+		fname = answerStringViewer(viewerName, 1, 2, 15);
+		lname = answerStringViewer(viewerLastName, 1, 2, 15);
+		id = answerIntViewer(viewerID, 100000000, 999999999);
 		rFName = currAdmin.getFname();
 		rLName = currAdmin.getLname();
 
@@ -174,10 +193,7 @@ int validateAdmin(Admin currAdmin) {
 
 		if (fname == rFName && id == currAdmin.getId() && lname == rLName)break;
 		else {
-			message = "Wrong data, please select:\n"
-				"1.Try again\n"
-				"2.Return to menu\n";
-			answer = answerIntViewer(message, 1, 2);
+			answer = answerIntViewer(viewerWrongData, 1, 2);
 			if (answer == 1) continue;
 			else break;
 		}

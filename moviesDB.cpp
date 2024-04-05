@@ -91,6 +91,9 @@ int MoviesDB::existInWL(string name) {
 	return 0;
 }
 
+/// <summary>
+/// check if the movie is marked
+/// </summary>
 int MoviesDB::isMarked(string name) {
 	if (moviesdb.size() == 0) return 0;
 	for (vector<Movie>::iterator j = moviesdb.begin(); j != moviesdb.end(); ++j) {

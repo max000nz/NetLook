@@ -70,7 +70,7 @@ void SeriesDB::setupSeriesDB(string way) {
 }
 
 /// <summary>
-/// 
+/// update the file of the series
 /// </summary>
 void SeriesDB::updateFileSeriesDB(string way) {
 	string name, category, year, seasons, episodes, buffer;
@@ -112,6 +112,9 @@ void SeriesDB::updateFileSeriesDB(string way) {
 	fout.close();
 }
 
+/// <summary>
+/// adding the series that admin create to the vector
+/// </summary>
 void SeriesDB::addSeriesToDB(Series& series) {
 	int place = 0;
 	for (vector<Series>::iterator i = seriesdb.begin(); i != seriesdb.end(); ++i) {//delete from vector of data base
@@ -123,6 +126,9 @@ void SeriesDB::addSeriesToDB(Series& series) {
 	seriesdb.insert(seriesdb.begin() + place, series);
 }
 
+/// <summary>
+/// delete the series that the admin want
+/// </summary>
 void SeriesDB::deleteFromSeriesWatchList(string name) {
 	string lowCurrName;
 	transform(name.begin(), name.end(), name.begin(), ::tolower);
@@ -136,6 +142,9 @@ void SeriesDB::deleteFromSeriesWatchList(string name) {
 	}
 }
 
+/// <summary>
+/// for the setup-check if all the marked series are in watchlist and no series that not exist in data base
+/// </summary>
 void SeriesDB::compareSeriesDB() {
 	string name;
 	if (seriesdb.size() == 0) return;
@@ -156,6 +165,9 @@ void SeriesDB::compareSeriesDB() {
 	}
 }
 
+/// <summary>
+/// check if the series is in watchlist
+/// </summary>
 int SeriesDB::existInWL(string name) {
 	if (seriesWLdb.size() == 0) return 0;
 	for (vector<Series>::iterator j = seriesWLdb.begin(); j != seriesWLdb.end(); ++j) {
@@ -166,6 +178,9 @@ int SeriesDB::existInWL(string name) {
 	return 0;
 }
 
+/// <summary>
+/// check if the series is marked
+/// </summary>
 int SeriesDB::isMarked(string name) {
 	if (seriesdb.size() == 0) return 0;
 	for (vector<Series>::iterator j = seriesdb.begin(); j != seriesdb.end(); ++j) {

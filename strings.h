@@ -41,4 +41,8 @@ extern string adminAddMovieLength;
 extern string adminAddSeriesSeasons;
 extern string adminAddSeriesEpisodes;
 extern string adminQuestion;
+extern string viewerWrongData;
+extern string viewerName;
+extern string viewerLastName;
+extern string viewerID;
 #endif

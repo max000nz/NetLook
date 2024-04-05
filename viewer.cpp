@@ -19,6 +19,9 @@ Viewer::Viewer(int id, string fname, string lname, int day, int month, int year)
 	this->byear = year;
 }
 
+/// <summary>
+/// function for choosing category
+/// </summary>
 string Viewer::chooseCategory() {
 	int answer;
 	string category;
@@ -43,6 +46,9 @@ string Viewer::chooseCategory() {
 void Viewer::getPersonalInfo()  throw (invalid_argument)
 {}
 
+/// <summary>
+/// checking if viewer is valid
+/// </summary>
 int Viewer::validateViewerInfo(string fname, string lname, int id, int day, int month, int year) {
 	try {
 		if (fname == "") {

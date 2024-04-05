@@ -21,6 +21,9 @@ User::User(int id, string name, string surname, int day, int month, int year):Vi
 
 }
 
+/// <summary>
+/// adding new movie to watch list from newest movies
+/// </summary>
 void User::chooseFromMovies() {
 	int answer = 0;
 	int counter = 1;
@@ -57,6 +60,9 @@ void User::chooseFromMovies() {
 	noMore("movie");
 }
 
+/// <summary>
+/// adding movie to watch list by category
+/// </summary>
 void User::chooseFromMoviesByCategory() {
 	int answer = 0;
 	int counter = 1;
@@ -100,6 +106,9 @@ void User::chooseFromMoviesByCategory() {
 	}
 }
 
+/// <summary>
+/// adding new series to watch list from newest series
+/// </summary>
 void User::chooseFromSeries() {
 	int answer = 0;
 	int counter = 1;
@@ -135,6 +144,9 @@ void User::chooseFromSeries() {
 	}
 }
 
+/// <summary>
+/// adding series to watch list by category
+/// </summary>
 void User::chooseFromSeriesByCategory() {
 	int answer = 0;
 	int counter = 1;
@@ -177,6 +189,9 @@ void User::chooseFromSeriesByCategory() {
 	}
 }
 
+/// <summary>
+/// search movie from data base by name
+/// </summary>
 void User::findMovieByName() {
 	string name, currName;
 	int answer;
@@ -223,6 +238,9 @@ void User::findMovieByName() {
 	}
 }
 
+/// <summary>
+/// search series from data base by name
+/// </summary>
 void User::findSeriesByName() {
 	string name, currName;
 	int answer;
@@ -270,6 +288,9 @@ void User::findSeriesByName() {
 	}
 }
 
+/// <summary>
+/// watching added movies from watch list
+/// </summary>
 void User::watchMovieFromList() {
 	int answer;
 	vector<Movie>& watchListMovies = MoviesDB::getMoviesWatchListDB();
@@ -294,6 +315,9 @@ void User::watchMovieFromList() {
 	noMore("movies");
 }
 
+/// <summary>
+/// watching added series from watch list
+/// </summary>
 void User::watchSeriesFromList() {
 	int answer;
 	vector<Series>& watchListSeries = SeriesDB::getSeriesWatchListDB();
@@ -317,6 +341,9 @@ void User::watchSeriesFromList() {
 	noMore("series");
 }
 
+/// <summary>
+/// delete movie from watch list
+/// </summary>
 void User::deleteMovieFromList() {
 	int answer;
 	string name;
@@ -349,6 +376,9 @@ void User::deleteMovieFromList() {
 	deletedSuccessfully("Movie");
 }
 
+/// <summary>
+/// delete series from watch list
+/// </summary>
 void User::deleteSeriesFromList(){
 	int answer;
 	vector<Series>& watchListSeries = SeriesDB::getSeriesWatchListDB();
@@ -378,6 +408,9 @@ void User::deleteSeriesFromList(){
 	deletedSuccessfully("Series");
 }
 
+/// <summary>
+/// get user info from specific file
+/// </summary>
 void User::getPersonalInfo() throw (invalid_argument){
 	string lname, fname, byear, bmonth, bday, id;
 	string path = "user.txt";

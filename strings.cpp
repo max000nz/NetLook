@@ -1,6 +1,9 @@
 #include "Strings.h"
 using namespace std;
- 
+
+/// <summary>
+/// All strings placed here
+/// </summary>
 string main_M = "1.User\n2.Admin\n3.Exit\n";
 
 string main_admin_M = "1.Add new movie\n"
@@ -83,10 +86,25 @@ string DeleteFromWLorDB = "\nWhich show you want delete?\n";
 string categoryShow = "1.Sci-fi\n2.Horror\n3.Comedy\n4.Thriller\n";
 
 string adminQuestion = "Which show you want to add?";
+
 string adminAddShowName = "Name?\n";
+
 string adminAddShowCategory = "Category?\n";
+
 string adminAddShowYear = "Year of release?\n";
+
 string adminAddMovieLength = "Length?\n";
+
 string adminAddSeriesSeasons = "How much seasons in series?\n";
+
 string adminAddSeriesEpisodes = "How much episodes in every season?\n";
 
+string viewerWrongData = "Wrong data, please select:\n"
+					     "1.Try again\n"
+						 "2.Return to menu\n";
+
+string viewerName = "Enter name for validate\n";
+
+string viewerLastName = "Enter surname for validate\n";
+
+string viewerID = "Enter id for validate\n";
