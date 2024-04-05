@@ -1,6 +1,5 @@
 #pragma once
 #include <iostream>
-#include "user.h"
 #include "viewer.h"
 
 using namespace std;

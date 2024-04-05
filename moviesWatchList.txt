@@ -12,13 +12,6 @@ Comedy
 1711386512
 Y
 
-Imaginary
-Thriller
-2022
-97
-1711386522
-Y
-
 Thanksgiving
 Horror
 2017
@@ -31,13 +24,6 @@ Thriller
 2014
 130
 1711386552
-Y
-
-Wonka
-Comedy
-2024
-116
-1711386612
 Y
 
 Barby

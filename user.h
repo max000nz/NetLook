@@ -1,7 +1,6 @@
 #pragma once
 #include "viewer.h"
 #include <vector>
-#include "show.h"
 #include "movie.h"
 #include "series.h"
 

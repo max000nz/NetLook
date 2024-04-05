@@ -61,6 +61,12 @@ void SeriesDB::setupSeriesDB(string way) {
 		}
 	}
 	fin.close();
+	if (way == "series.txt") {
+		if (isEmptyVecS(seriesdb));
+	}
+	else {
+		if (isEmptyVecS(seriesWLdb));
+	}
 }
 
 void SeriesDB::updateFileSeriesDB(string way) {

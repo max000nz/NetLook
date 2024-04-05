@@ -76,7 +76,7 @@ void Admin::findMovieByName() {
 	vector<Movie>& movies = MoviesDB::getMoviesDB();
 	vector<Movie>& watchListMovies = MoviesDB::getMoviesWatchListDB();
 
-	if (isEmptyVec(movies)) {
+	if (isEmptyVecM(movies)) {
 		noMore("movies");
 		return;
 	}
@@ -101,8 +101,6 @@ void Admin::findMovieByName() {
 				break;
 			}
 			else return;
-
-			
 		}
 		counter++;
 	}
@@ -123,7 +121,7 @@ void Admin::findMovieByCategory() {
 	vector<Movie>& movies = MoviesDB::getMoviesDB();
 	vector<Movie>& watchListMovies = MoviesDB::getMoviesWatchListDB();
 
-	if (isEmptyVec(movies)) {
+	if (isEmptyVecM(movies)) {
 		noMore("movies");
 		return;
 	}
@@ -173,7 +171,7 @@ void Admin::findSeriesByName(){
 	vector<Series>& series = SeriesDB::getSeriesDB();
 	vector<Series>& watchListSeries = SeriesDB::getSeriesWatchListDB();
 
-	if (isEmptyVec(series)) {
+	if (isEmptyVecS(series)) {
 		noMore("series");
 		return;
 	}
@@ -216,7 +214,7 @@ void Admin::findSeriesByCategory() {
 	vector<Series>& series = SeriesDB::getSeriesDB();
 	vector<Series>& watchListSeries = SeriesDB::getSeriesWatchListDB();
 
-	if (isEmptyVec(series)) {
+	if (isEmptyVecS(series)) {
 		cout << emptySeriesDB;
 		return;
 	}

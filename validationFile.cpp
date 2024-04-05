@@ -11,13 +11,11 @@
 #include <algorithm>
 #include "validationFile.h"
 #include "user.h"
-#include "show.h"
 #include "movie.h"
 #include "moviesDB.h"
 #include "seriesDB.h"
 #include "series.h"
 #include "admin.h"
-#include "viewer.h"
 
 using namespace std;
 
@@ -97,7 +95,7 @@ int answerIntViewer(string message, int min, int max) throw(invalid_argument, ou
 	return answer;
 }
 
-int isEmptyVec(vector<Movie>& check) throw(out_of_range) {
+int isEmptyVecM(vector<Movie>& check) throw(out_of_range) {
 	try {
 		if (!check.size()) throw out_of_range("Vector is empty");
 	}
@@ -108,7 +106,7 @@ int isEmptyVec(vector<Movie>& check) throw(out_of_range) {
 	return 0;
 }
 
-int isEmptyVec(vector<Series>& check) throw(out_of_range) {
+int isEmptyVecS(vector<Series>& check) throw(out_of_range) {
 	try {
 		if (!check.size()) throw out_of_range("Vector is empty");
 	}

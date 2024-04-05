@@ -29,7 +29,7 @@ void User::chooseFromMovies() {
 	vector<Movie>& watchListMovies = MoviesDB::getMoviesWatchListDB();
 	Movie currentMovies;
 
-	if (isEmptyVec(movies)) {
+	if (isEmptyVecM(movies)) {
 		cout << emptyMoviesDB << endl;
 		return;
 	}
@@ -65,7 +65,7 @@ void User::chooseFromMoviesByCategory() {
 	vector<Movie>& watchListMovies = MoviesDB::getMoviesWatchListDB();
 	Movie currentMovies;
 
-	if (isEmptyVec(movies)) {
+	if (isEmptyVecM(movies)) {
 		cout << emptyMoviesDB << endl;
 		return;
 	}
@@ -108,7 +108,7 @@ void User::chooseFromSeries() {
 	vector<Series>& watchListSeries = SeriesDB::getSeriesWatchListDB();
 	Series currentSeries;
 
-	if (isEmptyVec(series)) {
+	if (isEmptyVecS(series)) {
 		cout << emptySeriesDB << endl;
 		return;
 	}
@@ -143,7 +143,7 @@ void User::chooseFromSeriesByCategory() {
 	vector<Series>& watchListSeries = SeriesDB::getSeriesWatchListDB();
 	Series currentSeries;
 
-	if (isEmptyVec(series)) {
+	if (isEmptyVecS(series)) {
 		cout << emptySeriesDB << endl;
 		return;
 	}
@@ -185,7 +185,7 @@ void User::findMovieByName() {
 
 	name = answerStringViewer(whatShowName, 0, 2, 25);
 	transform(name.begin(), name.end(), name.begin(), [](unsigned char c) { return std::tolower(c); });
-	if (isEmptyVec(movies)) {
+	if (isEmptyVecM(movies)) {
 		cout << emptyMoviesDB << endl;
 		return;
 	}
@@ -232,7 +232,7 @@ void User::findSeriesByName() {
 	name = answerStringViewer(whatShowName, 0, 2, 25);
 	transform(name.begin(), name.end(), name.begin(), [](unsigned char c) { return std::tolower(c); });
 
-	if (isEmptyVec(series)) {
+	if (isEmptyVecS(series)) {
 		cout << emptySeriesDB << endl;
 		return;
 	}
@@ -274,7 +274,7 @@ void User::watchMovieFromList() {
 	int answer;
 	vector<Movie>& watchListMovies = MoviesDB::getMoviesWatchListDB();
 
-	if (isEmptyVec(watchListMovies)) {
+	if (isEmptyVecM(watchListMovies)) {
 		cout << emptyMoviesWL << endl;
 		return;
 	}
@@ -298,7 +298,7 @@ void User::watchSeriesFromList() {
 	int answer;
 	vector<Series>& watchListSeries = SeriesDB::getSeriesWatchListDB();
 
-	if (isEmptyVec(watchListSeries)) {
+	if (isEmptyVecS(watchListSeries)) {
 		cout << emptySeriesWL << endl;
 		return;
 	}
@@ -322,7 +322,7 @@ void User::deleteMovieFromList() {
 	string name;
 	vector<Movie>& watchListMovies = MoviesDB::getMoviesWatchListDB();
 
-	if (isEmptyVec(watchListMovies)) {
+	if (isEmptyVecM(watchListMovies)) {
 		cout << emptyMoviesWL << endl;
 		return;
 	}
@@ -353,7 +353,7 @@ void User::deleteSeriesFromList(){
 	int answer;
 	vector<Series>& watchListSeries = SeriesDB::getSeriesWatchListDB();
 
-	if (isEmptyVec(watchListSeries)) {
+	if (isEmptyVecS(watchListSeries)) {
 		cout << emptySeriesWL << endl;
 		return;
 	}

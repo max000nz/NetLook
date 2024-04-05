@@ -52,10 +52,10 @@ void MoviesDB::setupMoviesDB(string way) {
 	}
 	fin.close();
 	if (way == "movies.txt") {
-		if (isEmptyVec(moviesdb));
+		if (isEmptyVecM(moviesdb));
 	}
 	else {
-		if (isEmptyVec(moviesWLdb));
+		if (isEmptyVecM(moviesWLdb));
 	}
 }
 

@@ -3,7 +3,7 @@ Comedy
 2024
 116
 1711386612
-Y
+N
 
 Barby
 Comedy
@@ -17,7 +17,7 @@ Thriller
 2022
 97
 1711386522
-Y
+N
 
 Popo
 Horror
