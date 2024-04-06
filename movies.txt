@@ -1,8 +1,22 @@
+Dune
+Sci-fi
+2024
+166
+1712407639
+N
+
 Wonka
 Comedy
 2024
 116
 1711386612
+N
+
+Monster
+Thriller
+2023
+126
+1711386532
 N
 
 Barby
@@ -19,11 +33,11 @@ Thriller
 1711386522
 N
 
-Popo
-Horror
+Oppenheimer
+Thriller
 2021
-88
-1711483889
+150
+1711386602
 N
 
 Gentleman
@@ -80,6 +94,13 @@ Sci-fi
 2008
 143
 1711386642
+N
+
+Maestro
+Thriller
+2007
+50
+1711386542
 N
 
 Napoleon

@@ -1,3 +1,19 @@
+Ted Lasso
+Comedy
+2020
+3
+13
+1711401153
+Y
+
+Brassic
+Comedy
+2019
+5
+10
+1711401121
+N
+
 Stranger Things
 Horror
 2016
@@ -20,6 +36,14 @@ Thriller
 6
 12
 1711401051
+Y
+
+Rick and Morty
+Sci-fi
+2013
+8
+8
+1711401208
 N
 
 Gravity Falls
@@ -70,6 +94,22 @@ Horror
 1711401289
 N
 
+The Office
+Comedy
+2005
+9
+15
+1711401083
+N
+
+House
+Horror
+2004
+8
+17
+1711401259
+N
+
 Avatar: The Last Airbender
 Sci-fi
 2004
@@ -94,11 +134,27 @@ Horror
 1711401318
 N
 
-Party Poopers
-Horror
-1997
+Spider Man
+Sci-fi
+1994
 5
+23
+1711401226
+N
+
+Friends
+Comedy
+1994
+10
+14
+1711401098
+N
+
+Tom and Jerry
+Sci-fi
+1940
 1
-1712255522
+50
+1711401194
 N
 
