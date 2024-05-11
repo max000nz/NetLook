@@ -1,4 +1,4 @@
-Hello and walcome to our final project in advanced c++.
+Hello and welcome to our final project in advanced c++.
 
 Project name: NetLook :)
 
